@@ -7,6 +7,7 @@ import step2 from "@/view/step2";
 Vue.use(Router);
 
 export default new Router({
+  mode: "history",
   routes: [
     { path: "/", redirect: { name: "step1" } },
     {
