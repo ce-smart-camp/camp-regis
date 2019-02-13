@@ -1,5 +1,6 @@
 <template>
-  <v-app>
+  <v-app dark>
+    <!--
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Vuetify</span>
@@ -14,25 +15,36 @@
         <span class="mr-2">Latest Release</span>
       </v-btn>
     </v-toolbar>
-
+    -->
+    <SideBar avatar="https://i.redd.it/spo5q1n66gg11.jpg"/>
+    <NavBar/>
     <v-content>
-      <HelloWorld/>
+      <!--<HelloWorld/>-->
+      <step1/>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import HelloWorld from "./components/HelloWorld";
+import NavBar from "./components/NavBar";
+import SideBar from "./components/SideBar";
+import step from "./components/step";
+import step1 from "./components/step1";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    HelloWorld,
+    NavBar,
+    SideBar,
+    step,
+    step1
   },
-  data () {
+  data() {
     return {
       //
-    }
+    };
   }
-}
+};
 </script>
