@@ -19,27 +19,26 @@
     <SideBar avatar="https://i.redd.it/spo5q1n66gg11.jpg"/>
     <NavBar/>
     <v-content>
-      <!--<HelloWorld/>-->
-      <step1/>
+      <v-container grid-list-lg>
+        <v-layout row justify-space-around>
+          <v-flex md12 lg10 xl8>
+            <router-view/>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
-import step from "./components/step";
-import step1 from "./components/step1";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
     NavBar,
-    SideBar,
-    step,
-    step1
+    SideBar
   },
   data() {
     return {
