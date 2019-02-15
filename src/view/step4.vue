@@ -31,7 +31,7 @@ export default {
   watch: {
     form: {
       handler(val) {
-        this.$emit("input", this.form);
+        this.$emit("input", val);
       },
       deep: true
     },
