@@ -1,154 +1,55 @@
 <template>
-  <v-layout column>
-    <!-- 1 card -->
-    <v-flex>
-      <v-card>
-        <v-form>
-          <v-container>
-            <v-layout row wrap>
-              <v-flex>
-                <v-text-field label="ชื่อ"></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-text-field label="นามสกุล"></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row wrap>
-              <v-flex sm4>
-                <v-menu
-                  ref="menu"
-                  v-model="menu"
-                  :close-on-content-click="false"
-                  :nudge-right="40"
-                  lazy
-                  transition="scale-transition"
-                  offset-y
-                  full-width
-                  min-width="290px"
-                >
-                  <v-text-field
-                    slot="activator"
-                    v-model="dateFormatted"
-                    label="วันเกิด"
-                    prepend-icon="cake"
-                    mask="##/##/####"
-                    hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
-                    @blur="date = parseDate(dateFormatted)"
-                    return-masked-value
-                  ></v-text-field>
-                  <v-date-picker
-                    ref="picker"
-                    v-model="date"
-                    scrollable
-                    locale="th-th"
-                    :max="new Date().toISOString().substr(0, 10)"
-                    min="1950-01-01"
-                  ></v-date-picker>
-                </v-menu>
-              </v-flex>
-              <v-flex sm4>
-                <v-text-field label="ชื่อเล่น"></v-text-field>
-              </v-flex>
-              <v-flex sm4>
-                <v-select :items="genderOptions" label="เพศ"></v-select>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row wrap>
-              <v-flex>
-                <v-text-field
-                  label="เลขประจำตัวประชาชนไทย"
-                  mask="#-####-#####-##-#"
-                  :rules="[rules.required, rules.national_id]"
-                ></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-select :items="religionOptions" label="ศาสนา"></v-select>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-form>
-      </v-card>
-    </v-flex>
-    <!-- 1 card -->
-    <!-- 2 card -->
-    <v-flex>
-      <v-card>
-        <v-form>
-          <v-container>
-            <v-layout row wrap>
-              <v-flex>
-                <v-text-field label="เบอร์โทรศัพท์"></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-text-field label="จดหมายอิเล็กทรอนิกส์"></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row wrap>
-              <v-flex>
-                <v-text-field label="Facebook"></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-text-field label="Line ID"></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row wrap>
-              <v-flex>
-                <v-text-field label="ความสามารถพิเศษ"></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-form>
-      </v-card>
-    </v-flex>
-    <!-- 2 card -->
-    <!-- 3 card -->
-    <v-flex>
-      <v-card>
-        <v-form>
-          <v-container>
-            <v-layout row wrap>
-              <v-flex>
-                <v-select :items="shirtSizeOptions" label="ขนาดเสื้อ"></v-select>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row wrap>
-              <v-flex>
-                <v-text-field label="โรคประจำตัว"></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row wrap>
-              <v-flex>
-                <v-text-field label="ยาที่แพ้"></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row wrap>
-              <v-flex>
-                <v-text-field label="อาหารที่แพ้"></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-form>
-      </v-card>
-    </v-flex>
-    <!-- 3 card -->
-    <v-flex>
-      <v-btn block color="secondary" :to="{ name: 'step2'}">Continute</v-btn>
-    </v-flex>
-  </v-layout>
+  <v-card-text>
+    <v-text-field
+      label="เลขประจำตัวประชาชนไทย"
+      mask="#-####-#####-##-#"
+      :rules="[rules.national_id]"
+      v-model="form.nid"
+    ></v-text-field>
+    <v-text-field label="ชื่อ" v-model="form.name" browser-autocomplete="given-name"></v-text-field>
+    <v-text-field label="นามสกุล" v-model="form.surname" browser-autocomplete="family-name"></v-text-field>
+    <v-text-field label="ชื่อเล่น" v-model="form.nickname"></v-text-field>
+    <v-select :items="option.gender" label="เพศ" prepend-icon="wc" v-model="form.gender"></v-select>
+    <v-menu
+      ref="menu"
+      v-model="menu"
+      :close-on-content-click="false"
+      :nudge-right="40"
+      lazy
+      transition="scale-transition"
+      offset-y
+      full-width
+      min-width="290px"
+    >
+      <v-text-field
+        slot="activator"
+        v-model="form.birth"
+        label="วันเกิด"
+        prepend-icon="cake"
+        mask="##/##/####"
+        hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
+        @blur="date = parseDate(form.birth)"
+        return-masked-value
+        append-icon="event"
+      ></v-text-field>
+      <v-date-picker
+        ref="picker"
+        v-model="date"
+        scrollable
+        locale="th-th"
+        :max="new Date().toISOString().substr(0, 10)"
+        min="1950-01-01"
+      ></v-date-picker>
+    </v-menu>
+    <v-select :items="option.religion" label="ศาสนา" v-model="form.religion"></v-select>
+  </v-card-text>
 </template>
 
 <script>
 const Options = options =>
   Object.entries(options).map(([value, text]) => ({ value, text }));
 
-export const religions = {
+const religions = {
   atheist: "ไม่นับถือศาสนา",
   buddhist: "ศาสนาพุทธ",
   christianity: "ศาสนาคริสต์",
@@ -156,38 +57,19 @@ export const religions = {
   other: "ศาสนาอื่นๆ"
 };
 
-export const grades = {
-  m3: "มัธยมศึกษาปีที่ 3",
-  m4: "มัธยมศึกษาปีที่ 4",
-  m5: "มัธยมศึกษาปีที่ 5",
-  m6: "มัธยมศึกษาปีที่ 6",
-  p1: "ปวช.",
-  other: "อื่นๆ"
-};
-
-export const genders = {
+const genders = {
   male: "ชาย",
   female: "หญิง",
   other: "เพศอื่นๆ",
   unspecified: "ไม่ระบุ"
 };
 
-export const shirtSizes = {
-  XS: "XS",
-  S: "S",
-  M: "M",
-  L: "L",
-  XL: "XL",
-  XXL: "XXL"
-};
-
 const religionOptions = Options(religions);
-const gradeOptions = Options(grades);
 const genderOptions = Options(genders);
-const shirtSizeOptions = Options(shirtSizes);
 
 function checkID(id) {
-  if (!id) return false;
+  if (!id) return true;
+  if (id.length === 0) return true;
   if (id.length != 13) return false;
   let sum = 0;
   for (let i = 0; i < 12; i++) sum += Number(id.charAt(i)) * (13 - i);
@@ -195,17 +77,25 @@ function checkID(id) {
 }
 
 export default {
+  props: ["value"],
   data: () => ({
-    religionOptions,
-    gradeOptions,
-    genderOptions,
-    shirtSizeOptions,
+    option: {
+      gender: genderOptions,
+      religion: religionOptions
+    },
     date: null,
-    dateFormatted: null,
     menu: false,
     rules: {
-      required: value => !!value || "Required.",
       national_id: val => checkID(val) || "เลขที่กรอกไม่ถูกต้อง"
+    },
+    form: {
+      nid: null,
+      name: null,
+      surname: null,
+      nickname: null,
+      gender: null,
+      birth: null,
+      religion: null
     }
   }),
   watch: {
@@ -213,7 +103,19 @@ export default {
       val && this.$nextTick(() => (this.$refs.picker.activePicker = "YEAR"));
     },
     date(val) {
-      this.dateFormatted = this.formatDate(val);
+      this.form.birth = this.formatDate(val);
+    },
+    form: {
+      handler(val) {
+        this.$emit("input", this.form);
+      },
+      deep: true
+    },
+    value: {
+      handler(val) {
+        this.form = val;
+      },
+      deep: true
     }
   },
   methods: {
@@ -229,6 +131,11 @@ export default {
       const [day, month, year] = date.split("/");
       return `${year - 543}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     }
+  },
+  mounted: function() {
+    Object.keys(this.form).forEach(key => {
+      this.form[key] = this.value[key] || null;
+    });
   }
 };
 </script>
