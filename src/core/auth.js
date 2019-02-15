@@ -1,4 +1,7 @@
 import firebase from "./firebase";
+import "firebase/auth";
+
+import bus from "./bus";
 
 // Signs-in Friendly Chat.
 function signIn() {
@@ -10,7 +13,7 @@ function signIn() {
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
 function authStateObserver(user) {
   if (user) {
-    console.log("observer", user);
+    bus.$emit("user");
   } else {
     signIn();
   }
