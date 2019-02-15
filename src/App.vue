@@ -33,7 +33,7 @@
 <script>
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
-import step from "./view/step";
+import step from "./components/step";
 
 export default {
   name: "App",
