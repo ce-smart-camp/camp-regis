@@ -22,12 +22,12 @@
     <v-divider></v-divider>
 
     <v-card-actions>
-      <v-btn :disabled="step === 1" flat @click="backPage">
+      <v-btn :disabled="step === 1 || dialog" flat @click="backPage">
         <v-icon>keyboard_arrow_left</v-icon>&nbsp;ย้อนกลับ&nbsp;&nbsp;
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
-        :disabled="step === 9"
+        :disabled="step === 9 || dialog"
         color="primary"
         depressed
         @click="nextPage"
@@ -156,8 +156,8 @@ export default {
   },
   data: () => ({
     step: 1,
-    dialog: false,
-    dialog_msg: "",
+    dialog: true,
+    dialog_msg: "กำลังลงชื่อเข้าใช้",
     form: {
       id: null,
       fb_id: null,
