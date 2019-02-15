@@ -22,7 +22,7 @@
       <v-container grid-list-lg>
         <v-layout row justify-space-around>
           <v-flex md12 lg10 xl8>
-            <router-view/>
+            <step/>
           </v-flex>
         </v-layout>
       </v-container>
@@ -33,12 +33,14 @@
 <script>
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
+import step from "./view/step";
 
 export default {
   name: "App",
   components: {
     NavBar,
-    SideBar
+    SideBar,
+    step
   },
   data() {
     return {
