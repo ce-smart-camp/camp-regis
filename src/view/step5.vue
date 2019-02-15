@@ -9,14 +9,14 @@
 </template>
 
 <script>
-const grades = {
-  m3: "มัธยมศึกษาปีที่ 3",
-  m4: "มัธยมศึกษาปีที่ 4",
-  m5: "มัธยมศึกษาปีที่ 5",
-  m6: "มัธยมศึกษาปีที่ 6",
-  p1: "ปวช.",
-  other: "อื่นๆ"
-};
+// const grades = {
+//   m3: "มัธยมศึกษาปีที่ 3",
+//   m4: "มัธยมศึกษาปีที่ 4",
+//   m5: "มัธยมศึกษาปีที่ 5",
+//   m6: "มัธยมศึกษาปีที่ 6",
+//   p1: "ปวช.",
+//   other: "อื่นๆ"
+// };
 
 export default {
   props: ["value"],
@@ -44,9 +44,12 @@ export default {
     }
   },
   mounted: function() {
-    Object.keys(this.form).forEach(key => {
-      this.form[key] = this.value[key] || null;
-    });
+    if (this.value !== null) {
+      Object.keys(this.form).forEach(key => {
+        this.form[key] = this.value[key] || null;
+      });
+    }
+    this.$emit("input", this.form);
   }
 };
 </script>

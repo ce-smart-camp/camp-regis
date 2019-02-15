@@ -31,9 +31,12 @@ export default {
     }
   },
   mounted: function() {
-    Object.keys(this.form).forEach(key => {
-      this.form[key] = this.value[key] || null;
-    });
+    if (this.value !== null) {
+      Object.keys(this.form).forEach(key => {
+        this.form[key] = this.value[key] || null;
+      });
+    }
+    this.$emit("input", this.form);
   }
 };
 </script>
