@@ -10,37 +10,40 @@
     <v-text-field label="นามสกุล" v-model="form.surname" browser-autocomplete="family-name"></v-text-field>
     <v-text-field label="ชื่อเล่น" v-model="form.nickname"></v-text-field>
     <v-select :items="option.gender" label="เพศ" prepend-icon="wc" v-model="form.gender"></v-select>
-    <v-menu
-      ref="menu"
-      v-model="menu"
-      :close-on-content-click="false"
-      :nudge-right="40"
-      lazy
-      transition="scale-transition"
-      offset-y
-      full-width
-      min-width="290px"
+    <v-text-field
+      v-model="form.birth"
+      label="วันเกิด"
+      prepend-icon="cake"
+      mask="##/##/####"
+      hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
+      @blur="date = parseDate(form.birth)"
+      return-masked-value
     >
-      <v-text-field
-        slot="activator"
-        v-model="form.birth"
-        label="วันเกิด"
-        prepend-icon="cake"
-        mask="##/##/####"
-        hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
-        @blur="date = parseDate(form.birth)"
-        return-masked-value
-        append-icon="event"
-      ></v-text-field>
-      <v-date-picker
-        ref="picker"
-        v-model="date"
-        scrollable
-        locale="th-th"
-        :max="new Date().toISOString().substr(0, 10)"
-        min="1950-01-01"
-      ></v-date-picker>
-    </v-menu>
+      <v-menu
+        ref="menu"
+        v-model="menu"
+        :close-on-content-click="false"
+        :nudge-left="290"
+        lazy
+        transition="scale-transition"
+        offset-y
+        full-width
+        min-width="290px"
+        slot="append"
+        allow-overflow
+      >
+        <v-icon slot="activator">event</v-icon>
+        <v-date-picker
+          ref="picker"
+          v-model="date"
+          scrollable
+          locale="th-th"
+          :max="new Date().toISOString().substr(0, 10)"
+          min="1950-01-01"
+        ></v-date-picker>
+      </v-menu>
+    </v-text-field>
+
     <v-select :items="option.religion" label="ศาสนา" v-model="form.religion"></v-select>
   </v-card-text>
 </template>

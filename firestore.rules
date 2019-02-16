@@ -1,0 +1,12 @@
+function checkOwn(userID) {
+	return request.auth != null && request.auth.uid == userID;
+}
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /registration/{userID} {
+      allow read: if checkOwn(userID);
+      allow write: if checkOwn(userID) && request.time < timestamp.value(1555779600000);
+    }
+  }
+}
