@@ -1,14 +1,42 @@
 <template>
   <v-card-text>
-    <v-textarea label="โรคประจำตัว" auto-grow rows="3" v-model="form.disease"></v-textarea>
-    <v-textarea label="ยาที่แพ้" auto-grow rows="3" v-model="form.drug"></v-textarea>
-    <v-textarea label="อาหารที่แพ้" auto-grow rows="3" v-model="form.food"></v-textarea>
+    <v-textarea
+      v-model="form.disease"
+      label="โรคประจำตัว"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      auto-grow
+      rows="3"
+      clearable
+    />
+    <v-textarea
+      v-model="form.drug"
+      label="ยาที่แพ้"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      auto-grow
+      rows="3"
+      clearable
+    />
+    <v-textarea
+      v-model="form.food"
+      label="อาหารที่แพ้"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      auto-grow
+      rows="3"
+      clearable
+    />
   </v-card-text>
 </template>
 
 <script>
 export default {
-  props: ["value"],
+  props: {
+    value: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
+  },
   data: () => ({
     form: {
       disease: null,

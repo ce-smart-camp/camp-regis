@@ -1,26 +1,46 @@
 <template>
   <v-card-text>
     <v-text-field
+      v-model="form.nid"
       label="เลขประจำตัวประชาชนไทย"
       mask="#-####-#####-##-#"
       :rules="[rules.national_id]"
-      v-model="form.nid"
-    ></v-text-field>
-    <v-text-field label="ชื่อ" v-model="form.name" browser-autocomplete="given-name"></v-text-field>
-    <v-text-field label="นามสกุล" v-model="form.surname" browser-autocomplete="family-name"></v-text-field>
-    <v-text-field label="ชื่อเล่น" v-model="form.nickname"></v-text-field>
-    <v-select :items="option.gender" label="เพศ" prepend-icon="wc" v-model="form.gender"></v-select>
+      clearable
+    />
+    <v-text-field
+      v-model="form.name"
+      label="ชื่อ"
+      browser-autocomplete="given-name"
+      clearable
+    />
+    <v-text-field
+      v-model="form.surname"
+      label="นามสกุล"
+      browser-autocomplete="family-name"
+      clearable
+    />
+    <v-text-field v-model="form.nickname" label="ชื่อเล่น" clearable />
+    <v-select
+      v-model="form.gender"
+      :items="option.gender"
+      label="เพศ"
+      prepend-icon="wc"
+      clearable
+    />
     <v-text-field
       v-model="form.birth"
       label="วันเกิด"
       prepend-icon="cake"
       mask="##/##/####"
       hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
-      @blur="date = parseDate(form.birth)"
       return-masked-value
+      clearable
+      @blur="date = parseDate(form.birth)"
+      @click:clear="date = parseDate(form.birth)"
     >
       <v-menu
         ref="menu"
+        slot="append"
         v-model="menu"
         :close-on-content-click="false"
         :nudge-left="290"
@@ -29,8 +49,6 @@
         offset-y
         full-width
         min-width="290px"
-        slot="append"
-        allow-overflow
       >
         <v-icon slot="activator">event</v-icon>
         <v-date-picker
@@ -40,11 +58,16 @@
           locale="th-th"
           :max="new Date().toISOString().substr(0, 10)"
           min="1950-01-01"
-        ></v-date-picker>
+        />
       </v-menu>
     </v-text-field>
 
-    <v-select :items="option.religion" label="ศาสนา" v-model="form.religion"></v-select>
+    <v-select
+      v-model="form.religion"
+      :items="option.religion"
+      label="ศาสนา"
+      clearable
+    />
   </v-card-text>
 </template>
 
@@ -61,7 +84,7 @@ const religions = {
 };
 
 const genders = {
-  male: "ชาย",
+  map: "ชาย",
   female: "หญิง",
   other: "เพศอื่นๆ",
   unspecified: "ไม่ระบุ"
@@ -80,7 +103,14 @@ function checkID(id) {
 }
 
 export default {
-  props: ["value"],
+  props: {
+    value: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
+  },
   data: () => ({
     option: {
       gender: genderOptions,
@@ -121,6 +151,14 @@ export default {
       deep: true
     }
   },
+  mounted: function() {
+    if (this.value !== null) {
+      Object.keys(this.form).forEach(key => {
+        this.form[key] = this.value[key] || null;
+      });
+    }
+    this.$emit("input", this.form);
+  },
   methods: {
     formatDate(date) {
       if (!date) return null;
@@ -134,14 +172,6 @@ export default {
       const [day, month, year] = date.split("/");
       return `${year - 543}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     }
-  },
-  mounted: function() {
-    if (this.value !== null) {
-      Object.keys(this.form).forEach(key => {
-        this.form[key] = this.value[key] || null;
-      });
-    }
-    this.$emit("input", this.form);
   }
 };
 </script>

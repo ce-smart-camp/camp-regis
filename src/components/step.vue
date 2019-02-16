@@ -1,37 +1,42 @@
 <template>
-  <v-card class="mx-auto" max-width="500">
+  <v-card class="mx-auto" max-width="600px">
     <v-card-title class="title font-weight-regular justify-space-between">
       <span>{{ currentTitle }}</span>
-      <v-avatar color="primary lighten-2" class="subheading white--text" size="24" v-text="step"></v-avatar>
+      <v-avatar
+        color="primary lighten-2"
+        class="subheading white--text"
+        size="24"
+        v-text="step"
+      />
     </v-card-title>
 
     <v-window v-model="step">
       <v-window-item v-for="index in 9" :key="index" :value="index">
-        <Welcome v-if="index === 1"/>
-        <step1 v-model="form.info" v-if="index === 2"/>
-        <step2 v-model="form.contact" v-if="index === 3"/>
-        <step3 v-model="form.health" v-if="index === 4"/>
-        <step4 v-model="form.address" v-if="index === 5"/>
-        <step5 v-model="form.edu" v-if="index === 6"/>
-        <step6 v-model="form.parent" v-if="index === 7"/>
-        <step7 v-model="form.pass" v-if="index === 8"/>
-        <End v-if="index === 9"/>
+        <Welcome v-if="index === 1" />
+        <step1 v-if="index === 2" v-model="form.info" />
+        <step2 v-if="index === 3" v-model="form.contact" />
+        <step3 v-if="index === 4" v-model="form.health" />
+        <step4 v-if="index === 5" v-model="form.address" />
+        <step5 v-if="index === 6" v-model="form.edu" />
+        <step6 v-if="index === 7" v-model="form.parent" />
+        <step7 v-if="index === 8" v-model="form.pass" />
+        <End v-if="index === 9" />
       </v-window-item>
     </v-window>
 
-    <v-divider></v-divider>
+    <v-divider />
 
     <v-card-actions>
       <v-btn :disabled="step === 1 || dialog" flat @click="backPage">
         <v-icon>keyboard_arrow_left</v-icon>&nbsp;ย้อนกลับ&nbsp;&nbsp;
       </v-btn>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn
         :disabled="step === 9 || dialog"
         color="primary"
         depressed
         @click="nextPage"
-      >&nbsp;&nbsp;ต่อไป&nbsp;
+        >&nbsp;&nbsp;ต่อไป&nbsp;
         <v-icon>keyboard_arrow_right</v-icon>
       </v-btn>
     </v-card-actions>
@@ -39,8 +44,8 @@
     <v-dialog v-model="dialog" hide-overlay persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
-          {{dialog_msg}}
-          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+          {{ dialog_msg }}
+          <v-progress-linear indeterminate color="white" class="mb-0" />
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -52,6 +57,8 @@ import firebase from "./../core/firebase";
 import "./../core/auth";
 import db from "./../core/db";
 import bus from "./../core/bus";
+
+import deepCompare from "./../util/deepCompare";
 
 import Welcome from "./../view/welcome";
 import Step1 from "./../view/step1";
@@ -71,134 +78,14 @@ function copyObject(obj) {
     if (typeof obj[key] === "object") newObj[key] = copyObject(obj[key]);
     else {
       if (obj[key] === "") obj[key] = null;
+      if (typeof obj[key] === "string") {
+        obj[key] = obj[key].trim();
+        if (obj[key] === "-") obj[key] = null;
+      }
       newObj[key] = obj[key];
     }
   });
   return newObj;
-}
-
-// thank https://stackoverflow.com/questions/1068834/object-comparison-in-javascript
-
-function deepCompare() {
-  var i, l, leftChain, rightChain;
-
-  function compare2Objects(x, y) {
-    var p;
-
-    // remember that NaN === NaN returns false
-    // and isNaN(undefined) returns true
-    if (
-      isNaN(x) &&
-      isNaN(y) &&
-      typeof x === "number" &&
-      typeof y === "number"
-    ) {
-      return true;
-    }
-
-    // Compare primitives and functions.
-    // Check if both arguments link to the same object.
-    // Especially useful on the step where we compare prototypes
-    if (x === y) {
-      return true;
-    }
-
-    // Works in case when functions are created in constructor.
-    // Comparing dates is a common scenario. Another built-ins?
-    // We can even handle functions passed across iframes
-    if (
-      (typeof x === "function" && typeof y === "function") ||
-      (x instanceof Date && y instanceof Date) ||
-      (x instanceof RegExp && y instanceof RegExp) ||
-      (x instanceof String && y instanceof String) ||
-      (x instanceof Number && y instanceof Number)
-    ) {
-      return x.toString() === y.toString();
-    }
-
-    // At last checking prototypes as good as we can
-    if (!(x instanceof Object && y instanceof Object)) {
-      return false;
-    }
-
-    if (x.isPrototypeOf(y) || y.isPrototypeOf(x)) {
-      return false;
-    }
-
-    if (x.constructor !== y.constructor) {
-      return false;
-    }
-
-    if (x.prototype !== y.prototype) {
-      return false;
-    }
-
-    // Check for infinitive linking loops
-    if (leftChain.indexOf(x) > -1 || rightChain.indexOf(y) > -1) {
-      return false;
-    }
-
-    // Quick checking of one object being a subset of another.
-    // todo: cache the structure of arguments[0] for performance
-    for (p in y) {
-      if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
-        return false;
-      } else if (typeof y[p] !== typeof x[p]) {
-        return false;
-      }
-    }
-
-    for (p in x) {
-      if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
-        return false;
-      } else if (typeof y[p] !== typeof x[p]) {
-        return false;
-      }
-
-      switch (typeof x[p]) {
-        case "object":
-        case "function":
-          leftChain.push(x);
-          rightChain.push(y);
-
-          if (!compare2Objects(x[p], y[p])) {
-            return false;
-          }
-
-          leftChain.pop();
-          rightChain.pop();
-          break;
-
-        default:
-          if (x[p] !== y[p]) {
-            return false;
-          }
-          break;
-      }
-    }
-
-    return true;
-  }
-
-  if (arguments.length < 1) {
-    return true; //Die silently? Don't know how to handle such case, please help...
-    // throw "Need two or more arguments to compare";
-  }
-
-  for (i = 1, l = arguments.length; i < l; i++) {
-    leftChain = []; //Todo: this can be cached
-    rightChain = [];
-
-    if (!compare2Objects(arguments[0], arguments[i])) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-function compObject(obj1, obj2) {
-  return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
 
 let oldData = {};
@@ -247,7 +134,7 @@ function updateDate(data) {
 }
 
 function getData() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve) {
     regisRef
       .get()
       .then(function(doc) {
@@ -315,26 +202,8 @@ export default {
       return title[this.step - 1];
     }
   },
-  methods: {
-    nextPage: function() {
-      this.dialog_msg = "กำลังบันทึกข้อมูล";
-      this.dialog = true;
-      updateDate(this.form).then(() => {
-        this.step++;
-        this.dialog = false;
-      });
-    },
-    backPage: function() {
-      this.dialog_msg = "กำลังบันทึกข้อมูล";
-      this.dialog = true;
-      updateDate(this.form).then(() => {
-        this.step--;
-        this.dialog = false;
-      });
-    }
-  },
   mounted() {
-    if (!!firebase.auth().currentUser) this.dialog = false;
+    if (firebase.auth().currentUser) this.dialog = false;
 
     bus.$on("signin", () => {
       this.dialog_msg = "กำลังลงชื่อเข้าใช้";
@@ -355,6 +224,24 @@ export default {
         bus.$emit("loaded", data);
       });
     });
+  },
+  methods: {
+    nextPage: function() {
+      this.dialog_msg = "กำลังบันทึกข้อมูล";
+      this.dialog = true;
+      updateDate(this.form).then(() => {
+        this.step++;
+        this.dialog = false;
+      });
+    },
+    backPage: function() {
+      this.dialog_msg = "กำลังบันทึกข้อมูล";
+      this.dialog = true;
+      updateDate(this.form).then(() => {
+        this.step--;
+        this.dialog = false;
+      });
+    }
   }
 };
 </script>

@@ -1,20 +1,63 @@
 <template>
   <v-card-text>
-    <v-text-field label="บ้านเลขที่" v-model="form.number"></v-text-field>
-    <v-text-field label="หมู่ที่" v-model="form.moo"></v-text-field>
-    <v-text-field label="ซอย" v-model="form.alley"></v-text-field>
-    <v-text-field label="หมู่บ้าน" v-model="form.village"></v-text-field>
-    <v-text-field label="ถนน" v-model="form.road"></v-text-field>
-    <v-text-field label="ตำบล" v-model="form.subdistrict"></v-text-field>
-    <v-text-field label="อำเภอ" v-model="form.district" browser-autocomplete="address-level2"></v-text-field>
-    <v-text-field label="จังหวัด" v-model="form.province" browser-autocomplete="address-level1"></v-text-field>
-    <v-text-field label="รหัสไปรษณีย์" v-model="form.pcode" browser-autocomplete="postal-code"></v-text-field>
+    <v-text-field v-model="form.number" label="บ้านเลขที่" clearable />
+    <v-text-field
+      v-model="form.moo"
+      label="หมู่ที่"
+      mask="##"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
+    <v-text-field
+      v-model="form.alley"
+      label="ซอย"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
+    <v-text-field
+      v-model="form.village"
+      label="หมู่บ้าน"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
+    <v-text-field
+      v-model="form.road"
+      label="ถนน"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
+    <v-text-field v-model="form.subdistrict" label="ตำบล / แขวง" clearable />
+    <v-text-field
+      v-model="form.district"
+      label="อำเภอ / เขต"
+      browser-autocomplete="address-level2"
+      clearable
+    />
+    <v-text-field
+      v-model="form.province"
+      label="จังหวัด"
+      browser-autocomplete="address-level1"
+      clearable
+    />
+    <v-text-field
+      v-model="form.pcode"
+      label="รหัสไปรษณีย์"
+      browser-autocomplete="postal-code"
+      clearable
+    />
   </v-card-text>
 </template>
 
 <script>
 export default {
-  props: ["value"],
+  props: {
+    value: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
+  },
   data: () => ({
     form: {
       number: null,
