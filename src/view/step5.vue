@@ -2,21 +2,40 @@
   <v-card-text>
     <v-text-field v-model="form.school" label="โรงเรียน" clearable />
     <v-text-field v-model="form.province" label="จังหวัด" clearable />
-    <v-text-field v-model="form.class" label="ระดับชั้น" clearable />
+    <v-combobox
+      v-model="classRaw"
+      label="ระดับชั้น"
+      :items="gradesOptions"
+      clearable
+      auto-select-first
+    />
     <v-text-field v-model="form.plan" label="แผนการศึกษา" clearable />
-    <v-text-field v-model="form.gpax" label="เกรดเฉลี่ย" clearable />
+    <v-text-field
+      v-model="form.gpax"
+      label="เกรดเฉลี่ย"
+      mask="#.##"
+      return-masked-value
+      clearable
+    />
   </v-card-text>
 </template>
 
 <script>
-// const grades = {
-//   m3: "มัธยมศึกษาปีที่ 3",
-//   m4: "มัธยมศึกษาปีที่ 4",
-//   m5: "มัธยมศึกษาปีที่ 5",
-//   m6: "มัธยมศึกษาปีที่ 6",
-//   p1: "ปวช.",
-//   other: "อื่นๆ"
-// };
+const Options = options =>
+  Object.entries(options).map(([value, text]) => ({ value, text }));
+
+const grades = {
+  m3: "มัธยมศึกษาปีที่ 3",
+  m4: "มัธยมศึกษาปีที่ 4",
+  m5: "มัธยมศึกษาปีที่ 5",
+  m6: "มัธยมศึกษาปีที่ 6",
+  p1: "ปวช.1",
+  p2: "ปวช.2",
+  p3: "ปวช.3",
+  u1: "กำลังจะขึ้น ปี1"
+};
+
+const gradesOptions = Options(grades);
 
 export default {
   props: {
@@ -28,6 +47,8 @@ export default {
     }
   },
   data: () => ({
+    gradesOptions,
+    classRaw: null,
     form: {
       school: null,
       province: null,
@@ -39,15 +60,36 @@ export default {
   watch: {
     form: {
       handler(val) {
+        console.log("emit", val);
         this.$emit("input", val);
       },
       deep: true
     },
     value: {
       handler(val) {
+        console.log("on", val);
         this.form = val;
       },
       deep: true
+    },
+    "form.class"(val) {
+      console.log(1, val);
+      if (typeof grades[val] !== "undefined") {
+        console.log(2, val);
+        if (this.classRaw === null) this.classRaw = {};
+        this.classRaw.value = val;
+        this.classRaw.text = grades[val];
+      } else {
+        console.log(6, val);
+        if (val != this.classRaw) this.classRaw = val;
+      }
+    },
+    classRaw(val) {
+      if (typeof val !== "undefined") {
+        if (typeof val === "object" && val !== null) {
+          this.form.class = val.value;
+        } else this.form.class = val;
+      } else this.form.class = null;
     }
   },
   mounted: function() {

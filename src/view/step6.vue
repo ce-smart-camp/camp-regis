@@ -2,8 +2,19 @@
   <v-card-text>
     <v-text-field v-model="form.name" label="ชื่อ" clearable />
     <v-text-field v-model="form.surname" label="นามสกุล" clearable />
-    <v-text-field v-model="form.relation" label="ความเกี่ยวข้อง" clearable />
-    <v-text-field v-model="form.tel" label="หมายเลขโทรศัพท์" clearable />
+    <v-combobox
+      v-model="form.relation"
+      label="ความเกี่ยวข้อง"
+      :items="itemsRelation"
+      clearable
+      auto-select-first
+    />
+    <v-text-field
+      v-model="form.tel"
+      label="หมายเลขโทรศัพท์"
+      mask="## #### ####"
+      clearable
+    />
   </v-card-text>
 </template>
 
@@ -18,6 +29,23 @@ export default {
     }
   },
   data: () => ({
+    itemsRelation: [
+      "บิดา",
+      "คุณพ่อ",
+      "มารดา",
+      "คุณแม่",
+      "พี่",
+      "พี่ชาย",
+      "พี่สาว",
+      "คุณปู่",
+      "คุณย่า",
+      "คุณตา",
+      "คุณยาย",
+      "คุณลุง",
+      "คุณป้า",
+      "คุณน้า",
+      "คุณอา"
+    ],
     form: {
       name: null,
       surname: null,

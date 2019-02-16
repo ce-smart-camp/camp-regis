@@ -1,21 +1,39 @@
 <template>
   <v-card-text>
-    <v-text-field v-model="form.camp1" label="ค่าย" clearable />
+    <v-text-field
+      v-model="form.camp1"
+      label="ค่าย"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
     <v-text-field
       v-model="form.camp1_uni"
       label="มหาวิทยาลัย / หน่วยงาน"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
       clearable
     />
-    <v-text-field v-model="form.camp2" label="ค่าย" clearable />
+    <v-text-field
+      v-model="form.camp2"
+      label="ค่าย"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
     <v-text-field
       v-model="form.camp2_uni"
       label="มหาวิทยาลัย / หน่วยงาน"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
       clearable
     />
-    <v-text-field v-model="form.camp3" label="ค่าย" clearable />
+    <v-text-field
+      v-model="form.camp3"
+      label="ค่าย"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
     <v-text-field
       v-model="form.camp3_uni"
       label="มหาวิทยาลัย / หน่วยงาน"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
       clearable
     />
     <v-textarea

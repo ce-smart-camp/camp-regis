@@ -4,6 +4,7 @@
       v-model="form.phone"
       label="หมายเลขโทรศัพท์เคลื่อนที่"
       browser-autocomplete="tel"
+      mask="## #### ####"
       clearable
     />
     <v-text-field
@@ -13,10 +14,16 @@
       clearable
     />
     <v-text-field v-model="form.fb" label="Facebook" clearable />
-    <v-text-field v-model="form.line" label="Line ID" clearable />
+    <v-text-field
+      v-model="form.line"
+      label="Line ID"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
     <v-textarea
       v-model="form.talent"
       label="ความสามารถพิเศษ"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
       auto-grow
       rows="3"
       clearable

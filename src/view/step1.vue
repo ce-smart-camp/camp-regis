@@ -49,7 +49,6 @@
         offset-y
         full-width
         min-width="290px"
-        allow-overflow
       >
         <v-icon slot="activator">event</v-icon>
         <v-date-picker
@@ -85,7 +84,7 @@ const religions = {
 };
 
 const genders = {
-  male: "ชาย",
+  map: "ชาย",
   female: "หญิง",
   other: "เพศอื่นๆ",
   unspecified: "ไม่ระบุ"

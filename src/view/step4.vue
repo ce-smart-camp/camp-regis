@@ -1,14 +1,35 @@
 <template>
   <v-card-text>
     <v-text-field v-model="form.number" label="บ้านเลขที่" clearable />
-    <v-text-field v-model="form.moo" label="หมู่ที่" clearable />
-    <v-text-field v-model="form.alley" label="ซอย" clearable />
-    <v-text-field v-model="form.village" label="หมู่บ้าน" clearable />
-    <v-text-field v-model="form.road" label="ถนน" clearable />
-    <v-text-field v-model="form.subdistrict" label="ตำบล" clearable />
+    <v-text-field
+      v-model="form.moo"
+      label="หมู่ที่"
+      mask="##"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
+    <v-text-field
+      v-model="form.alley"
+      label="ซอย"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
+    <v-text-field
+      v-model="form.village"
+      label="หมู่บ้าน"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
+    <v-text-field
+      v-model="form.road"
+      label="ถนน"
+      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+      clearable
+    />
+    <v-text-field v-model="form.subdistrict" label="ตำบล / แขวง" clearable />
     <v-text-field
       v-model="form.district"
-      label="อำเภอ"
+      label="อำเภอ / เขต"
       browser-autocomplete="address-level2"
       clearable
     />

@@ -20,11 +20,7 @@
     <NavBar />
     <v-content>
       <v-container grid-list-lg>
-        <v-layout row justify-space-around>
-          <v-flex md12 lg10 xl8>
-            <step />
-          </v-flex>
-        </v-layout>
+        <step />
       </v-container>
     </v-content>
   </v-app>
