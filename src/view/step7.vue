@@ -1,18 +1,43 @@
 <template>
   <v-card-text>
-    <v-text-field label="ค่าย" v-model="form.camp1" clearable></v-text-field>
-    <v-text-field label="มหาวิทยาลัย / หน่วยงาน" v-model="form.camp1_uni" clearable></v-text-field>
-    <v-text-field label="ค่าย" v-model="form.camp2" clearable></v-text-field>
-    <v-text-field label="มหาวิทยาลัย / หน่วยงาน" v-model="form.camp2_uni" clearable></v-text-field>
-    <v-text-field label="ค่าย" v-model="form.camp3" clearable></v-text-field>
-    <v-text-field label="มหาวิทยาลัย / หน่วยงาน" v-model="form.camp3_uni" clearable></v-text-field>
-    <v-textarea label="รู้จักค่ายนี้มาจากไหน" auto-grow rows="3" v-model="form.knowFrom" clearable></v-textarea>
+    <v-text-field v-model="form.camp1" label="ค่าย" clearable />
+    <v-text-field
+      v-model="form.camp1_uni"
+      label="มหาวิทยาลัย / หน่วยงาน"
+      clearable
+    />
+    <v-text-field v-model="form.camp2" label="ค่าย" clearable />
+    <v-text-field
+      v-model="form.camp2_uni"
+      label="มหาวิทยาลัย / หน่วยงาน"
+      clearable
+    />
+    <v-text-field v-model="form.camp3" label="ค่าย" clearable />
+    <v-text-field
+      v-model="form.camp3_uni"
+      label="มหาวิทยาลัย / หน่วยงาน"
+      clearable
+    />
+    <v-textarea
+      v-model="form.knowFrom"
+      label="รู้จักค่ายนี้มาจากไหน"
+      auto-grow
+      rows="3"
+      clearable
+    />
   </v-card-text>
 </template>
 
 <script>
 export default {
-  props: ["value"],
+  props: {
+    value: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
+  },
   data: () => ({
     form: {
       camp1: null,

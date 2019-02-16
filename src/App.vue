@@ -16,13 +16,13 @@
       </v-btn>
     </v-toolbar>
     -->
-    <SideBar avatar="https://i.redd.it/spo5q1n66gg11.jpg"/>
-    <NavBar/>
+    <SideBar avatar="https://i.redd.it/spo5q1n66gg11.jpg" />
+    <NavBar />
     <v-content>
       <v-container grid-list-lg>
         <v-layout row justify-space-around>
           <v-flex md12 lg10 xl8>
-            <step/>
+            <step />
           </v-flex>
         </v-layout>
       </v-container>

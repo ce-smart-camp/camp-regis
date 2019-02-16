@@ -1,15 +1,22 @@
 <template>
   <v-card-text>
-    <v-text-field label="ชื่อ" v-model="form.name" clearable></v-text-field>
-    <v-text-field label="นามสกุล" v-model="form.surname" clearable></v-text-field>
-    <v-text-field label="ความเกี่ยวข้อง" v-model="form.relation" clearable></v-text-field>
-    <v-text-field label="หมายเลขโทรศัพท์" v-model="form.tel" clearable></v-text-field>
+    <v-text-field v-model="form.name" label="ชื่อ" clearable />
+    <v-text-field v-model="form.surname" label="นามสกุล" clearable />
+    <v-text-field v-model="form.relation" label="ความเกี่ยวข้อง" clearable />
+    <v-text-field v-model="form.tel" label="หมายเลขโทรศัพท์" clearable />
   </v-card-text>
 </template>
 
 <script>
 export default {
-  props: ["value"],
+  props: {
+    value: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
+  },
   data: () => ({
     form: {
       name: null,

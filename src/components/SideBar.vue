@@ -1,9 +1,14 @@
 <template>
   <div>
-    <v-navigation-drawer fixed :clipped="$vuetify.breakpoint.mdAndUp" app v-model="drawer">
+    <v-navigation-drawer
+      v-model="drawer"
+      fixed
+      :clipped="$vuetify.breakpoint.mdAndUp"
+      app
+    >
       <v-list dense>
         <template v-for="item in items">
-          <v-layout row v-if="item.heading" align-center :key="item.heading">
+          <v-layout v-if="item.heading" :key="item.heading" row align-center>
             <v-flex xs6>
               <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
             </v-flex>
@@ -13,8 +18,8 @@
           </v-layout>
           <v-list-group
             v-else-if="item.children"
-            v-model="item.model"
             :key="item.text"
+            v-model="item.model"
             :prepend-icon="item.model ? item.icon : item['icon-alt']"
             append-icon
           >
@@ -44,12 +49,18 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar color="blue darken-3" dark app :clipped-left="$vuetify.breakpoint.mdAndUp" fixed>
+    <v-toolbar
+      color="blue darken-3"
+      dark
+      app
+      :clipped-left="$vuetify.breakpoint.mdAndUp"
+      fixed
+    >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer" />
         <span class="hidden-sm-and-down">Google Contacts</span>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn icon>
         <v-icon>apps</v-icon>
       </v-btn>
@@ -58,7 +69,7 @@
       </v-btn>
       <v-btn icon large>
         <v-avatar size="32px" tile>
-          <img v-bind:src="avatar" alt="Vuetify">
+          <img :src="avatar" alt="Vuetify" />
         </v-avatar>
       </v-btn>
     </v-toolbar>
@@ -67,6 +78,13 @@
 
 <script>
 export default {
+  props: {
+    avatar: {
+      type: String,
+      default: ""
+    }
+  },
+
   data: () => ({
     drawer: null,
     items: [
@@ -114,7 +132,6 @@ export default {
       { icon: "phonelink", text: "App downloads" },
       { icon: "keyboard", text: "Go to the old version" }
     ]
-  }),
-  props: ["avatar"]
+  })
 };
 </script>

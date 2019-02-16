@@ -2,36 +2,41 @@
   <v-card class="mx-auto" max-width="500">
     <v-card-title class="title font-weight-regular justify-space-between">
       <span>{{ currentTitle }}</span>
-      <v-avatar color="primary lighten-2" class="subheading white--text" size="24" v-text="step"></v-avatar>
+      <v-avatar
+        color="primary lighten-2"
+        class="subheading white--text"
+        size="24"
+        v-text="step"
+      />
     </v-card-title>
 
     <v-window v-model="step">
       <v-window-item v-for="index in 9" :key="index" :value="index">
-        <Welcome v-if="index === 1"/>
-        <step1 v-model="form.info" v-if="index === 2"/>
-        <step2 v-model="form.contact" v-if="index === 3"/>
-        <step3 v-model="form.health" v-if="index === 4"/>
-        <step4 v-model="form.address" v-if="index === 5"/>
-        <step5 v-model="form.edu" v-if="index === 6"/>
-        <step6 v-model="form.parent" v-if="index === 7"/>
-        <step7 v-model="form.pass" v-if="index === 8"/>
-        <End v-if="index === 9"/>
+        <Welcome v-if="index === 1" />
+        <step1 v-if="index === 2" v-model="form.info" />
+        <step2 v-if="index === 3" v-model="form.contact" />
+        <step3 v-if="index === 4" v-model="form.health" />
+        <step4 v-if="index === 5" v-model="form.address" />
+        <step5 v-if="index === 6" v-model="form.edu" />
+        <step6 v-if="index === 7" v-model="form.parent" />
+        <step7 v-if="index === 8" v-model="form.pass" />
+        <End v-if="index === 9" />
       </v-window-item>
     </v-window>
 
-    <v-divider></v-divider>
+    <v-divider />
 
     <v-card-actions>
       <v-btn :disabled="step === 1 || dialog" flat @click="backPage">
         <v-icon>keyboard_arrow_left</v-icon>&nbsp;ย้อนกลับ&nbsp;&nbsp;
       </v-btn>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn
         :disabled="step === 9 || dialog"
         color="primary"
         depressed
         @click="nextPage"
-      >&nbsp;&nbsp;ต่อไป&nbsp;
+        >&nbsp;&nbsp;ต่อไป&nbsp;
         <v-icon>keyboard_arrow_right</v-icon>
       </v-btn>
     </v-card-actions>
@@ -39,8 +44,8 @@
     <v-dialog v-model="dialog" hide-overlay persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
-          {{dialog_msg}}
-          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+          {{ dialog_msg }}
+          <v-progress-linear indeterminate color="white" class="mb-0" />
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -71,6 +76,7 @@ function copyObject(obj) {
     if (typeof obj[key] === "object") newObj[key] = copyObject(obj[key]);
     else {
       if (obj[key] === "") obj[key] = null;
+      if (typeof obj[key] === "string") obj[key] = obj[key].trim();
       newObj[key] = obj[key];
     }
   });
@@ -197,9 +203,9 @@ function deepCompare() {
   return true;
 }
 
-function compObject(obj1, obj2) {
-  return JSON.stringify(obj1) === JSON.stringify(obj2);
-}
+// function compObject(obj1, obj2) {
+//   return JSON.stringify(obj1) === JSON.stringify(obj2);
+// }
 
 let oldData = {};
 let regisRef = null;
@@ -247,7 +253,7 @@ function updateDate(data) {
 }
 
 function getData() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve) {
     regisRef
       .get()
       .then(function(doc) {
@@ -315,26 +321,8 @@ export default {
       return title[this.step - 1];
     }
   },
-  methods: {
-    nextPage: function() {
-      this.dialog_msg = "กำลังบันทึกข้อมูล";
-      this.dialog = true;
-      updateDate(this.form).then(() => {
-        this.step++;
-        this.dialog = false;
-      });
-    },
-    backPage: function() {
-      this.dialog_msg = "กำลังบันทึกข้อมูล";
-      this.dialog = true;
-      updateDate(this.form).then(() => {
-        this.step--;
-        this.dialog = false;
-      });
-    }
-  },
   mounted() {
-    if (!!firebase.auth().currentUser) this.dialog = false;
+    if (firebase.auth().currentUser) this.dialog = false;
 
     bus.$on("signin", () => {
       this.dialog_msg = "กำลังลงชื่อเข้าใช้";
@@ -355,6 +343,24 @@ export default {
         bus.$emit("loaded", data);
       });
     });
+  },
+  methods: {
+    nextPage: function() {
+      this.dialog_msg = "กำลังบันทึกข้อมูล";
+      this.dialog = true;
+      updateDate(this.form).then(() => {
+        this.step++;
+        this.dialog = false;
+      });
+    },
+    backPage: function() {
+      this.dialog_msg = "กำลังบันทึกข้อมูล";
+      this.dialog = true;
+      updateDate(this.form).then(() => {
+        this.step--;
+        this.dialog = false;
+      });
+    }
   }
 };
 </script>

@@ -1,35 +1,42 @@
 <template>
   <v-card-text>
-    <v-text-field label="บ้านเลขที่" v-model="form.number" clearable></v-text-field>
-    <v-text-field label="หมู่ที่" v-model="form.moo" clearable></v-text-field>
-    <v-text-field label="ซอย" v-model="form.alley" clearable></v-text-field>
-    <v-text-field label="หมู่บ้าน" v-model="form.village" clearable></v-text-field>
-    <v-text-field label="ถนน" v-model="form.road" clearable></v-text-field>
-    <v-text-field label="ตำบล" v-model="form.subdistrict" clearable></v-text-field>
+    <v-text-field v-model="form.number" label="บ้านเลขที่" clearable />
+    <v-text-field v-model="form.moo" label="หมู่ที่" clearable />
+    <v-text-field v-model="form.alley" label="ซอย" clearable />
+    <v-text-field v-model="form.village" label="หมู่บ้าน" clearable />
+    <v-text-field v-model="form.road" label="ถนน" clearable />
+    <v-text-field v-model="form.subdistrict" label="ตำบล" clearable />
     <v-text-field
-      label="อำเภอ"
       v-model="form.district"
+      label="อำเภอ"
       browser-autocomplete="address-level2"
       clearable
-    ></v-text-field>
+    />
     <v-text-field
-      label="จังหวัด"
       v-model="form.province"
+      label="จังหวัด"
       browser-autocomplete="address-level1"
       clearable
-    ></v-text-field>
+    />
     <v-text-field
-      label="รหัสไปรษณีย์"
       v-model="form.pcode"
+      label="รหัสไปรษณีย์"
       browser-autocomplete="postal-code"
       clearable
-    ></v-text-field>
+    />
   </v-card-text>
 </template>
 
 <script>
 export default {
-  props: ["value"],
+  props: {
+    value: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
+  },
   data: () => ({
     form: {
       number: null,

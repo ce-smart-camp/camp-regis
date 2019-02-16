@@ -1,10 +1,10 @@
 <template>
   <v-card-text>
-    <v-text-field label="โรงเรียน" v-model="form.school" clearable></v-text-field>
-    <v-text-field label="จังหวัด" v-model="form.province" clearable></v-text-field>
-    <v-text-field label="ระดับชั้น" v-model="form.class" clearable></v-text-field>
-    <v-text-field label="แผนการศึกษา" v-model="form.plan" clearable></v-text-field>
-    <v-text-field label="เกรดเฉลี่ย" v-model="form.gpax" clearable></v-text-field>
+    <v-text-field v-model="form.school" label="โรงเรียน" clearable />
+    <v-text-field v-model="form.province" label="จังหวัด" clearable />
+    <v-text-field v-model="form.class" label="ระดับชั้น" clearable />
+    <v-text-field v-model="form.plan" label="แผนการศึกษา" clearable />
+    <v-text-field v-model="form.gpax" label="เกรดเฉลี่ย" clearable />
   </v-card-text>
 </template>
 
@@ -19,7 +19,14 @@
 // };
 
 export default {
-  props: ["value"],
+  props: {
+    value: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
+  },
   data: () => ({
     form: {
       school: null,
