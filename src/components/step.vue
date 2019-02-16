@@ -121,7 +121,7 @@ function updateDate(data) {
       regisRef
         .set(newData, { merge: true })
         .then(function() {
-          console.log("Document successfully written!", newData);
+          // console.log("Document successfully written!", newData);
           oldData = newData;
           resolve(true);
         })

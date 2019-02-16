@@ -60,27 +60,22 @@ export default {
   watch: {
     form: {
       handler(val) {
-        console.log("emit", val);
         this.$emit("input", val);
       },
       deep: true
     },
     value: {
       handler(val) {
-        console.log("on", val);
         this.form = val;
       },
       deep: true
     },
     "form.class"(val) {
-      console.log(1, val);
       if (typeof grades[val] !== "undefined") {
-        console.log(2, val);
         if (this.classRaw === null) this.classRaw = {};
         this.classRaw.value = val;
         this.classRaw.text = grades[val];
       } else {
-        console.log(6, val);
         if (val != this.classRaw) this.classRaw = val;
       }
     },
