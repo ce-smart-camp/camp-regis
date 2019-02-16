@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import bus from "./../core/bus";
 const Options = options =>
   Object.entries(options).map(([value, text]) => ({ value, text }));
 
@@ -60,6 +61,21 @@ export default {
       });
     }
     this.$emit("input", this.form);
+
+    bus.$on("loaded", data => {
+      console.log(11, data);
+      if (data == null) data = {};
+      if (data.contact == null) data.contact = {};
+
+      this.form.fb =
+        data.contact.fb ||
+        firebase.auth().currentUser.providerData[0].displayName;
+      this.form.email =
+        data.contact.email || firebase.auth().currentUser.providerData[0].email;
+      this.form.phone =
+        data.contact.phone ||
+        firebase.auth().currentUser.providerData[0].phoneNumber;
+    });
   }
 };
 </script>
