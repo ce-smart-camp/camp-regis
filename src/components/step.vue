@@ -127,12 +127,11 @@ function getData() {
       .then(function(doc) {
         if (doc.exists) {
           let data = doc.data();
-          console.log("Document data:", data);
+          // console.log("Document data:", data);
           resolve(data);
           oldData = copyObject(data);
         } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
+          // console.log("No such document!");
           resolve(null);
         }
       })
@@ -157,7 +156,7 @@ export default {
   data: () => ({
     step: 1,
     dialog: true,
-    dialog_msg: "กำลังลงชื่อเข้าใช้",
+    dialog_msg: "กำลังเตรียมพร้อม",
     form: {
       id: null,
       fb_id: null,
@@ -209,6 +208,10 @@ export default {
     }
   },
   mounted() {
+    bus.$on("signin", () => {
+      this.dialog_msg = "กำลังลงชื่อเข้าใช้";
+      this.dialog = true;
+    });
     bus.$on("user", () => {
       this.dialog_msg = "กำลังโหลดข้อมูล";
       this.dialog = true;

@@ -15,6 +15,7 @@ function authStateObserver(user) {
   if (user) {
     bus.$emit("user");
   } else {
+    bus.$emit("signin");
     signIn();
   }
 }
