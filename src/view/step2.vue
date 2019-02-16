@@ -1,11 +1,21 @@
 <template>
   <v-card-text>
-    <v-text-field label="หมายเลขโทรศัพท์เคลื่อนที่" v-model="form.phone" browser-autocomplete="tel"></v-text-field>
-    <v-text-field label="จดหมายอิเล็กทรอนิกส์" v-model="form.email" browser-autocomplete="email"></v-text-field>
-    <v-text-field label="Facebook" v-model="form.fb"></v-text-field>
-    <v-text-field label="Line ID" v-model="form.line"></v-text-field>
-    <v-textarea label="ความสามารถพิเศษ" auto-grow rows="3" v-model="form.talent"></v-textarea>
-    <v-select :items="option.shirtSize" label="ขนาดเสื้อ" v-model="form.shirt"></v-select>
+    <v-text-field
+      label="หมายเลขโทรศัพท์เคลื่อนที่"
+      v-model="form.phone"
+      browser-autocomplete="tel"
+      clearable
+    ></v-text-field>
+    <v-text-field
+      label="จดหมายอิเล็กทรอนิกส์"
+      v-model="form.email"
+      browser-autocomplete="email"
+      clearable
+    ></v-text-field>
+    <v-text-field label="Facebook" v-model="form.fb" clearable></v-text-field>
+    <v-text-field label="Line ID" v-model="form.line" clearable></v-text-field>
+    <v-textarea label="ความสามารถพิเศษ" auto-grow rows="3" v-model="form.talent" clearable></v-textarea>
+    <v-select :items="option.shirtSize" label="ขนาดเสื้อ" v-model="form.shirt" clearable></v-select>
   </v-card-text>
 </template>
 

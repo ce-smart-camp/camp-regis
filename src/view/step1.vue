@@ -5,11 +5,17 @@
       mask="#-####-#####-##-#"
       :rules="[rules.national_id]"
       v-model="form.nid"
+      clearable
     ></v-text-field>
-    <v-text-field label="ชื่อ" v-model="form.name" browser-autocomplete="given-name"></v-text-field>
-    <v-text-field label="นามสกุล" v-model="form.surname" browser-autocomplete="family-name"></v-text-field>
-    <v-text-field label="ชื่อเล่น" v-model="form.nickname"></v-text-field>
-    <v-select :items="option.gender" label="เพศ" prepend-icon="wc" v-model="form.gender"></v-select>
+    <v-text-field label="ชื่อ" v-model="form.name" browser-autocomplete="given-name" clearable></v-text-field>
+    <v-text-field
+      label="นามสกุล"
+      v-model="form.surname"
+      browser-autocomplete="family-name"
+      clearable
+    ></v-text-field>
+    <v-text-field label="ชื่อเล่น" v-model="form.nickname" clearable></v-text-field>
+    <v-select :items="option.gender" label="เพศ" prepend-icon="wc" v-model="form.gender" clearable></v-select>
     <v-text-field
       v-model="form.birth"
       label="วันเกิด"
@@ -17,7 +23,9 @@
       mask="##/##/####"
       hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
       @blur="date = parseDate(form.birth)"
+      @click:clear="date = parseDate(form.birth)"
       return-masked-value
+      clearable
     >
       <v-menu
         ref="menu"
@@ -44,7 +52,7 @@
       </v-menu>
     </v-text-field>
 
-    <v-select :items="option.religion" label="ศาสนา" v-model="form.religion"></v-select>
+    <v-select :items="option.religion" label="ศาสนา" v-model="form.religion" clearable></v-select>
   </v-card-text>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <v-card-text>
-    <v-textarea label="โรคประจำตัว" auto-grow rows="3" v-model="form.disease"></v-textarea>
-    <v-textarea label="ยาที่แพ้" auto-grow rows="3" v-model="form.drug"></v-textarea>
-    <v-textarea label="อาหารที่แพ้" auto-grow rows="3" v-model="form.food"></v-textarea>
+    <v-textarea label="โรคประจำตัว" auto-grow rows="3" v-model="form.disease" clearable></v-textarea>
+    <v-textarea label="ยาที่แพ้" auto-grow rows="3" v-model="form.drug" clearable></v-textarea>
+    <v-textarea label="อาหารที่แพ้" auto-grow rows="3" v-model="form.food" clearable></v-textarea>
   </v-card-text>
 </template>
 
