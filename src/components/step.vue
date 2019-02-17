@@ -10,7 +10,7 @@
       />
     </v-card-title>
 
-    <v-window v-model="step">
+    <v-window v-model="step" :touch="slide">
       <v-window-item v-for="index in 9" :key="index" :value="index">
         <Welcome v-if="index === 1" />
         <step1 v-if="index === 2" v-model="form.info" />
@@ -174,6 +174,14 @@ export default {
     step: 1,
     dialog: true,
     dialog_msg: "กำลังเตรียมพร้อม",
+    slide: {
+      left() {
+        bus.$emit("step-next");
+      },
+      right() {
+        bus.$emit("step-back");
+      }
+    },
     form: {
       id: null,
       fb_id: null,
@@ -228,23 +236,35 @@ export default {
         bus.$emit("loaded", data);
       });
     });
+
+    bus.$on("step-next", () => {
+      this.nextPage();
+    });
+
+    bus.$on("step-back", () => {
+      this.backPage();
+    });
   },
   methods: {
-    nextPage: function() {
-      this.dialog_msg = "กำลังบันทึกข้อมูล";
-      this.dialog = true;
-      updateDate(this.form).then(() => {
-        this.step++;
-        this.dialog = false;
-      });
+    nextPage() {
+      if (this.step < 9) {
+        this.dialog_msg = "กำลังบันทึกข้อมูล";
+        this.dialog = true;
+        updateDate(this.form).then(() => {
+          this.step++;
+          this.dialog = false;
+        });
+      }
     },
-    backPage: function() {
-      this.dialog_msg = "กำลังบันทึกข้อมูล";
-      this.dialog = true;
-      updateDate(this.form).then(() => {
-        this.step--;
-        this.dialog = false;
-      });
+    backPage() {
+      if (this.step > 1) {
+        this.dialog_msg = "กำลังบันทึกข้อมูล";
+        this.dialog = true;
+        updateDate(this.form).then(() => {
+          this.step--;
+          this.dialog = false;
+        });
+      }
     }
   }
 };
