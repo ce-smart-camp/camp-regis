@@ -5,7 +5,7 @@
       <v-avatar
         color="primary lighten-2"
         class="subheading white--text"
-        size="24"
+        size="34"
         v-text="step"
       />
     </v-card-title>
@@ -101,7 +101,10 @@ function updateDate(data) {
 
     if (regisRef === null) setUpRegisRef();
 
-    if (newData.created_at === null) {
+    if (
+      Object.entries(oldData).length === 0 &&
+      oldData.constructor === Object
+    ) {
       newData.created_at = firebase.firestore.FieldValue.serverTimestamp();
       data.created_at = new Date();
     } else {
@@ -134,15 +137,15 @@ function updateDate(data) {
 }
 
 function getData() {
-  return new Promise(function(resolve) {
+  return new Promise(function(resolve, reject) {
     regisRef
       .get()
       .then(function(doc) {
         if (doc.exists) {
           let data = doc.data();
           // console.log("Document data:", data);
-          resolve(data);
           oldData = copyObject(data);
+          resolve(data);
         } else {
           // console.log("No such document!");
           resolve(null);
@@ -150,6 +153,7 @@ function getData() {
       })
       .catch(function(error) {
         console.log("Error getting document:", error);
+        reject(error);
       });
   });
 }

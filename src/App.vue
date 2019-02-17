@@ -16,8 +16,8 @@
       </v-btn>
     </v-toolbar>
     -->
-    <SideBar avatar="https://i.redd.it/spo5q1n66gg11.jpg" />
-    <NavBar />
+    <!-- <SideBar avatar="https://i.redd.it/spo5q1n66gg11.jpg" />
+    <NavBar /> -->
     <v-content>
       <v-container grid-list-lg>
         <step />
@@ -27,15 +27,11 @@
 </template>
 
 <script>
-import NavBar from "./components/NavBar";
-import SideBar from "./components/SideBar";
 import step from "./components/step";
 
 export default {
   name: "App",
   components: {
-    NavBar,
-    SideBar,
     step
   },
   data() {
