@@ -84,7 +84,7 @@ const religions = {
 };
 
 const genders = {
-  map: "ชาย",
+  man: "ชาย",
   female: "หญิง",
   other: "เพศอื่นๆ",
   unspecified: "ไม่ระบุ"

@@ -13,13 +13,13 @@
     <v-window v-model="step" :touch="slide">
       <v-window-item v-for="index in 9" :key="index" :value="index">
         <Welcome v-if="index === 1" />
-        <step1 v-if="index === 2" v-model="form.info" />
-        <step2 v-if="index === 3" v-model="form.contact" />
-        <step3 v-if="index === 4" v-model="form.health" />
-        <step4 v-if="index === 5" v-model="form.address" />
-        <step5 v-if="index === 6" v-model="form.edu" />
-        <step6 v-if="index === 7" v-model="form.parent" />
-        <step7 v-if="index === 8" v-model="form.pass" />
+        <CamperInfo v-if="index === 2" v-model="form.info" />
+        <CamperContact v-if="index === 3" v-model="form.contact" />
+        <CamperHealth v-if="index === 4" v-model="form.health" />
+        <CamperAddress v-if="index === 5" v-model="form.address" />
+        <CamperEdu v-if="index === 6" v-model="form.edu" />
+        <CamperParent v-if="index === 7" v-model="form.parent" />
+        <CamperPass v-if="index === 8" v-model="form.pass" />
         <End v-if="index === 9" />
       </v-window-item>
     </v-window>
@@ -61,13 +61,13 @@ import bus from "./../core/bus";
 import deepCompare from "./../util/deepCompare";
 
 import Welcome from "./../view/welcome";
-import Step1 from "./../view/step1";
-import Step2 from "./../view/step2";
-import Step3 from "./../view/step3";
-import Step4 from "./../view/step4";
-import Step5 from "./../view/step5";
-import Step6 from "./../view/step6";
-import Step7 from "./../view/step7";
+import CamperInfo from "./../view/camper_info";
+import CamperContact from "./../view/camper_contact";
+import CamperHealth from "./../view/camper_health";
+import CamperAddress from "./../view/camper_address";
+import CamperEdu from "./../view/camper_edu";
+import CamperParent from "./../view/camper_parent";
+import CamperPass from "./../view/camper_pass";
 import End from "./../view/end";
 
 function copyObject(obj) {
@@ -101,12 +101,8 @@ function updateDate(data) {
 
     if (regisRef === null) setUpRegisRef();
 
-    if (
-      Object.entries(oldData).length === 0 &&
-      oldData.constructor === Object
-    ) {
+    if (data.created_at === "new-data") {
       newData.created_at = firebase.firestore.FieldValue.serverTimestamp();
-      data.created_at = new Date();
     } else {
       if (oldData.created_at) delete oldData.created_at;
       delete newData.created_at;
@@ -114,9 +110,6 @@ function updateDate(data) {
 
     if (oldData.update_at) delete oldData.update_at;
     delete newData.update_at;
-
-    if (newData.fb_id === null)
-      newData.fb_id = firebase.auth().currentUser.providerData[0].uid;
 
     if (!deepCompare(newData, oldData)) {
       newData.update_at = firebase.firestore.FieldValue.serverTimestamp();
@@ -126,6 +119,7 @@ function updateDate(data) {
         .then(function() {
           // console.log("Document successfully written!", newData);
           oldData = newData;
+          data.created_at = "save-data";
           resolve(true);
         })
         .catch(function(error) {
@@ -142,6 +136,7 @@ function getData() {
       .get()
       .then(function(doc) {
         if (doc.exists) {
+          console.log(doc.create_time);
           let data = doc.data();
           // console.log("Document data:", data);
           oldData = copyObject(data);
@@ -161,13 +156,13 @@ function getData() {
 export default {
   components: {
     Welcome,
-    Step1,
-    Step2,
-    Step3,
-    Step4,
-    Step5,
-    Step6,
-    Step7,
+    CamperInfo,
+    CamperContact,
+    CamperHealth,
+    CamperAddress,
+    CamperEdu,
+    CamperParent,
+    CamperPass,
     End
   },
   data: () => ({
@@ -230,6 +225,10 @@ export default {
 
       getData().then(data => {
         if (data !== null) this.form = data;
+        else {
+          this.form.created_at = "new-data";
+          this.form.fb_id = firebase.auth().currentUser.providerData[0].uid;
+        }
 
         this.dialog = false;
 
