@@ -10,23 +10,7 @@
       />
     </v-card-title>
 
-    <v-window v-model="step" :touch="slide">
-      <v-window-item v-for="index in 13" :key="index" :value="index">
-        <Welcome v-if="index === 1" />
-        <CamperInfo v-if="index === 2" v-model="form.info" />
-        <CamperContact v-if="index === 3" v-model="form.contact" />
-        <CamperHealth v-if="index === 4" v-model="form.health" />
-        <CamperAddress v-if="index === 5" v-model="form.address" />
-        <CamperEdu v-if="index === 6" v-model="form.edu" />
-        <CamperParent v-if="index === 7" v-model="form.parent" />
-        <CamperPass v-if="index === 8" v-model="form.pass" />
-        <AcademicLogic v-if="index === 9" v-model="form.logic" />
-        <AcademicElect v-if="index === 10" v-model="form.elect" />
-        <AcademicPro v-if="index === 11" v-model="form.pro" />
-        <AcademicIot v-if="index === 12" v-model="form.iot" />
-        <End v-if="index === 13" />
-      </v-window-item>
-    </v-window>
+    <Form />
 
     <v-divider />
 
@@ -48,155 +32,18 @@
 </template>
 
 <script>
-import firebase from "./../core/firebase";
 import "./../core/auth";
-import db from "./../core/db";
 import bus from "./../core/bus";
 
-import deepCompare from "./../util/deepCompare";
-
-import Welcome from "./../view/welcome";
-import CamperInfo from "./../view/camper_info";
-import CamperContact from "./../view/camper_contact";
-import CamperHealth from "./../view/camper_health";
-import CamperAddress from "./../view/camper_address";
-import CamperEdu from "./../view/camper_edu";
-import CamperParent from "./../view/camper_parent";
-import CamperPass from "./../view/camper_pass";
-import AcademicLogic from "./../view/academic_logic";
-import AcademicElect from "./../view/academic_elect";
-import AcademicPro from "./../view/academic_pro";
-import AcademicIot from "./../view/academic_iot";
-import End from "./../view/end";
-
-function copyObject(obj) {
-  if (obj === null) return null;
-
-  let newObj = {};
-  Object.keys(obj).forEach(key => {
-    if (typeof obj[key] === "object") newObj[key] = copyObject(obj[key]);
-    else {
-      if (obj[key] === "") obj[key] = null;
-      if (typeof obj[key] === "string") {
-        obj[key] = obj[key].trim();
-        if (obj[key] === "-") obj[key] = null;
-      }
-      newObj[key] = obj[key];
-    }
-  });
-  return newObj;
-}
-
-let oldData = {};
-let regisRef = null;
-
-function setUpRegisRef() {
-  regisRef = db.collection("registration").doc(firebase.auth().currentUser.uid);
-}
-
-function updateDate(data) {
-  return new Promise(function(resolve, reject) {
-    var newData = copyObject(data);
-
-    if (regisRef === null) setUpRegisRef();
-
-    if (data.created_at === "new-data") {
-      newData.created_at = firebase.firestore.FieldValue.serverTimestamp();
-    } else {
-      if (oldData.created_at) delete oldData.created_at;
-      delete newData.created_at;
-    }
-
-    if (oldData.update_at) delete oldData.update_at;
-    delete newData.update_at;
-
-    if (!deepCompare(newData, oldData)) {
-      newData.update_at = firebase.firestore.FieldValue.serverTimestamp();
-
-      regisRef
-        .set(newData, { merge: true })
-        .then(function() {
-          // console.log("Document successfully written!", newData);
-          oldData = newData;
-          data.created_at = "save-data";
-          resolve(true);
-        })
-        .catch(function(error) {
-          console.error("Error writing document: ", error);
-          reject(Error(error));
-        });
-    } else resolve(true);
-  });
-}
-
-function getData() {
-  return new Promise(function(resolve, reject) {
-    regisRef
-      .get()
-      .then(function(doc) {
-        if (doc.exists) {
-          console.log(doc.create_time);
-          let data = doc.data();
-          // console.log("Document data:", data);
-          oldData = copyObject(data);
-          resolve(data);
-        } else {
-          // console.log("No such document!");
-          resolve(null);
-        }
-      })
-      .catch(function(error) {
-        console.log("Error getting document:", error);
-        reject(error);
-      });
-  });
-}
+import Form from "./form";
 
 export default {
   components: {
-    Welcome,
-    CamperInfo,
-    CamperContact,
-    CamperHealth,
-    CamperAddress,
-    CamperEdu,
-    CamperParent,
-    CamperPass,
-    AcademicLogic,
-    AcademicElect,
-    AcademicPro,
-    AcademicIot,
-    End
+    Form
   },
   data: () => ({
     step: 1,
-    dialog: false,
-    slide: {
-      left() {
-        bus.$emit("step-next");
-      },
-      right() {
-        bus.$emit("step-back");
-      }
-    },
-    form: {
-      id: null,
-      fb_id: null,
-      info: null,
-      contact: null,
-      health: null,
-      address: null,
-      edu: null,
-      parent: null,
-      pass: null,
-      logic: null,
-      elect: null,
-      pro: null,
-      iot: null,
-      created_at: null,
-      update_at: null,
-      completed_at: null
-    }
+    dialog: false
   }),
   computed: {
     currentTitle() {
@@ -215,61 +62,23 @@ export default {
         "คำถาม Part 2/4",
         "บันทึกผล"
       ];
-
       return title[this.step - 1];
     }
   },
   mounted() {
-    if (firebase.auth().currentUser) bus.$emit("dialog.off");
-
-    bus.$on("user", () => {
-      bus.$emit("dialog.on", "กำลังโหลดข้อมูล");
-
-      setUpRegisRef();
-
-      getData().then(data => {
-        if (data !== null) this.form = data;
-        else {
-          this.form.created_at = "new-data";
-          this.form.fb_id = firebase.auth().currentUser.providerData[0].uid;
-        }
-
-        bus.$emit("dialog.off");
-
-        bus.$emit("loaded", data);
-      });
-    });
-
-    bus.$on("step-next", () => {
-      this.nextPage();
-    });
-
-    bus.$on("step-back", () => {
-      this.backPage();
-    });
-
-    bus.$on("dialogChange", val => {
+    bus.$on("dialog.change", val => {
       this.dialog = val;
+    });
+    bus.$on("step.change", val => {
+      this.step = val;
     });
   },
   methods: {
     nextPage() {
-      if (this.step < 13) {
-        bus.$emit("dialog.on", "กำลังบันทึกข้อมูล");
-        updateDate(this.form).then(() => {
-          this.step++;
-          bus.$emit("dialog.off");
-        });
-      }
+      bus.$emit("step.go", 1);
     },
     backPage() {
-      if (this.step > 1) {
-        bus.$emit("dialog.on", "กำลังบันทึกข้อมูล");
-        updateDate(this.form).then(() => {
-          this.step--;
-          bus.$emit("dialog.off");
-        });
-      }
+      bus.$emit("step.go", -1);
     }
   }
 };
@@ -278,5 +87,9 @@ export default {
 <style>
 .nolabel >>> textarea {
   margin-top: 4px !important;
+}
+
+p {
+  font-size: 16px;
 }
 </style>

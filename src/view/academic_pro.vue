@@ -3,11 +3,9 @@
     <div class="my-3">
       <p>
         7. น้องเคยเขียนโปรแกรมหรือไม่ ถ้าเคยเขียน เขียนภาษาอะไรได้บ้าง
-        ลองเขียนโปรแกรมภาษานั้นให้แสดงข้อความว่า
+        ลองเขียนโปรแกรมภาษานั้นให้แสดงข้อความว่า<br />
+        <center><code>\* “CE*Smart*Camp” #12 */</code></center>
       </p>
-      <pre class="text-xs-center">
-\* “CE*Smart*Camp” #12 */
-      </pre>
     </div>
     <v-textarea
       v-model="form.item1"

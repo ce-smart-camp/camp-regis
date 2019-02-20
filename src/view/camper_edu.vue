@@ -4,7 +4,7 @@
     <v-text-field v-model="form.province" label="จังหวัด" clearable />
     <v-combobox
       v-model="classRaw"
-      label="ระดับชั้น"
+      label="ระดับชั้น (ปีการศึกษา 2561)"
       :items="gradesOptions"
       clearable
       auto-select-first
@@ -25,14 +25,12 @@ const Options = options =>
   Object.entries(options).map(([value, text]) => ({ value, text }));
 
 const grades = {
-  m3: "มัธยมศึกษาปีที่ 3",
   m4: "มัธยมศึกษาปีที่ 4",
   m5: "มัธยมศึกษาปีที่ 5",
   m6: "มัธยมศึกษาปีที่ 6",
   p1: "ปวช.1",
   p2: "ปวช.2",
-  p3: "ปวช.3",
-  u1: "กำลังจะขึ้น ปี1"
+  p3: "ปวช.3"
 };
 
 const gradesOptions = Options(grades);
