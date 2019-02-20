@@ -55,23 +55,12 @@
       app
       :clipped-left="$vuetify.breakpoint.mdAndUp"
       fixed
+      dense
     >
-      <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
+      <v-toolbar-title class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer" />
-        <span class="hidden-sm-and-down">Google Contacts</span>
+        <span class="hidden-sm-and-down">ระบบสมัครค่าย CE Smart Camp #12</span>
       </v-toolbar-title>
-      <v-spacer />
-      <v-btn icon>
-        <v-icon>apps</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>notifications</v-icon>
-      </v-btn>
-      <v-btn icon large>
-        <v-avatar size="32px" tile>
-          <img :src="avatar" alt="Vuetify" />
-        </v-avatar>
-      </v-btn>
     </v-toolbar>
   </div>
 </template>

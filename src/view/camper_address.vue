@@ -10,7 +10,7 @@
     />
     <v-text-field
       v-model="form.alley"
-      label="ซอย"
+      label="ตรอก / ซอย"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
       clearable
     />

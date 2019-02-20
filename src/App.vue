@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <!--
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
@@ -16,8 +16,8 @@
       </v-btn>
     </v-toolbar>
     -->
-    <SideBar avatar="https://i.redd.it/spo5q1n66gg11.jpg" />
-    <NavBar />
+    <SideBar />
+    <!-- <NavBar /> -->
     <v-content>
       <v-container grid-list-lg>
         <step />
@@ -27,16 +27,15 @@
 </template>
 
 <script>
-import NavBar from "./components/NavBar";
-import SideBar from "./components/SideBar";
 import step from "./components/step";
+
+import SideBar from "./components/SideBar";
 
 export default {
   name: "App",
   components: {
-    NavBar,
-    SideBar,
-    step
+    step,
+    SideBar
   },
   data() {
     return {

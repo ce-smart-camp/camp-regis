@@ -5,22 +5,26 @@
       <v-avatar
         color="primary lighten-2"
         class="subheading white--text"
-        size="24"
+        size="34"
         v-text="step"
       />
     </v-card-title>
 
-    <v-window v-model="step">
-      <v-window-item v-for="index in 9" :key="index" :value="index">
+    <v-window v-model="step" :touch="slide">
+      <v-window-item v-for="index in 13" :key="index" :value="index">
         <Welcome v-if="index === 1" />
-        <step1 v-if="index === 2" v-model="form.info" />
-        <step2 v-if="index === 3" v-model="form.contact" />
-        <step3 v-if="index === 4" v-model="form.health" />
-        <step4 v-if="index === 5" v-model="form.address" />
-        <step5 v-if="index === 6" v-model="form.edu" />
-        <step6 v-if="index === 7" v-model="form.parent" />
-        <step7 v-if="index === 8" v-model="form.pass" />
-        <End v-if="index === 9" />
+        <CamperInfo v-if="index === 2" v-model="form.info" />
+        <CamperContact v-if="index === 3" v-model="form.contact" />
+        <CamperHealth v-if="index === 4" v-model="form.health" />
+        <CamperAddress v-if="index === 5" v-model="form.address" />
+        <CamperEdu v-if="index === 6" v-model="form.edu" />
+        <CamperParent v-if="index === 7" v-model="form.parent" />
+        <CamperPass v-if="index === 8" v-model="form.pass" />
+        <AcademicLogic v-if="index === 9" v-model="form.logic" />
+        <AcademicElect v-if="index === 10" v-model="form.elect" />
+        <AcademicPro v-if="index === 11" v-model="form.pro" />
+        <AcademicIot v-if="index === 12" v-model="form.iot" />
+        <End v-if="index === 13" />
       </v-window-item>
     </v-window>
 
@@ -32,7 +36,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        :disabled="step === 9 || dialog"
+        :disabled="step === 13 || dialog"
         color="primary"
         depressed
         @click="nextPage"
@@ -61,13 +65,17 @@ import bus from "./../core/bus";
 import deepCompare from "./../util/deepCompare";
 
 import Welcome from "./../view/welcome";
-import Step1 from "./../view/step1";
-import Step2 from "./../view/step2";
-import Step3 from "./../view/step3";
-import Step4 from "./../view/step4";
-import Step5 from "./../view/step5";
-import Step6 from "./../view/step6";
-import Step7 from "./../view/step7";
+import CamperInfo from "./../view/camper_info";
+import CamperContact from "./../view/camper_contact";
+import CamperHealth from "./../view/camper_health";
+import CamperAddress from "./../view/camper_address";
+import CamperEdu from "./../view/camper_edu";
+import CamperParent from "./../view/camper_parent";
+import CamperPass from "./../view/camper_pass";
+import AcademicLogic from "./../view/academic_logic";
+import AcademicElect from "./../view/academic_elect";
+import AcademicPro from "./../view/academic_pro";
+import AcademicIot from "./../view/academic_iot";
 import End from "./../view/end";
 
 function copyObject(obj) {
@@ -101,9 +109,8 @@ function updateDate(data) {
 
     if (regisRef === null) setUpRegisRef();
 
-    if (newData.created_at === null) {
+    if (data.created_at === "new-data") {
       newData.created_at = firebase.firestore.FieldValue.serverTimestamp();
-      data.created_at = new Date();
     } else {
       if (oldData.created_at) delete oldData.created_at;
       delete newData.created_at;
@@ -112,17 +119,15 @@ function updateDate(data) {
     if (oldData.update_at) delete oldData.update_at;
     delete newData.update_at;
 
-    if (newData.fb_id === null)
-      newData.fb_id = firebase.auth().currentUser.providerData[0].uid;
-
     if (!deepCompare(newData, oldData)) {
       newData.update_at = firebase.firestore.FieldValue.serverTimestamp();
 
       regisRef
         .set(newData, { merge: true })
         .then(function() {
-          console.log("Document successfully written!", newData);
+          // console.log("Document successfully written!", newData);
           oldData = newData;
+          data.created_at = "save-data";
           resolve(true);
         })
         .catch(function(error) {
@@ -134,15 +139,16 @@ function updateDate(data) {
 }
 
 function getData() {
-  return new Promise(function(resolve) {
+  return new Promise(function(resolve, reject) {
     regisRef
       .get()
       .then(function(doc) {
         if (doc.exists) {
+          console.log(doc.create_time);
           let data = doc.data();
           // console.log("Document data:", data);
-          resolve(data);
           oldData = copyObject(data);
+          resolve(data);
         } else {
           // console.log("No such document!");
           resolve(null);
@@ -150,6 +156,7 @@ function getData() {
       })
       .catch(function(error) {
         console.log("Error getting document:", error);
+        reject(error);
       });
   });
 }
@@ -157,19 +164,31 @@ function getData() {
 export default {
   components: {
     Welcome,
-    Step1,
-    Step2,
-    Step3,
-    Step4,
-    Step5,
-    Step6,
-    Step7,
+    CamperInfo,
+    CamperContact,
+    CamperHealth,
+    CamperAddress,
+    CamperEdu,
+    CamperParent,
+    CamperPass,
+    AcademicLogic,
+    AcademicElect,
+    AcademicPro,
+    AcademicIot,
     End
   },
   data: () => ({
     step: 1,
     dialog: true,
     dialog_msg: "กำลังเตรียมพร้อม",
+    slide: {
+      left() {
+        bus.$emit("step-next");
+      },
+      right() {
+        bus.$emit("step-back");
+      }
+    },
     form: {
       id: null,
       fb_id: null,
@@ -180,6 +199,10 @@ export default {
       edu: null,
       parent: null,
       pass: null,
+      logic: null,
+      elect: null,
+      pro: null,
+      iot: null,
       created_at: null,
       update_at: null,
       completed_at: null
@@ -196,6 +219,10 @@ export default {
         "การศึกษา",
         "ผู้ปกครอง",
         "ประวัติการเข้าค่าย",
+        "คำถาม Part 2/1",
+        "คำถาม Part 2/2",
+        "คำถาม Part 2/3",
+        "คำถาม Part 2/4",
         "บันทึกผล"
       ];
 
@@ -204,6 +231,7 @@ export default {
   },
   mounted() {
     if (firebase.auth().currentUser) this.dialog = false;
+    this.dialog = false;
 
     bus.$on("signin", () => {
       this.dialog_msg = "กำลังลงชื่อเข้าใช้";
@@ -218,29 +246,45 @@ export default {
 
       getData().then(data => {
         if (data !== null) this.form = data;
+        else {
+          this.form.created_at = "new-data";
+          this.form.fb_id = firebase.auth().currentUser.providerData[0].uid;
+        }
 
         this.dialog = false;
 
         bus.$emit("loaded", data);
       });
     });
+
+    bus.$on("step-next", () => {
+      this.nextPage();
+    });
+
+    bus.$on("step-back", () => {
+      this.backPage();
+    });
   },
   methods: {
-    nextPage: function() {
-      this.dialog_msg = "กำลังบันทึกข้อมูล";
-      this.dialog = true;
-      updateDate(this.form).then(() => {
-        this.step++;
-        this.dialog = false;
-      });
+    nextPage() {
+      if (this.step < 13) {
+        this.dialog_msg = "กำลังบันทึกข้อมูล";
+        this.dialog = true;
+        updateDate(this.form).then(() => {
+          this.step++;
+          this.dialog = false;
+        });
+      }
     },
-    backPage: function() {
-      this.dialog_msg = "กำลังบันทึกข้อมูล";
-      this.dialog = true;
-      updateDate(this.form).then(() => {
-        this.step--;
-        this.dialog = false;
-      });
+    backPage() {
+      if (this.step > 1) {
+        this.dialog_msg = "กำลังบันทึกข้อมูล";
+        this.dialog = true;
+        updateDate(this.form).then(() => {
+          this.step--;
+          this.dialog = false;
+        });
+      }
     }
   }
 };
