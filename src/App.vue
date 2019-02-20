@@ -23,19 +23,21 @@
         <step />
       </v-container>
     </v-content>
+    <Dialog />
   </v-app>
 </template>
 
 <script>
 import step from "./components/step";
-
 import SideBar from "./components/SideBar";
+import Dialog from "./components/dialog";
 
 export default {
   name: "App",
   components: {
     step,
-    SideBar
+    SideBar,
+    Dialog
   },
   data() {
     return {

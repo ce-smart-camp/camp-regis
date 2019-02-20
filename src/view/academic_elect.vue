@@ -6,21 +6,42 @@
         น้องๆคิดว่าในค่ายของเราจะใช้อุปกรณ์ทางอิเล็กทรอนิกส์หรือโมดูลอะไรบ้างลองยกตัวอย่างมาให้มากที่สุด
       </p>
     </div>
-    <v-textarea v-model="form.item1" auto-grow rows="5" clearable box />
+    <v-textarea
+      v-model="form.item1"
+      class="nolabel"
+      auto-grow
+      rows="5"
+      clearable
+      box
+    />
     <div class="my-3">
       <p>
         5. หากต่อวงจรเช่นนี้จะได้ผลลัพธ์เป็นอย่างไร
       </p>
       <v-img :src="require('../assets/question/q-2-2.png')" contain></v-img>
     </div>
-    <v-textarea v-model="form.item2" auto-grow rows="5" clearable box />
+    <v-textarea
+      v-model="form.item2"
+      class="nolabel"
+      auto-grow
+      rows="5"
+      clearable
+      box
+    />
     <div class="my-3">
       <p>
         6. จากวงจรด้านล่าง ถ้าถ่าน 9V ยังมีประจุอยู่ หากกดสวิตซ์จะเกิดอะไรขึ้น
       </p>
       <v-img :src="require('../assets/question/q-2-3.png')" contain></v-img>
     </div>
-    <v-textarea v-model="form.item3" auto-grow rows="5" clearable box />
+    <v-textarea
+      v-model="form.item3"
+      class="nolabel"
+      auto-grow
+      rows="5"
+      clearable
+      box
+    />
   </v-card-text>
 </template>
 
@@ -65,9 +86,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
->>> textarea {
-  margin-top: 4px !important;
-}
-</style>

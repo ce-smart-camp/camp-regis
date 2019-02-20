@@ -5,12 +5,19 @@
         >1. พี่กระต่ายเป็นเศรษฐีรวยระดับพันล้าน
         วันหนึ่งนึกสนุกจึงได้มอบภารกิจให้พี่เจตซึ่งเป็นลูกน้อง
         โดยให้ทำการหาว่าโทรศัพท์ของพี่กระต่ายจะพังเมื่อตกจากตึกชั้นที่ต่ำสุดชั้นใดจากตึกที่มี
-        1,000 ชั้น!!! โดยพี่กระต่ายมีโทรศัพท์ให้ใช้ทดลองการ Drop test
+        1,000 ชั้น!!! โดยพี่กระต่ายมีโทรศัพท์ให้ใช้ทดลอง Drop test
         ครั้งนี้อยู่ทั้งหมด 10 เครื่อง
         <u>น้องๆจะช่วยพี่เจตหาคำตอบของภารกิจนี้ได้อย่างไร</u>
       </span>
     </div>
-    <v-textarea v-model="form.item1" auto-grow rows="5" clearable box />
+    <v-textarea
+      v-model="form.item1"
+      class="nolabel"
+      auto-grow
+      rows="5"
+      clearable
+      box
+    />
     <div class="my-3">
       <span>
         2. ในงานเลี้ยงปีใหม่ของรุ่นพี่สตาฟ CE Smart Camp ครั้งที่12
@@ -25,7 +32,14 @@
         >
       </span>
     </div>
-    <v-textarea v-model="form.item2" auto-grow rows="5" clearable box />
+    <v-textarea
+      v-model="form.item2"
+      class="nolabel"
+      auto-grow
+      rows="5"
+      clearable
+      box
+    />
     <div class="my-3">
       <span>
         3. สมบัติ มีเพื่อนคือ สมชายและสมหญิง ที่สนิทกันมาตั้งแต่สมัยเด็กๆ
@@ -52,7 +66,14 @@
         <u>จงหาวันเกิดของสมบัติพร้อมแสดงวิธีการหา</u>
       </span>
     </div>
-    <v-textarea v-model="form.item3" auto-grow rows="5" clearable box />
+    <v-textarea
+      v-model="form.item3"
+      class="nolabel"
+      auto-grow
+      rows="5"
+      clearable
+      box
+    />
   </v-card-text>
 </template>
 
@@ -97,9 +118,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
->>> textarea {
-  margin-top: 4px !important;
-}
-</style>

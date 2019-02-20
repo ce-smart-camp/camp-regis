@@ -44,15 +44,6 @@
         <v-icon>keyboard_arrow_right</v-icon>
       </v-btn>
     </v-card-actions>
-
-    <v-dialog v-model="dialog" hide-overlay persistent width="300">
-      <v-card color="primary" dark>
-        <v-card-text>
-          {{ dialog_msg }}
-          <v-progress-linear indeterminate color="white" class="mb-0" />
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </v-card>
 </template>
 
@@ -179,8 +170,7 @@ export default {
   },
   data: () => ({
     step: 1,
-    dialog: true,
-    dialog_msg: "กำลังเตรียมพร้อม",
+    dialog: false,
     slide: {
       left() {
         bus.$emit("step-next");
@@ -230,17 +220,10 @@ export default {
     }
   },
   mounted() {
-    if (firebase.auth().currentUser) this.dialog = false;
-    this.dialog = false;
-
-    bus.$on("signin", () => {
-      this.dialog_msg = "กำลังลงชื่อเข้าใช้";
-      this.dialog = true;
-    });
+    if (firebase.auth().currentUser) bus.$emit("dialog.off");
 
     bus.$on("user", () => {
-      this.dialog_msg = "กำลังโหลดข้อมูล";
-      this.dialog = true;
+      bus.$emit("dialog.on", "กำลังโหลดข้อมูล");
 
       setUpRegisRef();
 
@@ -251,7 +234,7 @@ export default {
           this.form.fb_id = firebase.auth().currentUser.providerData[0].uid;
         }
 
-        this.dialog = false;
+        bus.$emit("dialog.off");
 
         bus.$emit("loaded", data);
       });
@@ -264,28 +247,36 @@ export default {
     bus.$on("step-back", () => {
       this.backPage();
     });
+
+    bus.$on("dialogChange", val => {
+      this.dialog = val;
+    });
   },
   methods: {
     nextPage() {
       if (this.step < 13) {
-        this.dialog_msg = "กำลังบันทึกข้อมูล";
-        this.dialog = true;
+        bus.$emit("dialog.on", "กำลังบันทึกข้อมูล");
         updateDate(this.form).then(() => {
           this.step++;
-          this.dialog = false;
+          bus.$emit("dialog.off");
         });
       }
     },
     backPage() {
       if (this.step > 1) {
-        this.dialog_msg = "กำลังบันทึกข้อมูล";
-        this.dialog = true;
+        bus.$emit("dialog.on", "กำลังบันทึกข้อมูล");
         updateDate(this.form).then(() => {
           this.step--;
-          this.dialog = false;
+          bus.$emit("dialog.off");
         });
       }
     }
   }
 };
 </script>
+
+<style>
+.nolabel >>> textarea {
+  margin-top: 4px !important;
+}
+</style>
