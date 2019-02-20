@@ -1,0 +1,81 @@
+<template>
+  <v-card-text>
+    <div class="my-3">
+      <p>
+        7. น้องเคยเขียนโปรแกรมหรือไม่ ถ้าเคยเขียน เขียนภาษาอะไรได้บ้าง
+        ลองเขียนโปรแกรมภาษานั้นให้แสดงข้อความว่า
+      </p>
+      <pre class="text-xs-center">
+\* “CE*Smart*Camp” #12 */
+      </pre>
+    </div>
+    <v-textarea v-model="form.item1" auto-grow rows="5" clearable box />
+    <div class="my-3">
+      <p>
+        8. จาก Code arduino ด้านล่าง
+        พี่ๆอยากให้น้องหาจุดผิดที่ทำให้โปรแกรมไม่สามารถทำงานได้พร้อมแก้ไขให้ถูกต้อง
+        และแสดงผลลัพธ์ที่ได้ออกมาจากการทำงานของโปรแกรม<br />
+        <i>(เขียนบรรทัดที่ผิด+จุดที่ผิด พร้อมแก้ไขให้ถูกต้อง)</i>
+      </p>
+      <v-img :src="require('../assets/question/q-3-3.png')" contain></v-img>
+    </div>
+    <v-textarea v-model="form.item2" auto-grow rows="5" clearable box />
+    <div class="my-3">
+      <p>
+        9. การที่ใบสมัครที่น้องกำลังทำนี้ จะเดินทางมาถึงพี่ๆได้
+        พี่ๆอยากรู้ขั้นตอนดำเนินการทั้งหมดตั้งแต่เริ่มรู้จักค่ายนี้จนกว่าน้องๆจะติดค่าย
+        CE Smart Camp #12 พี่ๆจึงอยากให้น้องลองเขียน Flowchart ให้พี่ๆดูครับ<br />
+        <i>(Hint : ขั้นตอนดำเนินการอยู่ในเว็บไซต์สมัคร)</i>
+      </p>
+    </div>
+    <v-textarea v-model="form.item3" auto-grow rows="5" clearable box />
+  </v-card-text>
+</template>
+
+<script>
+export default {
+  props: {
+    value: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
+  },
+  data: () => ({
+    form: {
+      item1: null,
+      item2: null,
+      item3: null
+    }
+  }),
+  watch: {
+    form: {
+      handler(val) {
+        this.$emit("input", val);
+      },
+      deep: true
+    },
+    value: {
+      handler(val) {
+        this.form = val;
+      },
+      deep: true
+    }
+  },
+  mounted: function() {
+    if (this.value !== null) {
+      Object.keys(this.form).forEach(key => {
+        this.form[key] = this.value[key] || null;
+      });
+    }
+    this.$emit("input", this.form);
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+>>> textarea {
+  margin-top: 4px !important;
+}
+</style>

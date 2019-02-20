@@ -11,7 +11,7 @@
     </v-card-title>
 
     <v-window v-model="step" :touch="slide">
-      <v-window-item v-for="index in 9" :key="index" :value="index">
+      <v-window-item v-for="index in 12" :key="index" :value="index">
         <Welcome v-if="index === 1" />
         <CamperInfo v-if="index === 2" v-model="form.info" />
         <CamperContact v-if="index === 3" v-model="form.contact" />
@@ -20,7 +20,10 @@
         <CamperEdu v-if="index === 6" v-model="form.edu" />
         <CamperParent v-if="index === 7" v-model="form.parent" />
         <CamperPass v-if="index === 8" v-model="form.pass" />
-        <End v-if="index === 9" />
+        <AcademicLogic v-if="index === 9" />
+        <AcademicElect v-if="index === 10" />
+        <AcademicPro v-if="index === 11" />
+        <End v-if="index === 12" />
       </v-window-item>
     </v-window>
 
@@ -32,7 +35,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        :disabled="step === 9 || dialog"
+        :disabled="step === 12 || dialog"
         color="primary"
         depressed
         @click="nextPage"
@@ -68,6 +71,9 @@ import CamperAddress from "./../view/camper_address";
 import CamperEdu from "./../view/camper_edu";
 import CamperParent from "./../view/camper_parent";
 import CamperPass from "./../view/camper_pass";
+import AcademicLogic from "./../view/academic_logic";
+import AcademicElect from "./../view/academic_elect";
+import AcademicPro from "./../view/academic_pro";
 import End from "./../view/end";
 
 function copyObject(obj) {
@@ -163,6 +169,9 @@ export default {
     CamperEdu,
     CamperParent,
     CamperPass,
+    AcademicLogic,
+    AcademicElect,
+    AcademicPro,
     End
   },
   data: () => ({
@@ -203,6 +212,9 @@ export default {
         "การศึกษา",
         "ผู้ปกครอง",
         "ประวัติการเข้าค่าย",
+        "คำถาม ตรรกศาสตร์",
+        "คำถาม อิเล็กทรอนิกส์",
+        "คำถาม การเขียนโปรแกรม",
         "บันทึกผล"
       ];
 
@@ -211,6 +223,7 @@ export default {
   },
   mounted() {
     if (firebase.auth().currentUser) this.dialog = false;
+    this.dialog = false;
 
     bus.$on("signin", () => {
       this.dialog_msg = "กำลังลงชื่อเข้าใช้";
@@ -246,7 +259,7 @@ export default {
   },
   methods: {
     nextPage() {
-      if (this.step < 9) {
+      if (this.step < 12) {
         this.dialog_msg = "กำลังบันทึกข้อมูล";
         this.dialog = true;
         updateDate(this.form).then(() => {
