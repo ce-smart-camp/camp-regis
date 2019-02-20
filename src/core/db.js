@@ -10,84 +10,90 @@ import copyObject from "./../util/copyObject";
 
 let oldData = {};
 let regisRef = null;
+let questionRef = null;
 
-function setUpRegisRef() {
+function setUpRef() {
   if (regisRef === null)
-    regisRef = db
-      .collection("registration")
-      .doc(firebase.auth().currentUser.uid);
+    regisRef = db.collection("reg").doc(firebase.auth().currentUser.uid);
+  if (questionRef === null)
+    questionRef = db.collection("qus").doc(firebase.auth().currentUser.uid);
 }
 
-function updateDate(data) {
+function updateData(data) {
   bus.$emit("dialog.on", "กำลังบันทึกข้อมูล");
 
+  setUpRef();
+
+  let updateData = copyObject(data);
+
+  if (data.reg.created_at === "new-data") {
+    updateData.reg.created_at = firebase.firestore.FieldValue.serverTimestamp();
+  } else {
+    if (oldData.reg.created_at) delete oldData.reg.created_at;
+    delete updateData.reg.created_at;
+  }
+
+  let run = (ref, newD, oldD) => {
+    return new Promise((resolve, reject) => {
+      if (typeof oldD !== "undefined")
+        if (oldD.update_at) delete oldD.update_at;
+      delete newD.update_at;
+
+      if (!deepCompare(newD, oldD)) {
+        newD.update_at = firebase.firestore.FieldValue.serverTimestamp();
+        ref
+          .set(newD, { merge: true })
+          .then(() => resolve(true))
+          .catch(error => reject(error));
+      } else resolve(true);
+    });
+  };
+
   return new Promise(function(resolve, reject) {
-    var newData = copyObject(data);
-
-    if (regisRef === null) setUpRegisRef();
-
-    if (data.created_at === "new-data") {
-      newData.created_at = firebase.firestore.FieldValue.serverTimestamp();
-    } else {
-      if (oldData.created_at) delete oldData.created_at;
-      delete newData.created_at;
-    }
-
-    if (oldData.update_at) delete oldData.update_at;
-    delete newData.update_at;
-
-    if (!deepCompare(newData, oldData)) {
-      newData.update_at = firebase.firestore.FieldValue.serverTimestamp();
-
-      regisRef
-        .set(newData, { merge: true })
-        .then(function() {
-          // console.log("Document successfully written!", newData);
-          oldData = newData;
-          data.created_at = "save-data";
-          bus.$emit("dialog.off");
-          resolve(true);
-        })
-        .catch(function(error) {
-          console.error("Error writing document: ", error);
-          bus.$emit("dialog.on", "มีข้อผิดพลาดในการบันทึกข้อมูล");
-          reject(Error(error));
-        });
-    } else {
-      bus.$emit("dialog.off");
-      resolve(true);
-    }
+    Promise.all([
+      run(regisRef, updateData.reg, oldData.reg),
+      run(questionRef, updateData.qus, oldData.qus)
+    ])
+      .then(() => {
+        oldData = updateData;
+        data.reg.created_at = "save-data";
+        bus.$emit("dialog.off");
+        resolve(true);
+      })
+      .catch(function(error) {
+        console.error("Error writing document: ", error);
+        bus.$emit("dialog.on", "มีข้อผิดพลาดในการบันทึกข้อมูล");
+        reject(error);
+      });
   });
 }
 
 function getData() {
   bus.$emit("dialog.on", "กำลังโหลดข้อมูล");
 
-  setUpRegisRef();
+  setUpRef();
 
   return new Promise(function(resolve, reject) {
-    regisRef
-      .get()
-      .then(function(doc) {
-        bus.$emit("dialog.off");
+    var pRegis = regisRef.get();
+    var pQuestion = questionRef.get();
 
-        if (doc.exists) {
-          console.log(doc.create_time);
-          let data = doc.data();
-          // console.log("Document data:", data);
-          oldData = copyObject(data);
-          resolve(data);
-        } else {
-          // console.log("No such document!");
-          resolve(null);
-        }
+    Promise.all([pRegis, pQuestion])
+      .then(doc => {
+        let data = {};
+        if (doc[0].exists) data.reg = doc[0].data();
+        if (doc[1].exists) data.qus = doc[1].data();
+
+        oldData = copyObject(data);
+
+        bus.$emit("dialog.off");
+        resolve(data);
       })
       .catch(function(error) {
-        console.log("Error getting document:", error);
+        console.error("Error getting document:", error);
         bus.$emit("dialog.on", "พบข้อผิดพลาดในในการโหลดข้อมูล");
         reject(error);
       });
   });
 }
 
-export { getData, updateDate };
+export { getData, updateData };

@@ -57,7 +57,7 @@
 <script>
 import firebase from "./../core/firebase";
 import bus from "./../core/bus";
-import { getData, updateDate } from "./../core/db";
+import { getData, updateData } from "./../core/db";
 
 import Welcome from "./../view/welcome";
 import CamperInfo from "./../view/camper_info";
@@ -101,17 +101,18 @@ export default {
         address: null,
         edu: null,
         parent: null,
-        pass: null
+        pass: null,
+        created_at: null,
+        update_at: null
       },
       qus: {
         logic: null,
         elect: null,
         pro: null,
-        iot: null
-      },
-      created_at: null,
-      update_at: null,
-      completed_at: null
+        iot: null,
+        update_at: null,
+        completed_at: null
+      }
     },
     slide: {
       left() {
@@ -130,7 +131,7 @@ export default {
   mounted() {
     bus.$on("step.go", next => {
       if (!this.dialog)
-        updateDate(this.form).then(can => {
+        updateData(this.form).then(can => {
           if (can) {
             this.step += next;
             if (this.step < 1) this.step = 1;
@@ -145,11 +146,12 @@ export default {
 
     bus.$on("user", () => {
       getData().then(data => {
-        if (data !== null) this.form = data;
+        if (typeof data.reg !== "undefined") this.form.reg = data.reg;
         else {
-          this.form.created_at = "new-data";
-          this.form.fb_id = firebase.auth().currentUser.providerData[0].uid;
+          this.form.reg.created_at = "new-data";
+          this.form.reg.fb_id = firebase.auth().currentUser.providerData[0].uid;
         }
+        if (typeof data.qus !== "undefined") this.form.qus = data.qus;
 
         bus.$emit("loaded", data);
       });

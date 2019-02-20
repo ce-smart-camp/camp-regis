@@ -3,13 +3,10 @@ function copyObject(obj) {
 
   let newObj = {};
   Object.keys(obj).forEach(key => {
-    if (typeof obj[key] === "object") newObj[key] = copyObject(obj[key]);
+    if (typeof obj[key] === "object" && obj[key] !== null)
+      newObj[key] = copyObject(obj[key]);
     else {
       if (obj[key] === "") obj[key] = null;
-      if (typeof obj[key] === "string") {
-        obj[key] = obj[key].trim();
-        if (obj[key] === "-") obj[key] = null;
-      }
       newObj[key] = obj[key];
     }
   });
