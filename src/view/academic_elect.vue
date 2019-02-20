@@ -9,7 +9,7 @@
     <v-textarea v-model="form.item1" auto-grow rows="5" clearable box />
     <div class="my-3">
       <p>
-        5. จากวงจรด้านล่าง ถ้าสับสวิตซ์ลงผลลัพธ์จะเป็นอย่างไร
+        5. หากต่อวงจรเช่นนี้จะได้ผลลัพธ์เป็นอย่างไร
       </p>
       <v-img :src="require('../assets/question/q-2-2.png')" contain></v-img>
     </div>
@@ -66,7 +66,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 >>> textarea {
   margin-top: 4px !important;
 }

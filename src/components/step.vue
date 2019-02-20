@@ -11,7 +11,7 @@
     </v-card-title>
 
     <v-window v-model="step" :touch="slide">
-      <v-window-item v-for="index in 12" :key="index" :value="index">
+      <v-window-item v-for="index in 13" :key="index" :value="index">
         <Welcome v-if="index === 1" />
         <CamperInfo v-if="index === 2" v-model="form.info" />
         <CamperContact v-if="index === 3" v-model="form.contact" />
@@ -20,10 +20,11 @@
         <CamperEdu v-if="index === 6" v-model="form.edu" />
         <CamperParent v-if="index === 7" v-model="form.parent" />
         <CamperPass v-if="index === 8" v-model="form.pass" />
-        <AcademicLogic v-if="index === 9" />
-        <AcademicElect v-if="index === 10" />
-        <AcademicPro v-if="index === 11" />
-        <End v-if="index === 12" />
+        <AcademicLogic v-if="index === 9" v-model="form.logic" />
+        <AcademicElect v-if="index === 10" v-model="form.elect" />
+        <AcademicPro v-if="index === 11" v-model="form.pro" />
+        <AcademicIot v-if="index === 12" v-model="form.iot" />
+        <End v-if="index === 13" />
       </v-window-item>
     </v-window>
 
@@ -35,7 +36,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        :disabled="step === 12 || dialog"
+        :disabled="step === 13 || dialog"
         color="primary"
         depressed
         @click="nextPage"
@@ -74,6 +75,7 @@ import CamperPass from "./../view/camper_pass";
 import AcademicLogic from "./../view/academic_logic";
 import AcademicElect from "./../view/academic_elect";
 import AcademicPro from "./../view/academic_pro";
+import AcademicIot from "./../view/academic_iot";
 import End from "./../view/end";
 
 function copyObject(obj) {
@@ -172,6 +174,7 @@ export default {
     AcademicLogic,
     AcademicElect,
     AcademicPro,
+    AcademicIot,
     End
   },
   data: () => ({
@@ -196,6 +199,10 @@ export default {
       edu: null,
       parent: null,
       pass: null,
+      logic: null,
+      elect: null,
+      pro: null,
+      iot: null,
       created_at: null,
       update_at: null,
       completed_at: null
@@ -212,9 +219,10 @@ export default {
         "การศึกษา",
         "ผู้ปกครอง",
         "ประวัติการเข้าค่าย",
-        "คำถาม ตรรกศาสตร์",
-        "คำถาม อิเล็กทรอนิกส์",
-        "คำถาม การเขียนโปรแกรม",
+        "คำถาม Part 2/1",
+        "คำถาม Part 2/2",
+        "คำถาม Part 2/3",
+        "คำถาม Part 2/4",
         "บันทึกผล"
       ];
 
@@ -259,7 +267,7 @@ export default {
   },
   methods: {
     nextPage() {
-      if (this.step < 12) {
+      if (this.step < 13) {
         this.dialog_msg = "กำลังบันทึกข้อมูล";
         this.dialog = true;
         updateDate(this.form).then(() => {
