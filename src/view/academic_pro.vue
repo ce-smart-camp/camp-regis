@@ -3,23 +3,35 @@
     <div class="my-3">
       <p>
         7. น้องเคยเขียนโปรแกรมหรือไม่ ถ้าเคยเขียน เขียนภาษาอะไรได้บ้าง
-        ลองเขียนโปรแกรมภาษานั้นให้แสดงข้อความว่า
+        ลองเขียนโปรแกรมภาษานั้นให้แสดงข้อความว่า<br />
+        <center><code>\* “CE*Smart*Camp” #12 */</code></center>
       </p>
-      <pre class="text-xs-center">
-\* “CE*Smart*Camp” #12 */
-      </pre>
     </div>
-    <v-textarea v-model="form.item1" auto-grow rows="5" clearable box />
+    <v-textarea
+      v-model="form.item1"
+      class="nolabel"
+      auto-grow
+      rows="5"
+      clearable
+      box
+    />
     <div class="my-3">
       <p>
-        8. จาก Code arduino ด้านล่าง
-        พี่ๆอยากให้น้องหาจุดผิดที่ทำให้โปรแกรมไม่สามารถทำงานได้พร้อมแก้ไขให้ถูกต้อง
+        8. จาก Code arduino ด้านล่าง พี่ๆอยากให้น้องหาจุดผิด
+        ที่ทำให้โปรแกรมไม่สามารถทำงานได้พร้อมแก้ไขให้ถูกต้อง (ถ้ามี)
         และแสดงผลลัพธ์ที่ได้ออกมาจากการทำงานของโปรแกรม<br />
         <i>(เขียนบรรทัดที่ผิด+จุดที่ผิด พร้อมแก้ไขให้ถูกต้อง)</i>
       </p>
       <v-img :src="require('../assets/question/q-3-3.png')" contain></v-img>
     </div>
-    <v-textarea v-model="form.item2" auto-grow rows="5" clearable box />
+    <v-textarea
+      v-model="form.item2"
+      class="nolabel"
+      auto-grow
+      rows="5"
+      clearable
+      box
+    />
     <div class="my-3">
       <p>
         9. การที่ใบสมัครที่น้องกำลังทำนี้ จะเดินทางมาถึงพี่ๆได้
@@ -29,7 +41,14 @@
         <i>(Hint : ขั้นตอนดำเนินการอยู่ในเว็บไซต์สมัคร)</i>
       </p>
     </div>
-    <v-textarea v-model="form.item3" auto-grow rows="5" clearable box />
+    <v-textarea
+      v-model="form.item3"
+      class="nolabel"
+      auto-grow
+      rows="5"
+      clearable
+      box
+    />
   </v-card-text>
 </template>
 
@@ -74,9 +93,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
->>> textarea {
-  margin-top: 4px !important;
-}
-</style>

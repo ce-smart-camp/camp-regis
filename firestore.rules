@@ -2,11 +2,30 @@ function checkOwn(userID) {
 	return request.auth != null && request.auth.uid == userID;
 }
 
+function timeout1() {
+	return request.time < timestamp.value(1554829200000); // 10 เมษายน 2019 เวลา 0:00:00
+}
+
+function timeout2() {
+	return request.time < timestamp.value(1555718400000); // 20 เมษายน 2019 เวลา 0:00:00
+}
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /registration/{userID} {
+    match /reg/{userID} {
       allow read: if checkOwn(userID);
-      allow write: if checkOwn(userID) && request.time < timestamp.value(1555779600000);
+      allow create: if checkOwn(userID) && timeout1() &&
+      									request.resource.data.created_at <= request.time;
+      allow update: if checkOwn(userID) && timeout1() &&
+      									request.resource.data.update_at <= request.time &&
+                        request.resource.data.created_at <= request.resource.data.update_at;
+    }
+    
+    match /qus/{userID} {
+      allow read: if checkOwn(userID);
+      allow create: if checkOwn(userID) && timeout1();
+      allow update: if checkOwn(userID) && timeout2() &&
+      									request.resource.data.update_at <= request.time;
     }
   }
 }

@@ -5,8 +5,9 @@ import bus from "./bus";
 
 // Signs-in Friendly Chat.
 function signIn() {
-  var provider = new firebase.auth.FacebookAuthProvider();
+  bus.$emit("dialogOn", "กำลังลงชื่อเข้าใช้");
 
+  var provider = new firebase.auth.FacebookAuthProvider();
   firebase.auth().signInWithRedirect(provider);
 }
 
@@ -15,7 +16,6 @@ function authStateObserver(user) {
   if (user) {
     bus.$emit("user");
   } else {
-    bus.$emit("signin");
     signIn();
   }
 }
