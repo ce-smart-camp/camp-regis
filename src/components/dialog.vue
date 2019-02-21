@@ -14,13 +14,16 @@ import bus from "./../core/bus";
 
 export default {
   data: () => ({
-    dialog: true,
+    dialog: false,
     msg: "กำลังเตรียมพร้อม"
   }),
   watch: {
     dialog(val) {
       bus.$emit("dialog.change", val);
     }
+  },
+  created() {
+    this.dialog = true;
   },
   mounted() {
     bus.$on("dialog.on", msg => {

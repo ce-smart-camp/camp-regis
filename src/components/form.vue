@@ -129,16 +129,9 @@ export default {
     }
   },
   mounted() {
-    bus.$on("step.go", next => {
-      if (!this.dialog)
-        updateData(this.form).then(can => {
-          if (can) {
-            this.step += next;
-            if (this.step < 1) this.step = 1;
-            if (this.step > 13) this.step = 13;
-          }
-        });
-    });
+    bus.$on("step.go", next => this.goto(this.step + next));
+
+    bus.$on("step.goto", to => this.goto(to));
 
     bus.$on("dialog.change", val => {
       this.dialog = val;
@@ -156,6 +149,18 @@ export default {
         bus.$emit("loaded", data);
       });
     });
+  },
+  methods: {
+    goto(val) {
+      if (!this.dialog)
+        updateData(this.form).then(can => {
+          if (can) {
+            this.step = val;
+            if (this.step < 1) this.step = 1;
+            if (this.step > 13) this.step = 13;
+          }
+        });
+    }
   }
 };
 </script>
