@@ -6,26 +6,35 @@
       mask="#-####-#####-##-#"
       :rules="[rules.national_id]"
       clearable
+      :disabled="disable"
     />
     <v-text-field
       v-model="form.name"
       label="ชื่อ"
       browser-autocomplete="given-name"
       clearable
+      :disabled="disable"
     />
     <v-text-field
       v-model="form.surname"
       label="นามสกุล"
       browser-autocomplete="family-name"
       clearable
+      :disabled="disable"
     />
-    <v-text-field v-model="form.nickname" label="ชื่อเล่น" clearable />
+    <v-text-field
+      v-model="form.nickname"
+      label="ชื่อเล่น"
+      clearable
+      :disabled="disable"
+    />
     <v-select
       v-model="form.gender"
       :items="option.gender"
       label="เพศ"
       prepend-icon="wc"
       clearable
+      :disabled="disable"
     />
     <v-text-field
       v-model="form.birth"
@@ -35,6 +44,7 @@
       hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
       return-masked-value
       clearable
+      :disabled="disable"
       @blur="date = parseDate(form.birth)"
       @click:clear="date = parseDate(form.birth)"
     >
@@ -67,11 +77,14 @@
       :items="option.religion"
       label="ศาสนา"
       clearable
+      :disabled="disable"
     />
   </v-card-text>
 </template>
 
 <script>
+import bus from "./../core/bus";
+
 const Options = options =>
   Object.entries(options).map(([value, text]) => ({ value, text }));
 
@@ -112,6 +125,7 @@ export default {
     }
   },
   data: () => ({
+    disable: false,
     option: {
       gender: genderOptions,
       religion: religionOptions
@@ -158,6 +172,8 @@ export default {
       });
     }
     this.$emit("input", this.form);
+
+    bus.$on("reg.close", () => (this.disable = true));
   },
   methods: {
     formatDate(date) {

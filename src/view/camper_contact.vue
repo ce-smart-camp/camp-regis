@@ -6,19 +6,27 @@
       browser-autocomplete="tel"
       mask="## #### ####"
       clearable
+      :disabled="disable"
     />
     <v-text-field
       v-model="form.email"
       label="จดหมายอิเล็กทรอนิกส์"
       browser-autocomplete="email"
       clearable
+      :disabled="disable"
     />
-    <v-text-field v-model="form.fb" label="Facebook" clearable />
+    <v-text-field
+      v-model="form.fb"
+      label="Facebook"
+      clearable
+      :disabled="disable"
+    />
     <v-text-field
       v-model="form.line"
       label="Line ID"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
       clearable
+      :disabled="disable"
     />
     <v-textarea
       v-model="form.talent"
@@ -27,12 +35,14 @@
       auto-grow
       rows="3"
       clearable
+      :disabled="disable"
     />
     <v-select
       v-model="form.shirt"
       :items="option.shirtSize"
       label="ขนาดเสื้อ"
       clearable
+      :disabled="disable"
     />
   </v-card-text>
 </template>
@@ -63,8 +73,8 @@ export default {
       }
     }
   },
-
   data: () => ({
+    disable: false,
     option: {
       shirtSize: shirtSizeOptions
     },
@@ -112,6 +122,8 @@ export default {
         data.contact.phone ||
         firebase.auth().currentUser.providerData[0].phoneNumber;
     });
+
+    bus.$on("reg.close", () => (this.disable = true));
   }
 };
 </script>

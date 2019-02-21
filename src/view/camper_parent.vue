@@ -1,24 +1,38 @@
 <template>
   <v-card-text>
-    <v-text-field v-model="form.name" label="ชื่อ" clearable />
-    <v-text-field v-model="form.surname" label="นามสกุล" clearable />
+    <v-text-field
+      v-model="form.name"
+      label="ชื่อ"
+      clearable
+      :disabled="disable"
+    />
+    <v-text-field
+      v-model="form.surname"
+      label="นามสกุล"
+      clearable
+      :disabled="disable"
+    />
     <v-combobox
       v-model="form.relation"
       label="ความเกี่ยวข้อง"
       :items="itemsRelation"
       clearable
       auto-select-first
+      :disabled="disable"
     />
     <v-text-field
       v-model="form.tel"
       label="หมายเลขโทรศัพท์"
       mask="## #### ####"
       clearable
+      :disabled="disable"
     />
   </v-card-text>
 </template>
 
 <script>
+import bus from "./../core/bus";
+
 export default {
   props: {
     value: {
@@ -29,6 +43,7 @@ export default {
     }
   },
   data: () => ({
+    disable: false,
     itemsRelation: [
       "บิดา",
       "คุณพ่อ",
@@ -74,6 +89,8 @@ export default {
       });
     }
     this.$emit("input", this.form);
+
+    bus.$on("reg.close", () => (this.disable = true));
   }
 };
 </script>

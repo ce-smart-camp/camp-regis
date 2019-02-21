@@ -4,9 +4,18 @@
     <!-- <NavBar /> -->
     <v-content>
       <v-container grid-list-lg>
-        <step />
+        <v-layout row wrap>
+          <v-flex xs12>
+            <step />
+          </v-flex>
+
+          <v-flex xs12>
+            <Time />
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-content>
+
     <Dialog />
   </v-app>
 </template>
@@ -15,13 +24,15 @@
 import step from "./components/step";
 import SideBar from "./components/SideBar";
 import Dialog from "./components/dialog";
+import Time from "./components/time";
 
 export default {
   name: "App",
   components: {
     step,
     SideBar,
-    Dialog
+    Dialog,
+    Time
   },
   data() {
     return {
