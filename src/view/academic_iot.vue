@@ -17,6 +17,7 @@
       label="ทำไมน้องๆถึงเลือกทำโปรเจคนี้ขึ้นมา"
       clearable
       box
+      :disabled="disable"
     />
     <v-textarea
       v-model="form.item2"
@@ -25,6 +26,7 @@
       label="ของที่ใช้ในการทำโปรเจคมีอะไรบ้าง"
       clearable
       box
+      :disabled="disable"
     />
     <v-textarea
       v-model="form.item3"
@@ -33,6 +35,7 @@
       label="โปรเจคที่คิดออกมาใครสามารถนำไปใช้ได้บ้าง อย่างไร"
       clearable
       box
+      :disabled="disable"
     />
     <v-textarea
       v-model="form.item4"
@@ -41,11 +44,14 @@
       label="สามารถนำไปต่อยอดได้อย่าง"
       clearable
       box
+      :disabled="disable"
     />
   </v-card-text>
 </template>
 
 <script>
+import bus from "./../core/bus";
+
 export default {
   props: {
     value: {
@@ -56,6 +62,7 @@ export default {
     }
   },
   data: () => ({
+    disable: false,
     form: {
       item1: null,
       item2: null,
@@ -84,6 +91,8 @@ export default {
       });
     }
     this.$emit("input", this.form);
+
+    bus.$on("qus.close", () => (this.disable = true));
   }
 };
 </script>
