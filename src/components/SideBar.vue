@@ -3,8 +3,9 @@
     <v-navigation-drawer
       v-model="drawer"
       fixed
-      :clipped="$vuetify.breakpoint.mdAndUp"
+      :clipped="$vuetify.breakpoint.smAndUp"
       app
+      width="280"
     >
       <v-list dense expand>
         <template v-for="item in items">
@@ -48,13 +49,14 @@
       color="blue darken-3"
       dark
       app
-      :clipped-left="$vuetify.breakpoint.mdAndUp"
+      :clipped-left="$vuetify.breakpoint.smAndUp"
       fixed
       dense
     >
       <v-toolbar-title class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer" />
-        <span class="hidden-sm-and-down">ระบบสมัครค่าย CE Smart Camp #12</span>
+        <span class="hidden-xs-only">ระบบสมัครค่าย </span>
+        <span>CE Smart Camp #12</span>
       </v-toolbar-title>
     </v-toolbar>
   </div>
@@ -86,11 +88,11 @@ export default {
         children: [
           { goto: 2, text: "ข้อมูลเบื้องต้น", icon: "person" },
           { goto: 3, text: "การติดต่อ", icon: "contacts" },
-          { goto: 4, text: "ประวัติสุขภาพ", icon: "local_hospital" },
+          { goto: 4, text: "ข้อมูลสุขภาพ", icon: "local_hospital" },
           { goto: 5, text: "ที่อยู่", icon: "place" },
           { goto: 6, text: "การศึกษา", icon: "school" },
           { goto: 7, text: "ผู้ปกครอง", icon: "supervisor_account" },
-          { goto: 8, text: "ค่ายก่อนหน้า", icon: "style" }
+          { goto: 8, text: "ประวัติการเข้าค่าย", icon: "style" }
         ]
       },
       {

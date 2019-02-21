@@ -38,7 +38,7 @@
     />
     <v-textarea
       v-model="form.knowFrom"
-      label="รู้จักค่ายนี้มาจากไหน"
+      label="รู้จักค่ายนี้มาจากที่ไหน"
       auto-grow
       rows="3"
       clearable

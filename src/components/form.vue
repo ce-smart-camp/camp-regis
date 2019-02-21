@@ -164,3 +164,9 @@ export default {
   }
 };
 </script>
+
+<style>
+p {
+  font-size: 16px;
+}
+</style>

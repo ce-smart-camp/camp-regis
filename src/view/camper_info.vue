@@ -57,7 +57,7 @@
           scrollable
           locale="th-th"
           :max="new Date().toISOString().substr(0, 10)"
-          min="1950-01-01"
+          min="1995-01-01"
         />
       </v-menu>
     </v-text-field>

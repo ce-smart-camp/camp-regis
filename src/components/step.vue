@@ -83,13 +83,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.nolabel >>> textarea {
-  margin-top: 4px !important;
-}
-
-p {
-  font-size: 16px;
-}
-</style>
