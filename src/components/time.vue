@@ -12,6 +12,7 @@
 
 <script>
 import { tOut1, tOut2 } from "./../core/timing";
+import bus from "./../core/bus";
 
 export default {
   data: () => ({
@@ -26,6 +27,7 @@ export default {
       if (distance < 0) {
         clearInterval(iRegis);
         this.regisTime = "หมดเวลา";
+        bus.$emit("reg.close");
       }
     }, 1000);
 
@@ -36,6 +38,7 @@ export default {
       if (distance < 0) {
         clearInterval(iQus);
         this.questionTime = "หมดเวลา";
+        bus.$emit("qus.close");
       }
     }, 1000);
   },

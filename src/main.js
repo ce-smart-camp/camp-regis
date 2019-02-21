@@ -4,7 +4,6 @@ import "./plugins/vuetify";
 import App from "./App.vue";
 
 import "./core/auth";
-import "./core/timing";
 
 Vue.config.productionTip = false;
 
