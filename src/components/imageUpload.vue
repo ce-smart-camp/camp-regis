@@ -29,6 +29,15 @@
 import bus from "./../core/bus";
 import firebase from "./../core/firebase";
 
+let fileRef = null;
+
+function setupFileRef() {
+  if (fileRef === null) {
+    var filePath = firebase.auth().currentUser.uid + "/pic";
+    fileRef = firebase.storage().ref(filePath);
+  }
+}
+
 export default {
   props: {
     disabled: {
@@ -43,23 +52,9 @@ export default {
   }),
   mounted() {
     bus.$on("user", () => {
-      var filePath = firebase.auth().currentUser.uid + "/pic";
-      var imgRef = firebase.storage().ref(filePath);
-      imgRef
-        .getDownloadURL()
-        .then(url => {
-          this.imageUrl = url;
-        })
-        .catch(function(error) {
-          // A full list of error codes is available at
-          // https://firebase.google.com/docs/storage/web/handle-errors
-          switch (error.code) {
-            case "storage/object-not-found":
-              break;
-            default:
-              console.error(error);
-          }
-        });
+      setupFileRef();
+
+      this.loadImg();
     });
   },
 
@@ -89,19 +84,36 @@ export default {
       if (file.size > 5 * 1024 * 1024) {
         bus.$emit(
           "dialog.on",
-          "ดูเหมือนภาพของน้องๆจะใหญ่เกินไป โปรดลองภาพที่มีขนาดเล็กกว่านี้นะครับ ขนาดสูงสุดที่อนุญาตคือ 5MB"
+          "ดูเหมือนภาพของน้องๆจะใหญ่เกินไป ลองใช้ภาพที่มีขนาดเล็กกว่านี้ดูนะครับ ขนาดสูงสุดที่อนุญาตคือ 5MB"
         );
         return;
       }
 
-      var filePath = firebase.auth().currentUser.uid + "/pic";
-      var imgRef = firebase.storage().ref(filePath);
-      imgRef.put(file).then(fileSnapshot => {
-        return fileSnapshot.ref.getDownloadURL().then(url => {
+      setupFileRef();
+
+      fileRef.put(file).then(fileSnapshot => {
+        fileRef = fileSnapshot.ref;
+        this.loadImg();
+      });
+    },
+
+    loadImg() {
+      fileRef
+        .getDownloadURL()
+        .then(url => {
           this.imageUrl = url;
           this.uploading = false;
+        })
+        .catch(function(error) {
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case "storage/object-not-found":
+              break;
+            default:
+              console.error(error);
+          }
         });
-      });
     }
   }
 };

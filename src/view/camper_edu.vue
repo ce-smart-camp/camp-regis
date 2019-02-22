@@ -14,7 +14,7 @@
     />
     <v-combobox
       v-model="classRaw"
-      label="ระดับชั้น (ปีการศึกษา 2561)"
+      label="ระดับชั้น (ปีการศึกษา 2562)"
       :items="gradesOptions"
       clearable
       auto-select-first
