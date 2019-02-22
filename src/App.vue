@@ -16,6 +16,8 @@
       </v-container>
     </v-content>
 
+    <Loader />
+
     <Dialog />
   </v-app>
 </template>
@@ -23,16 +25,20 @@
 <script>
 import step from "./components/step";
 import SideBar from "./components/SideBar";
-import Dialog from "./components/dialog";
 import Time from "./components/time";
+
+// dialogs
+import Loader from "./components/loader";
+import Dialog from "./components/dialog";
 
 export default {
   name: "App",
   components: {
     step,
     SideBar,
-    Dialog,
-    Time
+    Time,
+    Loader,
+    Dialog
   },
   data() {
     return {

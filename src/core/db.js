@@ -20,7 +20,7 @@ function setUpRef() {
 }
 
 function updateData(data) {
-  bus.$emit("dialog.on", "กำลังบันทึกข้อมูล");
+  bus.$emit("loader.on", "กำลังบันทึกข้อมูล");
 
   setUpRef();
 
@@ -57,19 +57,22 @@ function updateData(data) {
       .then(() => {
         oldData = updateData;
         data.reg.created_at = "save-data";
-        bus.$emit("dialog.off");
+        bus.$emit("loader.off");
         resolve(true);
       })
       .catch(function(error) {
         console.error("Error writing document: ", error);
-        bus.$emit("dialog.on", "มีข้อผิดพลาดในการบันทึกข้อมูล");
+        bus.$emit(
+          "loader.on",
+          "มีข้อผิดพลาดในการบันทึกข้อมูล บางทีระบบส่วนนี้อาจจะถูกปิดไปแล้ว"
+        );
         reject(error);
       });
   });
 }
 
 function getData() {
-  bus.$emit("dialog.on", "กำลังโหลดข้อมูล");
+  bus.$emit("loader.on", "กำลังโหลดข้อมูล");
 
   setUpRef();
 
@@ -85,12 +88,12 @@ function getData() {
 
         oldData = copyObject(data);
 
-        bus.$emit("dialog.off");
+        bus.$emit("loader.off");
         resolve(data);
       })
       .catch(function(error) {
         console.error("Error getting document:", error);
-        bus.$emit("dialog.on", "พบข้อผิดพลาดในในการโหลดข้อมูล");
+        bus.$emit("loader.on", "พบข้อผิดพลาดในในการโหลดข้อมูล");
         reject(error);
       });
   });

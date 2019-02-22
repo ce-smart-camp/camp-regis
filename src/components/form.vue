@@ -133,7 +133,7 @@ export default {
 
     bus.$on("step.goto", to => this.goto(to));
 
-    bus.$on("dialog.change", val => {
+    bus.$on("loader.change", val => {
       this.dialog = val;
     });
 

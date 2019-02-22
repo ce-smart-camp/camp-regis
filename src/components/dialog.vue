@@ -1,10 +1,21 @@
 <template>
-  <v-dialog v-model="dialog" hide-overlay persistent width="300">
-    <v-card color="primary" dark>
+  <v-dialog v-model="dialog" max-width="290">
+    <v-card>
+      <v-card-title class="headline">
+        แจ้งถึงน้องๆๆ
+      </v-card-title>
+
       <v-card-text>
         {{ msg }}
-        <v-progress-linear indeterminate color="white" class="mb-0" />
       </v-card-text>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+
+        <v-btn flat="flat" @click="dialog = false">
+          ปิด
+        </v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -15,24 +26,12 @@ import bus from "./../core/bus";
 export default {
   data: () => ({
     dialog: false,
-    msg: "กำลังเตรียมพร้อม"
+    msg: ""
   }),
-  watch: {
-    dialog(val) {
-      bus.$emit("dialog.change", val);
-    }
-  },
-  created() {
-    this.dialog = true;
-  },
   mounted() {
     bus.$on("dialog.on", msg => {
       this.msg = msg;
       this.dialog = true;
-    });
-
-    bus.$on("dialog.off", () => {
-      this.dialog = false;
     });
   }
 };

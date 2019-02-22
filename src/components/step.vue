@@ -66,7 +66,7 @@ export default {
     }
   },
   mounted() {
-    bus.$on("dialog.change", val => {
+    bus.$on("loader.change", val => {
       this.dialog = val;
     });
     bus.$on("step.change", val => {
