@@ -13,6 +13,7 @@
       rows="5"
       clearable
       box
+      :disabled="disable"
     />
     <div class="my-3">
       <p>
@@ -27,6 +28,7 @@
       rows="5"
       clearable
       box
+      :disabled="disable"
     />
     <div class="my-3">
       <p>
@@ -41,11 +43,14 @@
       rows="5"
       clearable
       box
+      :disabled="disable"
     />
   </v-card-text>
 </template>
 
 <script>
+import bus from "./../core/bus";
+
 export default {
   props: {
     value: {
@@ -56,6 +61,7 @@ export default {
     }
   },
   data: () => ({
+    disable: false,
     form: {
       item1: null,
       item2: null,
@@ -83,6 +89,8 @@ export default {
       });
     }
     this.$emit("input", this.form);
+
+    bus.$on("qus.close", () => (this.disable = true));
   }
 };
 </script>

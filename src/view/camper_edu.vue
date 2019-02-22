@@ -1,26 +1,45 @@
 <template>
   <v-card-text>
-    <v-text-field v-model="form.school" label="โรงเรียน" clearable />
-    <v-text-field v-model="form.province" label="จังหวัด" clearable />
+    <v-text-field
+      v-model="form.school"
+      label="โรงเรียน"
+      clearable
+      :disabled="disable"
+    />
+    <v-text-field
+      v-model="form.province"
+      label="จังหวัด"
+      clearable
+      :disabled="disable"
+    />
     <v-combobox
       v-model="classRaw"
       label="ระดับชั้น (ปีการศึกษา 2561)"
       :items="gradesOptions"
       clearable
       auto-select-first
+      :disabled="disable"
     />
-    <v-text-field v-model="form.plan" label="แผนการศึกษา" clearable />
+    <v-text-field
+      v-model="form.plan"
+      label="แผนการศึกษา"
+      clearable
+      :disabled="disable"
+    />
     <v-text-field
       v-model="form.gpax"
       label="เกรดเฉลี่ย"
       mask="#.##"
       return-masked-value
       clearable
+      :disabled="disable"
     />
   </v-card-text>
 </template>
 
 <script>
+import bus from "./../core/bus";
+
 const Options = options =>
   Object.entries(options).map(([value, text]) => ({ value, text }));
 
@@ -45,6 +64,7 @@ export default {
     }
   },
   data: () => ({
+    disable: false,
     gradesOptions,
     classRaw: null,
     form: {
@@ -92,6 +112,8 @@ export default {
       });
     }
     this.$emit("input", this.form);
+
+    bus.$on("reg.close", () => (this.disable = true));
   }
 };
 </script>

@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import "firebase/storage";
 
 // Initialize Firebase
 const config = {

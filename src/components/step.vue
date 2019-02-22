@@ -66,7 +66,7 @@ export default {
     }
   },
   mounted() {
-    bus.$on("dialog.change", val => {
+    bus.$on("loader.change", val => {
       this.dialog = val;
     });
     bus.$on("step.change", val => {
@@ -83,13 +83,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.nolabel >>> textarea {
-  margin-top: 4px !important;
-}
-
-p {
-  font-size: 16px;
-}
-</style>

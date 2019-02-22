@@ -7,6 +7,7 @@
       auto-grow
       rows="3"
       clearable
+      :disabled="disable"
     />
     <v-textarea
       v-model="form.drug"
@@ -15,6 +16,7 @@
       auto-grow
       rows="3"
       clearable
+      :disabled="disable"
     />
     <v-textarea
       v-model="form.food"
@@ -23,11 +25,14 @@
       auto-grow
       rows="3"
       clearable
+      :disabled="disable"
     />
   </v-card-text>
 </template>
 
 <script>
+import bus from "./../core/bus";
+
 export default {
   props: {
     value: {
@@ -38,6 +43,7 @@ export default {
     }
   },
   data: () => ({
+    disable: false,
     form: {
       disease: null,
       drug: null,
@@ -65,6 +71,8 @@ export default {
       });
     }
     this.$emit("input", this.form);
+
+    bus.$on("reg.close", () => (this.disable = true));
   }
 };
 </script>
