@@ -1,5 +1,7 @@
 <template>
   <v-card-text>
+    <ImgUp />
+
     <v-text-field
       v-model="form.nid"
       label="เลขประจำตัวประชาชนไทย"
@@ -84,6 +86,7 @@
 
 <script>
 import bus from "./../core/bus";
+import ImgUp from "./../components/imageUpload";
 
 const Options = options =>
   Object.entries(options).map(([value, text]) => ({ value, text }));
@@ -116,6 +119,9 @@ function checkID(id) {
 }
 
 export default {
+  components: {
+    ImgUp
+  },
   props: {
     value: {
       type: Object,
