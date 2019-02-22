@@ -1,15 +1,12 @@
 <template>
   <v-container fluid>
-    <v-flex
-      xs12
-      class="text-xs-center text-sm-center text-md-center text-lg-center"
-    >
+    <v-flex class="text-xs-center">
       <v-img :src="imageUrl" class="grey lighten-2" max-height="300" contain />
 
       <v-btn
         :loading="uploading"
         :disabled="uploading || disabled"
-        color="blue-grey"
+        color="blue"
         class="white--text"
         @click="pickFile"
       >

@@ -14,7 +14,7 @@
       v-model="form.item1"
       auto-grow
       rows="3"
-      label="ทำไมน้องๆถึงเลือกทำโปรเจคนี้ขึ้นมา"
+      label="อธิบายรายละเอียดเกี่ยวกับโปรเจค"
       clearable
       box
       :disabled="disable"
@@ -23,7 +23,7 @@
       v-model="form.item2"
       auto-grow
       rows="3"
-      label="ของที่ใช้ในการทำโปรเจคมีอะไรบ้าง"
+      label="ทำไมน้องๆถึงเลือกทำโปรเจคนี้ขึ้นมา"
       clearable
       box
       :disabled="disable"
@@ -32,13 +32,22 @@
       v-model="form.item3"
       auto-grow
       rows="3"
-      label="โปรเจคที่คิดออกมาใครสามารถนำไปใช้ได้บ้าง อย่างไร"
+      label="ของที่ใช้ในการทำโปรเจคมีอะไรบ้าง"
       clearable
       box
       :disabled="disable"
     />
     <v-textarea
       v-model="form.item4"
+      auto-grow
+      rows="3"
+      label="โปรเจคที่คิดออกมาใครสามารถนำไปใช้ได้บ้าง อย่างไร"
+      clearable
+      box
+      :disabled="disable"
+    />
+    <v-textarea
+      v-model="form.item5"
       auto-grow
       rows="3"
       label="สามารถนำไปต่อยอดได้อย่าง"
@@ -67,7 +76,8 @@ export default {
       item1: null,
       item2: null,
       item3: null,
-      item4: null
+      item4: null,
+      item5: null
     }
   }),
   watch: {
