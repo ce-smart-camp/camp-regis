@@ -1,6 +1,6 @@
 <template>
   <v-card-text>
-    <ImgUp />
+    <ImgUp :disabled="disable" />
 
     <v-text-field
       v-model="form.nid"

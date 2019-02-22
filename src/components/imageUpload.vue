@@ -8,12 +8,12 @@
 
       <v-btn
         :loading="uploading"
-        :disabled="uploading"
+        :disabled="uploading || disabled"
         color="blue-grey"
         class="white--text"
         @click="pickFile"
       >
-        อัปโหลดรูปที่มีหน้าน้องๆ
+        อัปโหลดรูปที่เห็นหน้าน้องๆชัดเจน
         <v-icon right dark>cloud_upload</v-icon>
       </v-btn>
 
@@ -33,6 +33,12 @@ import bus from "./../core/bus";
 import firebase from "./../core/firebase";
 
 export default {
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
   data: () => ({
     uploading: false,
     imageUrl: "",
