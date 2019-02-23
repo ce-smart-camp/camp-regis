@@ -17,12 +17,9 @@ function authStateObserver(user) {
     bus.$emit("user");
 
     // eslint-disable-next-line
-    FS.identify(user.uid, {
+    analytics.identify(user.uid, {
       displayName: user.displayName,
-      email: user.email,
-      // TODO: Add your own custom user variables here, details at
-      // http://help.fullstory.com/develop-js/setuservars
-      reviewsWritten_int: 14
+      email: user.email
     });
   } else {
     signIn();
