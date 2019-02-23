@@ -49,7 +49,7 @@
     </v-window-item>
 
     <v-window-item :value="13">
-      <End />
+      <End v-model="form" />
     </v-window-item>
   </v-window>
 </template>

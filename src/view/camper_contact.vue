@@ -5,28 +5,32 @@
       label="หมายเลขโทรศัพท์เคลื่อนที่"
       browser-autocomplete="tel"
       mask="## #### ####"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.email"
       label="จดหมายอิเล็กทรอนิกส์"
       browser-autocomplete="email"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.fb"
       label="Facebook"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.line"
       label="Line ID"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-textarea
       v-model="form.talent"
@@ -34,15 +38,16 @@
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
       auto-grow
       rows="3"
-      clearable
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-select
       v-model="form.shirt"
       :items="option.shirtSize"
       label="ขนาดเสื้อ"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
   </v-card-text>
 </template>
@@ -70,6 +75,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({

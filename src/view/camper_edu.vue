@@ -3,36 +3,41 @@
     <v-text-field
       v-model="form.school"
       label="โรงเรียน"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.province"
       label="จังหวัด"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-combobox
       v-model="classRaw"
       label="ระดับชั้น (ปีการศึกษา 2562)"
       :items="gradesOptions"
-      clearable
+      :clearable="!disable && !readonly"
       auto-select-first
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.plan"
       label="แผนการศึกษา"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.gpax"
       label="เกรดเฉลี่ย"
       mask="#.##"
       return-masked-value
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
   </v-card-text>
 </template>
@@ -61,6 +66,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({

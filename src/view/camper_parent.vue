@@ -3,29 +3,33 @@
     <v-text-field
       v-model="form.name"
       label="ชื่อ"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.surname"
       label="นามสกุล"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-combobox
       v-model="form.relation"
       label="ความเกี่ยวข้อง"
       :items="itemsRelation"
-      clearable
+      :clearable="!disable && !readonly"
       auto-select-first
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.tel"
       label="หมายเลขโทรศัพท์"
       mask="## #### ####"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
   </v-card-text>
 </template>
@@ -40,6 +44,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({

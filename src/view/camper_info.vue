@@ -1,42 +1,47 @@
 <template>
   <v-card-text>
-    <ImgUp :disabled="disable" />
+    <ImgUp :disabled="disable" :readonly="readonly" />
 
     <v-text-field
       v-model="form.nid"
       label="เลขประจำตัวประชาชนไทย"
       mask="#-####-#####-##-#"
       :rules="[rules.national_id]"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.name"
       label="ชื่อ"
       browser-autocomplete="given-name"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.surname"
       label="นามสกุล"
       browser-autocomplete="family-name"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.nickname"
       label="ชื่อเล่น"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-select
       v-model="form.gender"
       :items="option.gender"
       label="เพศ"
       prepend-icon="wc"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.birth"
@@ -45,8 +50,9 @@
       mask="##/##/####"
       hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
       return-masked-value
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
       @blur="date = parseDate(form.birth)"
       @click:clear="date = parseDate(form.birth)"
     >
@@ -61,6 +67,7 @@
         offset-y
         full-width
         min-width="290px"
+        :disabled="disable || readonly"
       >
         <v-icon slot="activator">event</v-icon>
         <v-date-picker
@@ -78,8 +85,9 @@
       v-model="form.religion"
       :items="option.religion"
       label="ศาสนา"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
   </v-card-text>
 </template>
@@ -128,6 +136,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({

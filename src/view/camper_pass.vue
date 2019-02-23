@@ -2,53 +2,59 @@
   <v-card-text>
     <v-text-field
       v-model="form.camp1"
-      label="ค่าย"
+      label="ค่ายที่ 1"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.camp1_uni"
       label="มหาวิทยาลัย / หน่วยงาน"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.camp2"
-      label="ค่าย"
+      label="ค่ายที่ 2"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.camp2_uni"
       label="มหาวิทยาลัย / หน่วยงาน"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.camp3"
-      label="ค่าย"
+      label="ค่ายที่ 3"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.camp3_uni"
       label="มหาวิทยาลัย / หน่วยงาน"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-textarea
       v-model="form.knowFrom"
       label="รู้จักค่ายนี้มาจากที่ไหน"
       auto-grow
       rows="3"
-      clearable
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
   </v-card-text>
 </template>
@@ -63,6 +69,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({

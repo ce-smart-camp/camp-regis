@@ -11,9 +11,9 @@
       class="nolabel"
       auto-grow
       rows="5"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <div class="my-3">
       <p>
@@ -26,9 +26,9 @@
       class="nolabel"
       auto-grow
       rows="5"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <div class="my-3">
       <p>
@@ -41,9 +41,9 @@
       class="nolabel"
       auto-grow
       rows="5"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
   </v-card-text>
 </template>
@@ -58,6 +58,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({

@@ -15,45 +15,45 @@
       auto-grow
       rows="3"
       label="อธิบายรายละเอียดเกี่ยวกับโปรเจค"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-textarea
       v-model="form.item2"
       auto-grow
       rows="3"
       label="ทำไมน้องๆถึงเลือกทำโปรเจคนี้ขึ้นมา"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-textarea
       v-model="form.item3"
       auto-grow
       rows="3"
       label="ของที่ใช้ในการทำโปรเจคมีอะไรบ้าง"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-textarea
       v-model="form.item4"
       auto-grow
       rows="3"
       label="โปรเจคที่คิดออกมาใครสามารถนำไปใช้ได้บ้าง อย่างไร"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-textarea
       v-model="form.item5"
       auto-grow
       rows="3"
       label="สามารถนำไปต่อยอดได้อย่าง"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
   </v-card-text>
 </template>
@@ -68,6 +68,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({

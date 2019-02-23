@@ -4,6 +4,7 @@
       <v-img :src="imageUrl" class="grey lighten-2" max-height="300" contain />
 
       <v-btn
+        v-if="!readonly"
         :loading="uploading"
         :disabled="uploading || disabled"
         color="blue"
@@ -41,6 +42,10 @@ function setupFileRef() {
 export default {
   props: {
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
       type: Boolean,
       default: false
     }
