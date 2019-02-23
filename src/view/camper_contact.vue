@@ -5,51 +5,54 @@
       label="หมายเลขโทรศัพท์เคลื่อนที่"
       browser-autocomplete="tel"
       mask="## #### ####"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.email"
       label="จดหมายอิเล็กทรอนิกส์"
       browser-autocomplete="email"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.fb"
       label="Facebook"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-text-field
       v-model="form.line"
       label="Line ID"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-textarea
       v-model="form.talent"
       label="ความสามารถพิเศษ"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      auto-grow
       rows="3"
-      clearable
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-select
       v-model="form.shirt"
       :items="option.shirtSize"
       label="ขนาดเสื้อ"
-      clearable
-      :disabled="disable"
+      :clearable="!disable && !readonly"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
   </v-card-text>
 </template>
 
 <script>
 import bus from "./../core/bus";
-import firebase from "./../core/firebase";
 const Options = options =>
   Object.entries(options).map(([value, text]) => ({ value, text }));
 
@@ -71,6 +74,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
@@ -108,20 +115,6 @@ export default {
       });
     }
     this.$emit("input", this.form);
-
-    bus.$on("loaded", data => {
-      if (data == null) data = {};
-      if (data.contact == null) data.contact = {};
-
-      this.form.fb =
-        data.contact.fb ||
-        firebase.auth().currentUser.providerData[0].displayName;
-      this.form.email =
-        data.contact.email || firebase.auth().currentUser.providerData[0].email;
-      this.form.phone =
-        data.contact.phone ||
-        firebase.auth().currentUser.providerData[0].phoneNumber;
-    });
 
     bus.$on("reg.close", () => (this.disable = true));
   }

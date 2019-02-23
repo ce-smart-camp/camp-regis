@@ -15,6 +15,13 @@ function signIn() {
 function authStateObserver(user) {
   if (user) {
     bus.$emit("user");
+
+    // eslint-disable-next-line
+    analytics.identify(user.uid, {
+      displayName: user.displayName,
+      name: user.displayName,
+      email: user.email
+    });
   } else {
     signIn();
   }

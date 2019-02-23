@@ -126,7 +126,6 @@ export default {
   }),
   methods: {
     goto(val) {
-      console.log(val);
       bus.$emit("step.goto", val);
     }
   }

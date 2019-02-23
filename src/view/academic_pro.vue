@@ -10,11 +10,10 @@
     <v-textarea
       v-model="form.item1"
       class="nolabel"
-      auto-grow
       rows="5"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <div class="my-3">
       <p>
@@ -23,16 +22,15 @@
         และแสดงผลลัพธ์ที่ได้ออกมาจากการทำงานของโปรแกรม<br />
         <i>(เขียนบรรทัดที่ผิด+จุดที่ผิด พร้อมแก้ไขให้ถูกต้อง)</i>
       </p>
-      <v-img :src="require('../assets/question/q-3-3.png')" contain></v-img>
+      <v-img :src="require('../assets/question/q-3-2.png')" contain></v-img>
     </div>
     <v-textarea
       v-model="form.item2"
       class="nolabel"
-      auto-grow
       rows="5"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <div class="my-3">
       <p>
@@ -42,15 +40,15 @@
         โดยต้องมีสัญลักษณ์ที่พี่ๆกำหนดให้ด้านล่างนี้เป็นส่วนประกอบ<br />
         <i>(Hint : ขั้นตอนดำเนินการอยู่ในเว็บไซต์สมัคร)</i>
       </p>
+      <v-img :src="require('../assets/question/q-3-3.png')" contain></v-img>
     </div>
     <v-textarea
       v-model="form.item3"
       class="nolabel"
-      auto-grow
       rows="5"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
   </v-card-text>
 </template>
@@ -65,6 +63,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({

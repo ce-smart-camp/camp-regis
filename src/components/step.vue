@@ -71,6 +71,12 @@ export default {
     });
     bus.$on("step.change", val => {
       this.step = val;
+
+      // eslint-disable-next-line
+      analytics.page(this.step, {
+        title: this.currentTitle,
+        path: `/${this.step}`
+      });
     });
   },
   methods: {

@@ -13,11 +13,10 @@
     <v-textarea
       v-model="form.item1"
       class="nolabel"
-      auto-grow
       rows="5"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <div class="my-3">
       <p>
@@ -36,11 +35,10 @@
     <v-textarea
       v-model="form.item2"
       class="nolabel"
-      auto-grow
       rows="5"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <div class="my-3">
       <p>
@@ -71,11 +69,10 @@
     <v-textarea
       v-model="form.item3"
       class="nolabel"
-      auto-grow
       rows="5"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
   </v-card-text>
 </template>
@@ -90,6 +87,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({

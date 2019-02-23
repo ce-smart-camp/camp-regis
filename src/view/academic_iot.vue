@@ -12,39 +12,43 @@
     </div>
     <v-textarea
       v-model="form.item1"
-      auto-grow
       rows="3"
-      label="ทำไมน้องๆถึงเลือกทำโปรเจคนี้ขึ้นมา"
-      clearable
+      label="อธิบายรายละเอียดเกี่ยวกับโปรเจค"
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-textarea
       v-model="form.item2"
-      auto-grow
       rows="3"
-      label="ของที่ใช้ในการทำโปรเจคมีอะไรบ้าง"
-      clearable
+      label="ทำไมน้องๆถึงเลือกทำโปรเจคนี้ขึ้นมา"
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-textarea
       v-model="form.item3"
-      auto-grow
       rows="3"
-      label="โปรเจคที่คิดออกมาใครสามารถนำไปใช้ได้บ้าง อย่างไร"
-      clearable
+      label="ของที่ใช้ในการทำโปรเจคมีอะไรบ้าง"
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
     <v-textarea
       v-model="form.item4"
-      auto-grow
+      rows="3"
+      label="โปรเจคที่คิดออกมาใครสามารถนำไปใช้ได้บ้าง อย่างไร"
+      box
+      :readonly="readonly"
+      :disabled="disable && !readonly"
+    />
+    <v-textarea
+      v-model="form.item5"
       rows="3"
       label="สามารถนำไปต่อยอดได้อย่าง"
-      clearable
       box
-      :disabled="disable"
+      :readonly="readonly"
+      :disabled="disable && !readonly"
     />
   </v-card-text>
 </template>
@@ -59,6 +63,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
@@ -67,7 +75,8 @@ export default {
       item1: null,
       item2: null,
       item3: null,
-      item4: null
+      item4: null,
+      item5: null
     }
   }),
   watch: {

@@ -49,7 +49,7 @@
     </v-window-item>
 
     <v-window-item :value="13">
-      <End />
+      <End v-model="form" />
     </v-window-item>
   </v-window>
 </template>
@@ -143,10 +143,11 @@ export default {
         else {
           this.form.reg.created_at = "new-data";
           this.form.reg.fb_id = firebase.auth().currentUser.providerData[0].uid;
+
+          this.form.reg.contact.fb = firebase.auth().currentUser.providerData[0].displayName;
+          this.form.reg.contact.email = firebase.auth().currentUser.providerData[0].email;
         }
         if (typeof data.qus !== "undefined") this.form.qus = data.qus;
-
-        bus.$emit("loaded", data);
       });
     });
   },
