@@ -4,7 +4,6 @@
       v-model="form.disease"
       label="โรคประจำตัว"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      auto-grow
       rows="3"
       :readonly="readonly"
       :disabled="disable && !readonly"
@@ -13,7 +12,6 @@
       v-model="form.drug"
       label="ยาที่แพ้"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      auto-grow
       rows="3"
       :readonly="readonly"
       :disabled="disable && !readonly"
@@ -22,7 +20,6 @@
       v-model="form.food"
       label="อาหารที่แพ้"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      auto-grow
       rows="3"
       :readonly="readonly"
       :disabled="disable && !readonly"

@@ -51,7 +51,6 @@
     <v-textarea
       v-model="form.knowFrom"
       label="รู้จักค่ายนี้มาจากที่ไหน"
-      auto-grow
       rows="3"
       :readonly="readonly"
       :disabled="disable && !readonly"

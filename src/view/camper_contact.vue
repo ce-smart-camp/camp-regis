@@ -36,7 +36,6 @@
       v-model="form.talent"
       label="ความสามารถพิเศษ"
       hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      auto-grow
       rows="3"
       :readonly="readonly"
       :disabled="disable && !readonly"

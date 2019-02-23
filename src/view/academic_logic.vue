@@ -13,7 +13,6 @@
     <v-textarea
       v-model="form.item1"
       class="nolabel"
-      auto-grow
       rows="5"
       box
       :readonly="readonly"
@@ -36,7 +35,6 @@
     <v-textarea
       v-model="form.item2"
       class="nolabel"
-      auto-grow
       rows="5"
       box
       :readonly="readonly"
@@ -71,7 +69,6 @@
     <v-textarea
       v-model="form.item3"
       class="nolabel"
-      auto-grow
       rows="5"
       box
       :readonly="readonly"

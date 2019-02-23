@@ -12,7 +12,6 @@
     </div>
     <v-textarea
       v-model="form.item1"
-      auto-grow
       rows="3"
       label="อธิบายรายละเอียดเกี่ยวกับโปรเจค"
       box
@@ -21,7 +20,6 @@
     />
     <v-textarea
       v-model="form.item2"
-      auto-grow
       rows="3"
       label="ทำไมน้องๆถึงเลือกทำโปรเจคนี้ขึ้นมา"
       box
@@ -30,7 +28,6 @@
     />
     <v-textarea
       v-model="form.item3"
-      auto-grow
       rows="3"
       label="ของที่ใช้ในการทำโปรเจคมีอะไรบ้าง"
       box
@@ -39,7 +36,6 @@
     />
     <v-textarea
       v-model="form.item4"
-      auto-grow
       rows="3"
       label="โปรเจคที่คิดออกมาใครสามารถนำไปใช้ได้บ้าง อย่างไร"
       box
@@ -48,7 +44,6 @@
     />
     <v-textarea
       v-model="form.item5"
-      auto-grow
       rows="3"
       label="สามารถนำไปต่อยอดได้อย่าง"
       box
