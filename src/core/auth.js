@@ -19,6 +19,7 @@ function authStateObserver(user) {
     // eslint-disable-next-line
     analytics.identify(user.uid, {
       displayName: user.displayName,
+      name: user.displayName,
       email: user.email
     });
   } else {
