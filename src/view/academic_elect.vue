@@ -9,22 +9,33 @@
     <v-textarea
       v-model="form.item1"
       class="nolabel"
-      rows="5"
+      rows="8"
       box
+      single-line
       :readonly="readonly"
       :disabled="disable && !readonly"
     />
     <div class="my-3">
       <p>
-        5. หากต่อวงจรเช่นนี้จะได้ผลลัพธ์เป็นอย่างไร
+        5. จากรูป จงตอบคำถามต่อไปนี้<br />
+        1) เมื่อต่อวงจรตามรูปจะเกิดอะไรขึ้น
+        และจงหาความดันตกคร่อมของตัวต้านทานแต่ละตัว<br />
+        2) ถ้านำแบตความดัน 9V มาต่อเพิ่มที่จุด A
+        โดยให้ขั้วบวกต่อเข้ากับตัวต้านทาน R2 จะเกิดอะไรขึ้น
+        และจงหาความดันตกคร่อมของตัวต้านทานแต่ละตัว
       </p>
-      <v-img :src="require('../assets/question/q-2-2.png')" contain></v-img>
+      <v-img
+        :src="require('../assets/question/q-2-2.png')"
+        contain
+        max-height="370px"
+      ></v-img>
     </div>
     <v-textarea
       v-model="form.item2"
       class="nolabel"
-      rows="5"
+      rows="8"
       box
+      single-line
       :readonly="readonly"
       :disabled="disable && !readonly"
     />
@@ -32,13 +43,18 @@
       <p>
         6. จากวงจรด้านล่าง ถ้าถ่าน 9V ยังมีประจุอยู่ หากกดสวิตซ์จะเกิดอะไรขึ้น
       </p>
-      <v-img :src="require('../assets/question/q-2-3.png')" contain></v-img>
+      <v-img
+        :src="require('../assets/question/q-2-3.png')"
+        contain
+        max-height="270px"
+      ></v-img>
     </div>
     <v-textarea
       v-model="form.item3"
       class="nolabel"
-      rows="5"
+      rows="8"
       box
+      single-line
       :readonly="readonly"
       :disabled="disable && !readonly"
     />

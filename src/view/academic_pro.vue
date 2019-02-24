@@ -10,8 +10,9 @@
     <v-textarea
       v-model="form.item1"
       class="nolabel"
-      rows="5"
+      rows="8"
       box
+      single-line
       :readonly="readonly"
       :disabled="disable && !readonly"
     />
@@ -22,13 +23,18 @@
         และแสดงผลลัพธ์ที่ได้ออกมาจากการทำงานของโปรแกรม<br />
         <i>(เขียนบรรทัดที่ผิด+จุดที่ผิด พร้อมแก้ไขให้ถูกต้อง)</i>
       </p>
-      <v-img :src="require('../assets/question/q-3-2.png')" contain></v-img>
+      <v-img
+        :src="require('../assets/question/q-3-2.png')"
+        contain
+        max-height="450px"
+      ></v-img>
     </div>
     <v-textarea
       v-model="form.item2"
       class="nolabel"
-      rows="5"
+      rows="8"
       box
+      single-line
       :readonly="readonly"
       :disabled="disable && !readonly"
     />
@@ -40,23 +46,30 @@
         โดยต้องมีสัญลักษณ์ที่พี่ๆกำหนดให้ด้านล่างนี้เป็นส่วนประกอบ<br />
         <i>(Hint : ขั้นตอนดำเนินการอยู่ในเว็บไซต์สมัคร)</i>
       </p>
-      <v-img :src="require('../assets/question/q-3-3.png')" contain></v-img>
+      <v-img
+        :src="require('../assets/question/q-3-3.png')"
+        contain
+        max-height="75px"
+      ></v-img>
     </div>
-    <v-textarea
+    <ImgUp
       v-model="form.item3"
-      class="nolabel"
-      rows="5"
-      box
+      :disabled="disable"
       :readonly="readonly"
-      :disabled="disable && !readonly"
+      text="อัปโหลดรูปของคำตอบ"
+      filename="q-3-3"
     />
   </v-card-text>
 </template>
 
 <script>
 import bus from "./../core/bus";
+import ImgUp from "./../components/imageUpload";
 
 export default {
+  components: {
+    ImgUp
+  },
   props: {
     value: {
       type: Object,
@@ -74,7 +87,7 @@ export default {
     form: {
       item1: null,
       item2: null,
-      item3: null
+      item3: ""
     }
   }),
   watch: {

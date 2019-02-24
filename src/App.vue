@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <SideBar />
-    <!-- <NavBar /> -->
     <v-content>
       <v-container grid-list-lg>
         <v-layout row wrap>
@@ -17,7 +16,6 @@
     </v-content>
 
     <Loader />
-
     <Dialog />
   </v-app>
 </template>

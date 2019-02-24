@@ -1,44 +1,65 @@
 <template>
   <v-card-text>
-    <v-text-field
-      v-model="form.school"
-      label="โรงเรียน"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.province"
-      label="จังหวัด"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-combobox
-      v-model="classRaw"
-      label="ระดับชั้น (ปีการศึกษา 2562)"
-      :items="gradesOptions"
-      :clearable="!disable && !readonly"
-      auto-select-first
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.plan"
-      label="แผนการศึกษา"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.gpax"
-      label="เกรดเฉลี่ย"
-      mask="#.##"
-      return-masked-value
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
+    <v-layout row wrap>
+      <v-flex sm8 xs12>
+        <v-text-field
+          v-model="form.school"
+          label="โรงเรียน"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex sm4 xs12>
+        <v-text-field
+          v-model="form.province"
+          label="จังหวัด"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex sm4 xs12>
+        <v-combobox
+          v-model="classRaw"
+          label="ระดับชั้น (กำลังจะขึ้น)"
+          :items="gradesOptions"
+          :clearable="!disable && !readonly"
+          auto-select-first
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex sm4 xs12>
+        <v-text-field
+          v-model="form.plan"
+          label="แผนการศึกษา"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex sm4 xs12>
+        <v-text-field
+          v-model="form.gpax"
+          label="เกรดเฉลี่ย"
+          mask="#.##"
+          return-masked-value
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required, rules.gpax]"
+        />
+      </v-flex>
+    </v-layout>
   </v-card-text>
 </template>
 
@@ -82,6 +103,13 @@ export default {
       class: null,
       plan: null,
       gpax: null
+    },
+    rules: {
+      required: value => !!value || "คำถามที่ต้องการคำตอบ",
+      gpax: value => {
+        if (value == null) return;
+        return Number(value) <= 4 || "ค่ามากสุดคือ 4.00";
+      }
     }
   }),
   watch: {

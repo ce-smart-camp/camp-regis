@@ -1,94 +1,141 @@
 <template>
   <v-card-text>
-    <ImgUp :disabled="disable" :readonly="readonly" />
-
-    <v-text-field
-      v-model="form.nid"
-      label="เลขประจำตัวประชาชนไทย"
-      mask="#-####-#####-##-#"
-      :rules="[rules.national_id]"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.name"
-      label="ชื่อ"
-      browser-autocomplete="given-name"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.surname"
-      label="นามสกุล"
-      browser-autocomplete="family-name"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.nickname"
-      label="ชื่อเล่น"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-select
-      v-model="form.gender"
-      :items="option.gender"
-      label="เพศ"
-      prepend-icon="wc"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.birth"
-      label="วันเกิด"
-      prepend-icon="cake"
-      mask="##/##/####"
-      hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
-      return-masked-value
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-      @blur="date = parseDate(form.birth)"
-      @click:clear="date = parseDate(form.birth)"
-    >
-      <v-menu
-        ref="menu"
-        slot="append"
-        v-model="menu"
-        :close-on-content-click="false"
-        :nudge-left="290"
-        lazy
-        transition="scale-transition"
-        offset-y
-        full-width
-        min-width="290px"
-        :disabled="disable || readonly"
-      >
-        <v-icon slot="activator">event</v-icon>
-        <v-date-picker
-          ref="picker"
-          v-model="date"
-          scrollable
-          locale="th-th"
-          :max="new Date().toISOString().substr(0, 10)"
-          min="1995-01-01"
+    <v-layout row wrap>
+      <v-flex xs12>
+        <ImgUp
+          v-model="form.pic"
+          :disabled="disable"
+          :readonly="readonly"
+          text="อัปโหลดรูปที่เห็นหน้าน้องๆชัดเจน"
+          filename="pic_profile"
         />
-      </v-menu>
-    </v-text-field>
+      </v-flex>
 
-    <v-select
-      v-model="form.religion"
-      :items="option.religion"
-      label="ศาสนา"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
+      <v-flex md3 sm4 xs12>
+        <v-text-field
+          v-model="form.nid"
+          label="เลขประจำตัวประชาชนไทย"
+          mask="#-####-#####-##-#"
+          :rules="[rules.required, rules.national_id]"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex md3 sm4 xs12>
+        <v-text-field
+          v-model="form.name"
+          label="ชื่อ"
+          browser-autocomplete="given-name"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex md4 sm4 xs12>
+        <v-text-field
+          v-model="form.surname"
+          label="นามสกุล"
+          browser-autocomplete="family-name"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex md2 sm4 xs12>
+        <v-text-field
+          v-model="form.nickname"
+          label="ชื่อเล่น"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex md3 sm4>
+        <v-select
+          v-model="form.gender"
+          :items="option.gender"
+          label="เพศ"
+          prepend-icon="wc"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex md3 sm4>
+        <v-text-field
+          v-model="form.birth"
+          label="วันเกิด"
+          prepend-icon="cake"
+          mask="##/##/####"
+          hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
+          return-masked-value
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+          @blur="date = parseDate(form.birth)"
+          @click:clear="date = parseDate(form.birth)"
+        >
+          <v-menu
+            ref="menu"
+            slot="append"
+            v-model="menu"
+            :close-on-content-click="false"
+            :nudge-left="290"
+            lazy
+            transition="scale-transition"
+            offset-y
+            full-width
+            min-width="290px"
+            :disabled="disable || readonly"
+          >
+            <v-icon slot="activator">event</v-icon>
+            <v-date-picker
+              ref="picker"
+              v-model="date"
+              scrollable
+              locale="th-th"
+              :max="new Date().toISOString().substr(0, 10)"
+              min="1995-01-01"
+            />
+          </v-menu>
+        </v-text-field>
+      </v-flex>
+
+      <v-flex md3 sm6>
+        <v-select
+          v-model="form.religion"
+          :items="option.religion"
+          label="ศาสนา"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex md3 sm6>
+        <v-select
+          v-model="form.shirt"
+          :items="option.shirtSize"
+          label="ขนาดเสื้อ"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+    </v-layout>
   </v-card-text>
 </template>
 
@@ -114,8 +161,18 @@ const genders = {
   unspecified: "ไม่ระบุ"
 };
 
+const shirtSizes = {
+  XS: "XS",
+  S: "S",
+  M: "M",
+  L: "L",
+  XL: "XL",
+  XXL: "XXL"
+};
+
 const religionOptions = Options(religions);
 const genderOptions = Options(genders);
+const shirtSizeOptions = Options(shirtSizes);
 
 function checkID(id) {
   if (!id) return true;
@@ -146,21 +203,25 @@ export default {
     disable: false,
     option: {
       gender: genderOptions,
-      religion: religionOptions
+      religion: religionOptions,
+      shirtSize: shirtSizeOptions
     },
     date: null,
     menu: false,
     rules: {
-      national_id: val => checkID(val) || "เลขที่กรอกไม่ถูกต้อง"
+      national_id: val => checkID(val) || "เลขที่กรอกไม่ถูกต้อง",
+      required: value => !!value || "คำถามที่ต้องการคำตอบ"
     },
     form: {
+      pic: "",
       nid: null,
       name: null,
       surname: null,
       nickname: null,
       gender: null,
       birth: null,
-      religion: null
+      religion: null,
+      shirt: null
     }
   }),
   watch: {

@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-flex class="text-xs-center">
-      <v-img :src="imageUrl" class="grey lighten-2" max-height="300" contain />
+      <v-img :src="imageUrl" max-height="300" contain />
 
       <v-btn
         v-if="!readonly"
@@ -11,9 +11,16 @@
         class="white--text"
         @click="pickFile"
       >
-        อัปโหลดรูปที่เห็นหน้าน้องๆชัดเจน
+        {{ text }}
         <v-icon right dark>cloud_upload</v-icon>
       </v-btn>
+
+      <v-alert
+        :value="readonly && (imageUrl === '' || imgMD5 === '')"
+        type="warning"
+      >
+        น้องๆไม่ได้อัปโหลดรูปภาพ
+      </v-alert>
 
       <input
         ref="image"
@@ -30,17 +37,12 @@
 import bus from "./../core/bus";
 import firebase from "./../core/firebase";
 
-let fileRef = null;
-
-function setupFileRef() {
-  if (fileRef === null) {
-    var filePath = firebase.auth().currentUser.uid + "/pic";
-    fileRef = firebase.storage().ref(filePath);
-  }
-}
-
 export default {
   props: {
+    value: {
+      type: String,
+      default: ""
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -48,21 +50,31 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    text: {
+      type: String,
+      default: "อัปโหลด"
+    },
+    filename: {
+      type: String,
+      default: "image"
     }
   },
   data: () => ({
     uploading: false,
     imageUrl: "",
-    imageFile: ""
+    fileRef: null,
+    imgMD5: ""
   }),
-  mounted() {
-    bus.$on("user", () => {
-      setupFileRef();
-
-      this.loadImg();
-    });
+  watch: {
+    imgMD5(val) {
+      this.$emit("input", val);
+    },
+    value(val) {
+      this.imgMD5 = val;
+      if (val !== "") this.loadImg();
+    }
   },
-
   methods: {
     pickFile() {
       this.$refs.image.click();
@@ -76,7 +88,6 @@ export default {
 
       if (file === undefined) {
         this.uploading = false;
-        this.imageFile = "";
         this.imageUrl = "";
         return;
       }
@@ -94,16 +105,21 @@ export default {
         return;
       }
 
-      setupFileRef();
+      this.setupFileRef();
 
-      fileRef.put(file).then(fileSnapshot => {
-        fileRef = fileSnapshot.ref;
+      this.fileRef.put(file).then(fileSnapshot => {
+        this.fileRef = fileSnapshot.ref;
         this.loadImg();
+        fileSnapshot.ref.getMetadata().then(metadata => {
+          this.imgMD5 = metadata.md5Hash;
+        });
       });
     },
 
     loadImg() {
-      fileRef
+      this.setupFileRef();
+
+      this.fileRef
         .getDownloadURL()
         .then(url => {
           this.imageUrl = url;
@@ -119,6 +135,13 @@ export default {
               console.error(error);
           }
         });
+    },
+
+    setupFileRef() {
+      if (this.fileRef === null) {
+        var filePath = firebase.auth().currentUser.uid + "/" + this.filename;
+        this.fileRef = firebase.storage().ref(filePath);
+      }
     }
   }
 };

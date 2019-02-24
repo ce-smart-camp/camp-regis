@@ -1,8 +1,10 @@
 <template>
-  <v-card class="my-3 mx-auto" max-width="600px">
+  <v-card class="my-3 mx-auto" max-width="430px">
     <v-card-title primary-title>
-      <div>
-        <p class="headline">เวลาที่เหลือให้น้องๆใช้ระบบรับสมัคร</p>
+      <div class="ma-auto text-xs-center">
+        <p class="headline">
+          เวลาที่เหลือให้น้องๆใช้ระบบรับสมัคร
+        </p>
         <p>สมัคร : {{ regisTime }}</p>
         <p>ตอบคำถาม : {{ questionTime }}</p>
       </div>

@@ -1,71 +1,69 @@
 <template>
   <v-card-text>
-    <v-text-field
-      v-model="form.phone"
-      label="หมายเลขโทรศัพท์เคลื่อนที่"
-      browser-autocomplete="tel"
-      mask="## #### ####"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.email"
-      label="จดหมายอิเล็กทรอนิกส์"
-      browser-autocomplete="email"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.fb"
-      label="Facebook"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.line"
-      label="Line ID"
-      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-textarea
-      v-model="form.talent"
-      label="ความสามารถพิเศษ"
-      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      rows="3"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-select
-      v-model="form.shirt"
-      :items="option.shirtSize"
-      label="ขนาดเสื้อ"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
+    <v-layout row wrap>
+      <v-flex sm6>
+        <v-text-field
+          v-model="form.phone"
+          label="หมายเลขโทรศัพท์"
+          browser-autocomplete="tel"
+          mask="## #### ####"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required, rules.phone]"
+        />
+      </v-flex>
+
+      <v-flex sm6>
+        <v-text-field
+          v-model="form.email"
+          label="จดหมายอิเล็กทรอนิกส์"
+          browser-autocomplete="email"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required, rules.email]"
+        />
+      </v-flex>
+
+      <v-flex sm6>
+        <v-text-field
+          v-model="form.fb"
+          label="Facebook"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex sm6>
+        <v-text-field
+          v-model="form.line"
+          label="Line ID"
+          hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex xs12>
+        <v-textarea
+          v-model="form.talent"
+          label="ความสามารถพิเศษ"
+          hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+          rows="3"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+    </v-layout>
   </v-card-text>
 </template>
 
 <script>
 import bus from "./../core/bus";
-const Options = options =>
-  Object.entries(options).map(([value, text]) => ({ value, text }));
-
-const shirtSizes = {
-  XS: "XS",
-  S: "S",
-  M: "M",
-  L: "L",
-  XL: "XL",
-  XXL: "XXL"
-};
-
-const shirtSizeOptions = Options(shirtSizes);
 
 export default {
   props: {
@@ -82,16 +80,23 @@ export default {
   },
   data: () => ({
     disable: false,
-    option: {
-      shirtSize: shirtSizeOptions
-    },
     form: {
       phone: null,
       email: null,
       fb: null,
       line: null,
-      talent: null,
-      shirt: null
+      talent: null
+    },
+    rules: {
+      required: value => !!value || "คำถามที่ต้องการคำตอบ",
+      phone: value => {
+        if (value === null) return;
+        return value.charAt(0) === "0" || "รูปแบบไม่ถูกต้อง";
+      },
+      email: value => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return pattern.test(value) || "รูปแบบไม่ถูกต้อง";
+      }
     }
   }),
   watch: {

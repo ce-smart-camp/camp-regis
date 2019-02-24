@@ -1,36 +1,53 @@
 <template>
   <v-card-text>
-    <v-text-field
-      v-model="form.name"
-      label="ชื่อ"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.surname"
-      label="นามสกุล"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-combobox
-      v-model="form.relation"
-      label="ความเกี่ยวข้อง"
-      :items="itemsRelation"
-      :clearable="!disable && !readonly"
-      auto-select-first
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.tel"
-      label="หมายเลขโทรศัพท์"
-      mask="## #### ####"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
+    <v-layout row wrap>
+      <v-flex sm6 xs12>
+        <v-text-field
+          v-model="form.name"
+          label="ชื่อ"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex sm6 xs12>
+        <v-text-field
+          v-model="form.surname"
+          label="นามสกุล"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex sm6 xs12>
+        <v-combobox
+          v-model="form.relation"
+          label="ความเกี่ยวข้อง"
+          :items="itemsRelation"
+          :clearable="!disable && !readonly"
+          auto-select-first
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required]"
+        />
+      </v-flex>
+
+      <v-flex sm6 xs12>
+        <v-text-field
+          v-model="form.tel"
+          label="หมายเลขโทรศัพท์"
+          mask="## #### ####"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+          :rules="[rules.required, rules.phone]"
+        />
+      </v-flex>
+    </v-layout>
   </v-card-text>
 </template>
 
@@ -74,6 +91,13 @@ export default {
       surname: null,
       relation: null,
       tel: null
+    },
+    rules: {
+      required: value => !!value || "คำถามที่ต้องการคำตอบ",
+      phone: value => {
+        if (value === null) return;
+        return value.charAt(0) === "0" || "รูปแบบไม่ถูกต้อง";
+      }
     }
   }),
   watch: {
