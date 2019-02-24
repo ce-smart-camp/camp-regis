@@ -72,7 +72,7 @@ export default {
     },
     value(val) {
       this.imgMD5 = val;
-      this.loadImg();
+      if (val !== "") this.loadImg();
     }
   },
   methods: {
