@@ -15,6 +15,13 @@
         <v-icon right dark>cloud_upload</v-icon>
       </v-btn>
 
+      <v-alert
+        :value="readonly && (imageUrl === '' || imgMD5 === '')"
+        type="warning"
+      >
+        น้องๆไม่ได้อัปโหลดรูปภาพ
+      </v-alert>
+
       <input
         ref="image"
         type="file"
@@ -56,7 +63,6 @@ export default {
   data: () => ({
     uploading: false,
     imageUrl: "",
-    imageFile: "",
     fileRef: null,
     imgMD5: ""
   }),
@@ -82,7 +88,6 @@ export default {
 
       if (file === undefined) {
         this.uploading = false;
-        this.imageFile = "";
         this.imageUrl = "";
         return;
       }
