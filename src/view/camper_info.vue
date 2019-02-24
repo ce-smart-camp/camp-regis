@@ -16,7 +16,7 @@
           v-model="form.nid"
           label="เลขประจำตัวประชาชนไทย"
           mask="#-####-#####-##-#"
-          :rules="[rules.national_id]"
+          :rules="[rules.required, rules.national_id]"
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
@@ -31,6 +31,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -42,6 +43,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -52,6 +54,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -64,6 +67,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -78,6 +82,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
           @blur="date = parseDate(form.birth)"
           @click:clear="date = parseDate(form.birth)"
         >
@@ -115,6 +120,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -126,6 +132,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
     </v-layout>
@@ -202,7 +209,8 @@ export default {
     date: null,
     menu: false,
     rules: {
-      national_id: val => checkID(val) || "เลขที่กรอกไม่ถูกต้อง"
+      national_id: val => checkID(val) || "เลขที่กรอกไม่ถูกต้อง",
+      required: value => !!value || "คำถามที่ต้องการคำตอบ"
     },
     form: {
       pic: "",

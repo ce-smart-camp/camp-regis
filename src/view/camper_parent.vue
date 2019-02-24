@@ -8,6 +8,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -18,6 +19,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -30,6 +32,7 @@
           auto-select-first
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -41,6 +44,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required, rules.phone]"
         />
       </v-flex>
     </v-layout>
@@ -87,6 +91,13 @@ export default {
       surname: null,
       relation: null,
       tel: null
+    },
+    rules: {
+      required: value => !!value || "คำถามที่ต้องการคำตอบ",
+      phone: value => {
+        if (value === null) return;
+        return value.charAt(0) === "0" || "รูปแบบไม่ถูกต้อง";
+      }
     }
   }),
   watch: {

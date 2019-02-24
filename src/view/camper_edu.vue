@@ -8,6 +8,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -18,6 +19,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -30,6 +32,7 @@
           auto-select-first
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -40,6 +43,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -52,6 +56,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required, rules.gpax]"
         />
       </v-flex>
     </v-layout>
@@ -98,6 +103,13 @@ export default {
       class: null,
       plan: null,
       gpax: null
+    },
+    rules: {
+      required: value => !!value || "คำถามที่ต้องการคำตอบ",
+      gpax: value => {
+        if (value == null) return;
+        return Number(value) <= 4 || "ค่ามากสุดคือ 4.00";
+      }
     }
   }),
   watch: {

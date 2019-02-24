@@ -8,6 +8,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -63,6 +64,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -74,6 +76,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -85,6 +88,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -93,9 +97,11 @@
           v-model="form.pcode"
           label="รหัสไปรษณีย์"
           browser-autocomplete="postal-code"
+          mask="#####"
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
     </v-layout>
@@ -130,6 +136,9 @@ export default {
       district: null,
       province: null,
       pcode: null
+    },
+    rules: {
+      required: value => !!value || "คำถามที่ต้องการคำตอบ"
     }
   }),
   watch: {

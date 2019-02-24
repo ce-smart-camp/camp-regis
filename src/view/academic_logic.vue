@@ -15,6 +15,7 @@
       class="nolabel"
       rows="8"
       box
+      single-line
       :readonly="readonly"
       :disabled="disable && !readonly"
     />
@@ -37,6 +38,7 @@
       class="nolabel"
       rows="8"
       box
+      single-line
       :readonly="readonly"
       :disabled="disable && !readonly"
     />
@@ -71,6 +73,7 @@
       class="nolabel"
       rows="8"
       box
+      single-line
       :readonly="readonly"
       :disabled="disable && !readonly"
     />

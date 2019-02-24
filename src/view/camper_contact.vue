@@ -10,6 +10,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required, rules.phone]"
         />
       </v-flex>
 
@@ -21,6 +22,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required, rules.email]"
         />
       </v-flex>
 
@@ -31,6 +33,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
 
@@ -83,6 +86,17 @@ export default {
       fb: null,
       line: null,
       talent: null
+    },
+    rules: {
+      required: value => !!value || "คำถามที่ต้องการคำตอบ",
+      phone: value => {
+        if (value === null) return;
+        return value.charAt(0) === "0" || "รูปแบบไม่ถูกต้อง";
+      },
+      email: value => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return pattern.test(value) || "รูปแบบไม่ถูกต้อง";
+      }
     }
   }),
   watch: {

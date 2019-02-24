@@ -20,6 +20,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required_uni(form.camp1)]"
         />
       </v-flex>
 
@@ -42,6 +43,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required_uni(form.camp2)]"
         />
       </v-flex>
 
@@ -64,6 +66,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required_uni(form.camp3)]"
         />
       </v-flex>
 
@@ -74,6 +77,7 @@
           rows="3"
           :readonly="readonly"
           :disabled="disable && !readonly"
+          :rules="[rules.required]"
         />
       </v-flex>
     </v-layout>
@@ -106,6 +110,11 @@ export default {
       camp3: null,
       camp3_uni: null,
       knowFrom: null
+    },
+    rules: {
+      required: value => !!value || "คำถามที่ต้องการคำตอบ",
+      required_uni: camp => value =>
+        !camp ? !value || "ไม่ต้องกรอก" : !!value || "คำถามที่ต้องการคำตอบ"
     }
   }),
   watch: {
