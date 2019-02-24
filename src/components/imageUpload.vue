@@ -11,7 +11,7 @@
         class="white--text"
         @click="pickFile"
       >
-        อัปโหลดรูปที่เห็นหน้าน้องๆชัดเจน
+        {{ text }}
         <v-icon right dark>cloud_upload</v-icon>
       </v-btn>
 
@@ -30,17 +30,12 @@
 import bus from "./../core/bus";
 import firebase from "./../core/firebase";
 
-let fileRef = null;
-
-function setupFileRef() {
-  if (fileRef === null) {
-    var filePath = firebase.auth().currentUser.uid + "/pic";
-    fileRef = firebase.storage().ref(filePath);
-  }
-}
-
 export default {
   props: {
+    value: {
+      type: String,
+      default: ""
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -48,21 +43,32 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    text: {
+      type: String,
+      default: "อัปโหลด"
+    },
+    filename: {
+      type: String,
+      default: "image"
     }
   },
   data: () => ({
     uploading: false,
     imageUrl: "",
-    imageFile: ""
+    imageFile: "",
+    fileRef: null,
+    imgMD5: ""
   }),
-  mounted() {
-    bus.$on("user", () => {
-      setupFileRef();
-
+  watch: {
+    imgMD5(val) {
+      this.$emit("input", val);
+    },
+    value(val) {
+      this.imgMD5 = val;
       this.loadImg();
-    });
+    }
   },
-
   methods: {
     pickFile() {
       this.$refs.image.click();
@@ -94,16 +100,21 @@ export default {
         return;
       }
 
-      setupFileRef();
+      this.setupFileRef();
 
-      fileRef.put(file).then(fileSnapshot => {
-        fileRef = fileSnapshot.ref;
+      this.fileRef.put(file).then(fileSnapshot => {
+        this.fileRef = fileSnapshot.ref;
         this.loadImg();
+        fileSnapshot.ref.getMetadata().then(metadata => {
+          this.imgMD5 = metadata.md5Hash;
+        });
       });
     },
 
     loadImg() {
-      fileRef
+      this.setupFileRef();
+
+      this.fileRef
         .getDownloadURL()
         .then(url => {
           this.imageUrl = url;
@@ -119,6 +130,13 @@ export default {
               console.error(error);
           }
         });
+    },
+
+    setupFileRef() {
+      if (this.fileRef === null) {
+        var filePath = firebase.auth().currentUser.uid + "/" + this.filename;
+        this.fileRef = firebase.storage().ref(filePath);
+      }
     }
   }
 };

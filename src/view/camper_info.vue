@@ -1,6 +1,12 @@
 <template>
   <v-card-text>
-    <ImgUp :disabled="disable" :readonly="readonly" />
+    <ImgUp
+      v-model="form.pic"
+      :disabled="disable"
+      :readonly="readonly"
+      text="อัปโหลดรูปที่เห็นหน้าน้องๆชัดเจน"
+      filename="pic_profile"
+    />
 
     <v-text-field
       v-model="form.nid"
@@ -154,6 +160,7 @@ export default {
       national_id: val => checkID(val) || "เลขที่กรอกไม่ถูกต้อง"
     },
     form: {
+      pic: "",
       nid: null,
       name: null,
       surname: null,
