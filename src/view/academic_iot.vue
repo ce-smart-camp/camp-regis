@@ -12,7 +12,7 @@
     </div>
     <v-textarea
       v-model="form.item1"
-      rows="3"
+      rows="5"
       label="อธิบายรายละเอียดเกี่ยวกับโปรเจค"
       box
       :readonly="readonly"
@@ -20,7 +20,7 @@
     />
     <v-textarea
       v-model="form.item2"
-      rows="3"
+      rows="5"
       label="ทำไมน้องๆถึงเลือกทำโปรเจคนี้ขึ้นมา"
       box
       :readonly="readonly"
@@ -28,7 +28,7 @@
     />
     <v-textarea
       v-model="form.item3"
-      rows="3"
+      rows="5"
       label="ของที่ใช้ในการทำโปรเจคมีอะไรบ้าง"
       box
       :readonly="readonly"
@@ -36,7 +36,7 @@
     />
     <v-textarea
       v-model="form.item4"
-      rows="3"
+      rows="5"
       label="โปรเจคที่คิดออกมาใครสามารถนำไปใช้ได้บ้าง อย่างไร"
       box
       :readonly="readonly"
@@ -44,7 +44,7 @@
     />
     <v-textarea
       v-model="form.item5"
-      rows="3"
+      rows="5"
       label="สามารถนำไปต่อยอดได้อย่าง"
       box
       :readonly="readonly"

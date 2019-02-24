@@ -10,7 +10,7 @@
     <v-textarea
       v-model="form.item1"
       class="nolabel"
-      rows="5"
+      rows="8"
       box
       :readonly="readonly"
       :disabled="disable && !readonly"
@@ -27,7 +27,7 @@
     <v-textarea
       v-model="form.item2"
       class="nolabel"
-      rows="5"
+      rows="8"
       box
       :readonly="readonly"
       :disabled="disable && !readonly"
@@ -45,7 +45,7 @@
     <v-textarea
       v-model="form.item3"
       class="nolabel"
-      rows="5"
+      rows="8"
       box
       :readonly="readonly"
       :disabled="disable && !readonly"
