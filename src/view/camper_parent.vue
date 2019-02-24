@@ -1,7 +1,7 @@
 <template>
   <v-card-text>
     <v-layout row wrap>
-      <v-flex xs6>
+      <v-flex sm6 xs12>
         <v-text-field
           v-model="form.name"
           label="ชื่อ"
@@ -11,7 +11,7 @@
         />
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex sm6 xs12>
         <v-text-field
           v-model="form.surname"
           label="นามสกุล"
@@ -21,7 +21,7 @@
         />
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex sm6 xs12>
         <v-combobox
           v-model="form.relation"
           label="ความเกี่ยวข้อง"
@@ -33,7 +33,7 @@
         />
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex sm6 xs12>
         <v-text-field
           v-model="form.tel"
           label="หมายเลขโทรศัพท์"

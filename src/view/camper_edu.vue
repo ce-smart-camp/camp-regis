@@ -1,7 +1,7 @@
 <template>
   <v-card-text>
     <v-layout row wrap>
-      <v-flex sm8>
+      <v-flex sm8 xs12>
         <v-text-field
           v-model="form.school"
           label="โรงเรียน"
@@ -11,7 +11,7 @@
         />
       </v-flex>
 
-      <v-flex sm4>
+      <v-flex sm4 xs12>
         <v-text-field
           v-model="form.province"
           label="จังหวัด"
@@ -21,10 +21,10 @@
         />
       </v-flex>
 
-      <v-flex sm4>
+      <v-flex sm4 xs12>
         <v-combobox
           v-model="classRaw"
-          label="ระดับชั้น (ปีการศึกษา 2562)"
+          label="ระดับชั้น (กำลังจะขึ้น)"
           :items="gradesOptions"
           :clearable="!disable && !readonly"
           auto-select-first
@@ -33,7 +33,7 @@
         />
       </v-flex>
 
-      <v-flex sm4>
+      <v-flex sm4 xs12>
         <v-text-field
           v-model="form.plan"
           label="แผนการศึกษา"
@@ -43,7 +43,7 @@
         />
       </v-flex>
 
-      <v-flex sm4>
+      <v-flex sm4 xs12>
         <v-text-field
           v-model="form.gpax"
           label="เกรดเฉลี่ย"

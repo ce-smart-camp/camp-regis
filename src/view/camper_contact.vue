@@ -1,7 +1,7 @@
 <template>
   <v-card-text>
     <v-layout row wrap>
-      <v-flex sm6 md4>
+      <v-flex sm6>
         <v-text-field
           v-model="form.phone"
           label="หมายเลขโทรศัพท์"
@@ -13,7 +13,7 @@
         />
       </v-flex>
 
-      <v-flex sm6 md4>
+      <v-flex sm6>
         <v-text-field
           v-model="form.email"
           label="จดหมายอิเล็กทรอนิกส์"
@@ -24,7 +24,7 @@
         />
       </v-flex>
 
-      <v-flex sm6 md4>
+      <v-flex sm6>
         <v-text-field
           v-model="form.fb"
           label="Facebook"
@@ -34,7 +34,7 @@
         />
       </v-flex>
 
-      <v-flex sm6 md4>
+      <v-flex sm6>
         <v-text-field
           v-model="form.line"
           label="Line ID"

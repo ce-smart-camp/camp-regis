@@ -11,7 +11,7 @@
         />
       </v-flex>
 
-      <v-flex md3>
+      <v-flex md3 sm4 xs12>
         <v-text-field
           v-model="form.nid"
           label="เลขประจำตัวประชาชนไทย"
@@ -23,7 +23,7 @@
         />
       </v-flex>
 
-      <v-flex md3>
+      <v-flex md3 sm4 xs12>
         <v-text-field
           v-model="form.name"
           label="ชื่อ"
@@ -34,7 +34,7 @@
         />
       </v-flex>
 
-      <v-flex md4>
+      <v-flex md4 sm4 xs12>
         <v-text-field
           v-model="form.surname"
           label="นามสกุล"
@@ -45,7 +45,7 @@
         />
       </v-flex>
 
-      <v-flex md2 sm3>
+      <v-flex md2 sm4 xs12>
         <v-text-field
           v-model="form.nickname"
           label="ชื่อเล่น"
@@ -55,7 +55,7 @@
         />
       </v-flex>
 
-      <v-flex md3 sm3>
+      <v-flex md3 sm4>
         <v-select
           v-model="form.gender"
           :items="option.gender"
@@ -107,7 +107,7 @@
         </v-text-field>
       </v-flex>
 
-      <v-flex md3 sm4>
+      <v-flex md3 sm6>
         <v-select
           v-model="form.religion"
           :items="option.religion"
@@ -118,7 +118,7 @@
         />
       </v-flex>
 
-      <v-flex md3 sm4>
+      <v-flex md3 sm6>
         <v-select
           v-model="form.shirt"
           :items="option.shirtSize"
