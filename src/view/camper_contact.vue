@@ -1,71 +1,66 @@
 <template>
   <v-card-text>
-    <v-text-field
-      v-model="form.phone"
-      label="หมายเลขโทรศัพท์เคลื่อนที่"
-      browser-autocomplete="tel"
-      mask="## #### ####"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.email"
-      label="จดหมายอิเล็กทรอนิกส์"
-      browser-autocomplete="email"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.fb"
-      label="Facebook"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.line"
-      label="Line ID"
-      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-textarea
-      v-model="form.talent"
-      label="ความสามารถพิเศษ"
-      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      rows="3"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-select
-      v-model="form.shirt"
-      :items="option.shirtSize"
-      label="ขนาดเสื้อ"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
+    <v-layout row wrap>
+      <v-flex sm6 md4>
+        <v-text-field
+          v-model="form.phone"
+          label="หมายเลขโทรศัพท์"
+          browser-autocomplete="tel"
+          mask="## #### ####"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex sm6 md4>
+        <v-text-field
+          v-model="form.email"
+          label="จดหมายอิเล็กทรอนิกส์"
+          browser-autocomplete="email"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex sm6 md4>
+        <v-text-field
+          v-model="form.fb"
+          label="Facebook"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex sm6 md4>
+        <v-text-field
+          v-model="form.line"
+          label="Line ID"
+          hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex xs12>
+        <v-textarea
+          v-model="form.talent"
+          label="ความสามารถพิเศษ"
+          hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+          rows="3"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+    </v-layout>
   </v-card-text>
 </template>
 
 <script>
 import bus from "./../core/bus";
-const Options = options =>
-  Object.entries(options).map(([value, text]) => ({ value, text }));
-
-const shirtSizes = {
-  XS: "XS",
-  S: "S",
-  M: "M",
-  L: "L",
-  XL: "XL",
-  XXL: "XXL"
-};
-
-const shirtSizeOptions = Options(shirtSizes);
 
 export default {
   props: {
@@ -82,16 +77,12 @@ export default {
   },
   data: () => ({
     disable: false,
-    option: {
-      shirtSize: shirtSizeOptions
-    },
     form: {
       phone: null,
       email: null,
       fb: null,
       line: null,
-      talent: null,
-      shirt: null
+      talent: null
     }
   }),
   watch: {

@@ -1,27 +1,27 @@
 <template>
-  <div class="pa-3 text-xs-center">
-    <h3 class="title">ตรวจสอบข้อมูล</h3>
+  <div class="pa-3">
+    <h3 class="title text-xs-center">ตรวจสอบข้อมูล</h3>
     <CamperInfo v-model="form.reg.info" readonly />
     <v-divider />
-    <h3 class="title mt-4">การติดต่อ</h3>
+    <h3 class="title mt-4 text-xs-center">การติดต่อ</h3>
     <CamperContact v-model="form.reg.contact" readonly />
     <v-divider />
-    <h3 class="title mt-4">ข้อมูลสุขภาพ</h3>
+    <h3 class="title mt-4 text-xs-center">ข้อมูลสุขภาพ</h3>
     <CamperHealth v-model="form.reg.health" readonly />
     <v-divider />
-    <h3 class="title mt-4">ที่อยู่</h3>
+    <h3 class="title mt-4 text-xs-center">ที่อยู่</h3>
     <CamperAddress v-model="form.reg.address" readonly />
     <v-divider />
-    <h3 class="title mt-4">การศึกษา</h3>
+    <h3 class="title mt-4 text-xs-center">การศึกษา</h3>
     <CamperEdu v-model="form.reg.edu" readonly />
     <v-divider />
-    <h3 class="title mt-4">ผู้ปกครอง</h3>
+    <h3 class="title mt-4 text-xs-center">ผู้ปกครอง</h3>
     <CamperParent v-model="form.reg.parent" readonly />
     <v-divider />
-    <h3 class="title mt-4">ประวัติการเข้าค่าย</h3>
+    <h3 class="title mt-4 text-xs-center">ประวัติการเข้าค่าย</h3>
     <CamperPass v-model="form.reg.pass" readonly />
     <v-divider />
-    <h3 class="title mt-4">คำถาม Part 2</h3>
+    <h3 class="title mt-4 text-xs-center">คำถาม Part 2</h3>
     <AcademicLogic v-model="form.qus.logic" readonly />
     <AcademicElect v-model="form.qus.elect" readonly />
     <AcademicPro v-model="form.qus.pro" readonly />

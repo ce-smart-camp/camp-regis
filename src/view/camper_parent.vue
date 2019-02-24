@@ -1,36 +1,49 @@
 <template>
   <v-card-text>
-    <v-text-field
-      v-model="form.name"
-      label="ชื่อ"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.surname"
-      label="นามสกุล"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-combobox
-      v-model="form.relation"
-      label="ความเกี่ยวข้อง"
-      :items="itemsRelation"
-      :clearable="!disable && !readonly"
-      auto-select-first
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.tel"
-      label="หมายเลขโทรศัพท์"
-      mask="## #### ####"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
+    <v-layout row wrap>
+      <v-flex xs6>
+        <v-text-field
+          v-model="form.name"
+          label="ชื่อ"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex xs6>
+        <v-text-field
+          v-model="form.surname"
+          label="นามสกุล"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex xs6>
+        <v-combobox
+          v-model="form.relation"
+          label="ความเกี่ยวข้อง"
+          :items="itemsRelation"
+          :clearable="!disable && !readonly"
+          auto-select-first
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex xs6>
+        <v-text-field
+          v-model="form.tel"
+          label="หมายเลขโทรศัพท์"
+          mask="## #### ####"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+    </v-layout>
   </v-card-text>
 </template>
 

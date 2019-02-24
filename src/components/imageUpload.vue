@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-flex class="text-xs-center">
-      <v-img :src="imageUrl" class="grey lighten-2" max-height="300" contain />
+      <v-img :src="imageUrl" max-height="300" contain />
 
       <v-btn
         v-if="!readonly"

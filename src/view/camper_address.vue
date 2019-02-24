@@ -1,76 +1,104 @@
 <template>
   <v-card-text>
-    <v-text-field
-      v-model="form.number"
-      label="บ้านเลขที่"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.moo"
-      label="หมู่ที่"
-      mask="##"
-      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.alley"
-      label="ตรอก / ซอย"
-      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.village"
-      label="หมู่บ้าน"
-      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.road"
-      label="ถนน"
-      hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.subdistrict"
-      label="ตำบล / แขวง"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.district"
-      label="อำเภอ / เขต"
-      browser-autocomplete="address-level2"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.province"
-      label="จังหวัด"
-      browser-autocomplete="address-level1"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
-    <v-text-field
-      v-model="form.pcode"
-      label="รหัสไปรษณีย์"
-      browser-autocomplete="postal-code"
-      :clearable="!disable && !readonly"
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
+    <v-layout row wrap>
+      <v-flex sm3>
+        <v-text-field
+          v-model="form.number"
+          label="บ้านเลขที่"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex sm3>
+        <v-text-field
+          v-model="form.moo"
+          label="หมู่ที่"
+          mask="##"
+          hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex sm6>
+        <v-text-field
+          v-model="form.alley"
+          label="ตรอก / ซอย"
+          hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex sm4>
+        <v-text-field
+          v-model="form.village"
+          label="หมู่บ้าน"
+          hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex sm4>
+        <v-text-field
+          v-model="form.road"
+          label="ถนน"
+          hint="ถ้าหากไม่มีไม่จำเป็นต้องกรอก"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex sm4>
+        <v-text-field
+          v-model="form.subdistrict"
+          label="ตำบล / แขวง"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex sm4>
+        <v-text-field
+          v-model="form.district"
+          label="อำเภอ / เขต"
+          browser-autocomplete="address-level2"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex sm4>
+        <v-text-field
+          v-model="form.province"
+          label="จังหวัด"
+          browser-autocomplete="address-level1"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+
+      <v-flex sm4>
+        <v-text-field
+          v-model="form.pcode"
+          label="รหัสไปรษณีย์"
+          browser-autocomplete="postal-code"
+          :clearable="!disable && !readonly"
+          :readonly="readonly"
+          :disabled="disable && !readonly"
+        />
+      </v-flex>
+    </v-layout>
   </v-card-text>
 </template>
 

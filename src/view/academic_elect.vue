@@ -23,7 +23,11 @@
         โดยให้ขั้วบวกต่อเข้ากับตัวต้านทาน R2 จะเกิดอะไรขึ้น<br />
         4) จากข้อ 3 จงหาความดันตกคร่อมของตัวต้านทานแต่ละตัว
       </p>
-      <v-img :src="require('../assets/question/q-2-2.png')" contain></v-img>
+      <v-img
+        :src="require('../assets/question/q-2-2.png')"
+        contain
+        max-height="370px"
+      ></v-img>
     </div>
     <v-textarea
       v-model="form.item2"
@@ -37,7 +41,11 @@
       <p>
         6. จากวงจรด้านล่าง ถ้าถ่าน 9V ยังมีประจุอยู่ หากกดสวิตซ์จะเกิดอะไรขึ้น
       </p>
-      <v-img :src="require('../assets/question/q-2-3.png')" contain></v-img>
+      <v-img
+        :src="require('../assets/question/q-2-3.png')"
+        contain
+        max-height="270px"
+      ></v-img>
     </div>
     <v-textarea
       v-model="form.item3"
