@@ -42,21 +42,24 @@
       </p>
       <v-img :src="require('../assets/question/q-3-3.png')" contain></v-img>
     </div>
-    <v-textarea
+    <ImgUp
       v-model="form.item3"
-      class="nolabel"
-      rows="8"
-      box
+      :disabled="disable"
       :readonly="readonly"
-      :disabled="disable && !readonly"
+      text="อัปโหลดรูปของคำตอบ"
+      filename="q-3-3"
     />
   </v-card-text>
 </template>
 
 <script>
 import bus from "./../core/bus";
+import ImgUp from "./../components/imageUpload";
 
 export default {
+  components: {
+    ImgUp
+  },
   props: {
     value: {
       type: Object,
@@ -74,7 +77,7 @@ export default {
     form: {
       item1: null,
       item2: null,
-      item3: null
+      item3: ""
     }
   }),
   watch: {
