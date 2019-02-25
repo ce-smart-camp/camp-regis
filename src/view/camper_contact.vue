@@ -90,7 +90,7 @@ export default {
     rules: {
       required: value => !!value || "คำถามที่ต้องการคำตอบ",
       phone: value => {
-        if (value === null) return;
+        if (value === null) return true;
         return value.charAt(0) === "0" || "รูปแบบไม่ถูกต้อง";
       },
       email: value => {

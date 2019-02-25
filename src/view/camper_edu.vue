@@ -107,7 +107,7 @@ export default {
     rules: {
       required: value => !!value || "คำถามที่ต้องการคำตอบ",
       gpax: value => {
-        if (value == null) return;
+        if (value == null) return true;
         return Number(value) <= 4 || "ค่ามากสุดคือ 4.00";
       }
     }
