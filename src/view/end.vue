@@ -22,10 +22,10 @@
     <CamperPass v-model="form.reg.pass" readonly />
     <v-divider />
     <h3 class="title mt-4 text-xs-center">คำถาม Part 2</h3>
-    <AcademicLogic v-model="form.qus.logic" readonly />
-    <AcademicElect v-model="form.qus.elect" readonly />
-    <AcademicPro v-model="form.qus.pro" readonly />
-    <AcademicIot v-model="form.qus.iot" readonly />
+    <AcademicLogic v-model="form.qus.logic" readonly class="pb-0" />
+    <AcademicElect v-model="form.qus.elect" readonly class="py-0" />
+    <AcademicPro v-model="form.qus.pro" readonly class="py-0" />
+    <AcademicIot v-model="form.qus.iot" readonly class="pt-0" />
   </div>
 </template>
 
