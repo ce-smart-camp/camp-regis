@@ -170,4 +170,12 @@ export default {
 p {
   font-size: 16px;
 }
+
+.v-messages__message {
+  line-height: 1.5;
+}
+
+.v-input .v-label {
+  line-height: 1.4;
+}
 </style>
