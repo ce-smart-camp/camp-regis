@@ -49,7 +49,7 @@
     </v-window-item>
 
     <v-window-item :value="13">
-      <End v-model="form" />
+      <End v-model="form" :show="step === 13" />
     </v-window-item>
   </v-window>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-3">
+  <v-form ref="form" v-model="valid">
     <h3 class="title text-xs-center">ตรวจสอบข้อมูล</h3>
     <CamperInfo v-model="form.reg.info" readonly />
     <v-divider />
@@ -26,7 +26,7 @@
     <AcademicElect v-model="form.qus.elect" readonly class="py-0" />
     <AcademicPro v-model="form.qus.pro" readonly class="py-0" />
     <AcademicIot v-model="form.qus.iot" readonly class="pt-0" />
-  </div>
+  </v-form>
 </template>
 
 <script>
@@ -62,10 +62,11 @@ export default {
       default: function() {
         return {};
       }
-    }
+    },
+    show: Boolean
   },
   data: () => ({
-    disable: false,
+    valid: false,
     form: {
       reg: {
         fb_id: null,
@@ -95,6 +96,9 @@ export default {
         this.form = val;
       },
       deep: true
+    },
+    show(val) {
+      if (val) this.validate();
     }
   },
   mounted: function() {
@@ -102,6 +106,13 @@ export default {
       Object.keys(this.form).forEach(key => {
         this.form[key] = this.value[key] || null;
       });
+    }
+  },
+  methods: {
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+      }
     }
   }
 };
