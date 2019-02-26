@@ -1,32 +1,32 @@
 <template>
-  <div class="pa-3">
-    <h3 class="title text-xs-center">ตรวจสอบข้อมูล</h3>
+  <v-form ref="form" v-model="valid">
+    <h4 class="display-1 text-xs-center">ตรวจสอบข้อมูล</h4>
     <CamperInfo v-model="form.reg.info" readonly />
     <v-divider />
-    <h3 class="title mt-4 text-xs-center">การติดต่อ</h3>
+    <h5 class="headline mt-4 text-xs-center">การติดต่อ</h5>
     <CamperContact v-model="form.reg.contact" readonly />
     <v-divider />
-    <h3 class="title mt-4 text-xs-center">ข้อมูลสุขภาพ</h3>
+    <h5 class="headline mt-4 text-xs-center">ข้อมูลสุขภาพ</h5>
     <CamperHealth v-model="form.reg.health" readonly />
     <v-divider />
-    <h3 class="title mt-4 text-xs-center">ที่อยู่</h3>
+    <h5 class="headline mt-4 text-xs-center">ที่อยู่</h5>
     <CamperAddress v-model="form.reg.address" readonly />
     <v-divider />
-    <h3 class="title mt-4 text-xs-center">การศึกษา</h3>
+    <h5 class="headline mt-4 text-xs-center">การศึกษา</h5>
     <CamperEdu v-model="form.reg.edu" readonly />
     <v-divider />
-    <h3 class="title mt-4 text-xs-center">ผู้ปกครอง</h3>
+    <h5 class="headline mt-4 text-xs-center">ผู้ปกครอง</h5>
     <CamperParent v-model="form.reg.parent" readonly />
     <v-divider />
-    <h3 class="title mt-4 text-xs-center">ประวัติการเข้าค่าย</h3>
+    <h5 class="headline mt-4 text-xs-center">ประวัติการเข้าค่าย</h5>
     <CamperPass v-model="form.reg.pass" readonly />
     <v-divider />
-    <h3 class="title mt-4 text-xs-center">คำถาม Part 2</h3>
-    <AcademicLogic v-model="form.qus.logic" readonly />
-    <AcademicElect v-model="form.qus.elect" readonly />
-    <AcademicPro v-model="form.qus.pro" readonly />
-    <AcademicIot v-model="form.qus.iot" readonly />
-  </div>
+    <h5 class="headline mt-4 text-xs-center">คำถาม Part 2</h5>
+    <AcademicLogic v-model="form.qus.logic" readonly class="pb-0" />
+    <AcademicElect v-model="form.qus.elect" readonly class="py-0" />
+    <AcademicPro v-model="form.qus.pro" readonly class="py-0" />
+    <AcademicIot v-model="form.qus.iot" readonly class="pt-0" />
+  </v-form>
 </template>
 
 <script>
@@ -62,10 +62,11 @@ export default {
       default: function() {
         return {};
       }
-    }
+    },
+    show: Boolean
   },
   data: () => ({
-    disable: false,
+    valid: false,
     form: {
       reg: {
         fb_id: null,
@@ -95,6 +96,9 @@ export default {
         this.form = val;
       },
       deep: true
+    },
+    show(val) {
+      if (val) this.validate();
     }
   },
   mounted: function() {
@@ -102,6 +106,13 @@ export default {
       Object.keys(this.form).forEach(key => {
         this.form[key] = this.value[key] || null;
       });
+    }
+  },
+  methods: {
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+      }
     }
   }
 };

@@ -49,7 +49,7 @@
     </v-window-item>
 
     <v-window-item :value="13">
-      <End v-model="form" />
+      <End v-model="form" :show="step === 13" />
     </v-window-item>
   </v-window>
 </template>
@@ -169,5 +169,13 @@ export default {
 <style>
 p {
   font-size: 16px;
+}
+
+.v-messages__message {
+  line-height: 1.5;
+}
+
+.v-input .v-label {
+  line-height: 1.4;
 }
 </style>

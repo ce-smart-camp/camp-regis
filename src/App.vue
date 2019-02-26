@@ -2,16 +2,10 @@
   <v-app>
     <SideBar />
     <v-content>
-      <v-container grid-list-lg>
-        <v-layout row wrap>
-          <v-flex xs12>
-            <step />
-          </v-flex>
+      <v-container grid-list-md>
+        <step />
 
-          <v-flex xs12>
-            <Time />
-          </v-flex>
-        </v-layout>
+        <Time />
       </v-container>
     </v-content>
 

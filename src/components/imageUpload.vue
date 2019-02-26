@@ -1,36 +1,34 @@
 <template>
-  <v-container fluid>
-    <v-flex class="text-xs-center">
-      <v-img :src="imageUrl" max-height="300" contain />
+  <div class="text-xs-center">
+    <v-img :src="imageUrl" max-height="300" contain />
 
-      <v-btn
-        v-if="!readonly"
-        :loading="uploading"
-        :disabled="uploading || disabled"
-        color="blue"
-        class="white--text"
-        @click="pickFile"
-      >
-        {{ text }}
-        <v-icon right dark>cloud_upload</v-icon>
-      </v-btn>
+    <v-btn
+      v-if="!readonly"
+      :loading="uploading"
+      :disabled="uploading || disabled"
+      color="blue"
+      class="white--text"
+      @click="pickFile"
+    >
+      {{ text }}
+      <v-icon right dark>cloud_upload</v-icon>
+    </v-btn>
 
-      <v-alert
-        :value="readonly && (imageUrl === '' || imgMD5 === '')"
-        type="warning"
-      >
-        น้องๆไม่ได้อัปโหลดรูปภาพ
-      </v-alert>
+    <v-alert
+      :value="readonly && (imageUrl === '' || imgMD5 === '')"
+      type="warning"
+    >
+      น้องๆไม่ได้อัปโหลดรูปภาพ
+    </v-alert>
 
-      <input
-        ref="image"
-        type="file"
-        style="display: none"
-        accept="image/*"
-        @change="onFilePicked"
-      />
-    </v-flex>
-  </v-container>
+    <input
+      ref="image"
+      type="file"
+      style="display: none"
+      accept="image/*"
+      @change="onFilePicked"
+    />
+  </div>
 </template>
 
 <script>
