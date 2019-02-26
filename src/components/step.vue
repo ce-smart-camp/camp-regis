@@ -73,7 +73,7 @@ export default {
       this.step = val;
 
       if (typeof window.analytics !== "undefined") {
-        window.nalytics.page(this.step, {
+        window.analytics.page(this.step, {
           title: this.currentTitle,
           path: `/${this.step}`
         });
