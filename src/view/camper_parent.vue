@@ -5,10 +5,11 @@
         <v-text-field
           v-model="form.name"
           label="ชื่อ"
+          hint="ไม่ต้องใส่คำนำหน้า"
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
-          :rules="[rules.required]"
+          :rules="[rules.required, rules.prefix, rules.thai]"
         />
       </v-flex>
 
@@ -19,7 +20,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
-          :rules="[rules.required]"
+          :rules="[rules.required, rules.thai]"
         />
       </v-flex>
 
@@ -97,7 +98,12 @@ export default {
       phone: value => {
         if (value === null) return true;
         return value.charAt(0) === "0" || "รูปแบบไม่ถูกต้อง";
-      }
+      },
+      prefix: val =>
+        !/^(นาย|นาง(สาว)?|น\.?ส\.?|ด\.?(ญ|ช)\.?) ?/.test(val) ||
+        "ก็บอกว่าไม่ต้องใส่คำนำหน้าไง",
+      thai: val =>
+        /^([\u0E00-\u0E7F ])+$/.test(val) || "สามารถกรอกได้แค่ภาษาไทย"
     }
   }),
   watch: {
