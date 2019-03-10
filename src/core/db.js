@@ -99,4 +99,8 @@ function getData() {
   });
 }
 
-export { getData, updateData };
+function getOldData() {
+  return oldData;
+}
+
+export { getData, updateData, getOldData };

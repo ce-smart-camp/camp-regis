@@ -57,7 +57,7 @@
 <script>
 import firebase from "./../core/firebase";
 import bus from "./../core/bus";
-import { getData, updateData } from "./../core/db";
+import { getData, updateData, getOldData } from "./../core/db";
 
 import Welcome from "./../view/welcome";
 import CamperInfo from "./../view/camper_info";
@@ -149,6 +149,14 @@ export default {
         }
         if (typeof data.qus !== "undefined") this.form.qus = data.qus;
       });
+    });
+
+    bus.$on("reg.close", () => {
+      this.form.reg = getOldData().reg;
+    });
+
+    bus.$on("qus.close", () => {
+      this.form.qus = getOldData().qus;
     });
   },
   methods: {
