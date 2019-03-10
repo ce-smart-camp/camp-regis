@@ -9,9 +9,14 @@
     <h3 class="title font-weight-light mb-2">
       ยินดีต้อนรับน้อง เข้าสู่ระบบรับสมัครค่าย
     </h3>
-    <v-btn color="#4267b2" dark @click="loginBtn">
-      <icon name="facebook" />&nbsp;&nbsp;{{ loginBtnText }}
-    </v-btn>
+    <div class="py-4">
+      <v-btn color="#4267b2" dark @click="loginBtn">
+        <icon name="facebook" />&nbsp;&nbsp;{{ loginBtnText }}
+      </v-btn>
+      <p>
+        {{ loginText }}
+      </p>
+    </div>
     <p>
       ระบบนี้จะบันทึกข้อมูลทุกครั้งที่เปลี่ยนหน้า<br />
       น้องๆ สามารถข้ามไปยังหน้าอื่นได้ด้วยการกดที่แถบเมนูด้านข้าง <br />
@@ -40,7 +45,7 @@ export default {
   components: {
     icon: Icon
   },
-  data: () => ({ loginBtnText: "", isLogin: false }),
+  data: () => ({ loginBtnText: "", isLogin: false, loginText: "" }),
   watch: {
     isLogin() {
       this.changeText();
@@ -61,11 +66,13 @@ export default {
     },
     changeText: function() {
       if (this.isLogin) {
-        this.loginBtnText =
-          "เข้าใช้ด้วยชื่อ " +
+        this.loginBtnText = "ออกจากระบบ";
+        this.loginText =
+          "น้องลงชื่อเข้าใช้ด้วยชื่อ " +
           firebase.auth().currentUser.providerData[0].displayName;
       } else {
         this.loginBtnText = "ลงชื่อเข้าใช้ด้วย Facebook";
+        this.loginText = "";
       }
     }
   }
