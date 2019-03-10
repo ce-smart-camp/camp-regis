@@ -33,6 +33,13 @@ function updateData(data) {
     delete updateData.reg.created_at;
   }
 
+  if (data.qus.completed_at === "new-data") {
+    updateData.qus.completed_at = firebase.firestore.FieldValue.serverTimestamp();
+  } else {
+    if (oldData.qus.completed_at) delete oldData.qus.completed_at;
+    delete updateData.qus.completed_at;
+  }
+
   let run = (ref, newD, oldD) => {
     return new Promise((resolve, reject) => {
       if (typeof oldD !== "undefined")
@@ -57,6 +64,7 @@ function updateData(data) {
       .then(() => {
         oldData = updateData;
         data.reg.created_at = "save-data";
+        data.qus.completed_at = null;
         bus.$emit("loader.off");
         resolve(true);
       })

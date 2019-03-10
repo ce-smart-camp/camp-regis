@@ -146,7 +146,18 @@ export default {
             this.form.reg.contact.fb = firebase.auth().currentUser.providerData[0].displayName;
             this.form.reg.contact.email = firebase.auth().currentUser.providerData[0].email;
           }
-          if (typeof data.qus !== "undefined") this.form.qus = data.qus;
+          if (typeof data.qus !== "undefined") {
+            this.form.qus = data.qus;
+
+            if (this.form.qus.completed_at != null) {
+              bus.$emit(
+                "dialog.on",
+                "น้องได้ส่งใบสมัครไปแล้ว ไม่สามารถแก้ไขได้ สามารถทำได้แค่มอง"
+              );
+              bus.$emit("reg.close", false);
+              bus.$emit("qus.close", false);
+            }
+          }
         });
       }
     });
