@@ -113,11 +113,7 @@ export default {
       camp3_uni: null,
       knowFrom: null
     },
-    rules: {
-      required: value => !!value || "คำถามที่ต้องการคำตอบ",
-      required_uni: camp => value =>
-        !camp ? !value || "ไม่ต้องกรอก" : !!value || "คำถามที่ต้องการคำตอบ"
-    }
+    rules
   }),
   watch: {
     form: {

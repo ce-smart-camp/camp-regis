@@ -54,6 +54,7 @@
 
 <script>
 import bus from "./../core/bus";
+import rules from "./../core/rules";
 
 export default {
   props: {
@@ -93,18 +94,7 @@ export default {
       relation: null,
       tel: null
     },
-    rules: {
-      required: value => !!value || "คำถามที่ต้องการคำตอบ",
-      phone: value => {
-        if (value === null) return true;
-        return value.charAt(0) === "0" || "รูปแบบไม่ถูกต้อง";
-      },
-      prefix: val =>
-        !/^(นาย|นาง(สาว)?|น\.?ส\.?|ด\.?(ญ|ช)\.?) ?/.test(val) ||
-        "ก็บอกว่าไม่ต้องใส่คำนำหน้าไง",
-      thai: val =>
-        /^([\u0E00-\u0E7F ])+$/.test(val) || "สามารถกรอกได้แค่ภาษาไทย"
-    }
+    rules
   }),
   watch: {
     form: {

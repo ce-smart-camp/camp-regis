@@ -65,6 +65,7 @@
 
 <script>
 import bus from "./../core/bus";
+import rules from "./../core/rules";
 
 const Options = options =>
   Object.entries(options).map(([value, text]) => ({ value, text }));
@@ -104,13 +105,7 @@ export default {
       plan: null,
       gpax: null
     },
-    rules: {
-      required: value => !!value || "คำถามที่ต้องการคำตอบ",
-      gpax: value => {
-        if (value == null) return true;
-        return Number(value) <= 4 || "ค่ามากสุดคือ 4.00";
-      }
-    }
+    rules
   }),
   watch: {
     form: {

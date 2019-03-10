@@ -110,6 +110,7 @@
 
 <script>
 import bus from "./../core/bus";
+import rules from "./../core/rules";
 
 export default {
   props: {
@@ -137,9 +138,7 @@ export default {
       province: null,
       pcode: null
     },
-    rules: {
-      required: value => !!value || "คำถามที่ต้องการคำตอบ"
-    }
+    rules
   }),
   watch: {
     form: {
