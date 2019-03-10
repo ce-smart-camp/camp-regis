@@ -5,10 +5,15 @@ import bus from "./bus";
 
 // Signs-in Friendly Chat.
 function signIn() {
-  bus.$emit("dialogOn", "กำลังลงชื่อเข้าใช้");
+  bus.$emit("loader.on", "กำลังลงชื่อเข้าใช้");
 
   var provider = new firebase.auth.FacebookAuthProvider();
-  firebase.auth().signInWithPopup(provider);
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(() => {
+      bus.$emit("loader.off");
+    });
 }
 
 function signOut() {
