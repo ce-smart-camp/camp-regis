@@ -3,7 +3,6 @@ let rules = {};
 rules.required = value => !!value || "คำถามที่ต้องการคำตอบ";
 
 rules.required_uni = camp => value => {
-  console.log(camp, value);
   return !camp ? !value || "ไม่ต้องกรอก" : !!value || "คำถามที่ต้องการคำตอบ";
 };
 

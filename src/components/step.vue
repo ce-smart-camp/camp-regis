@@ -15,12 +15,16 @@
     <v-divider />
 
     <v-card-actions>
-      <v-btn :disabled="step === 1 || dialog" flat @click="backPage">
+      <v-btn
+        :disabled="step === 1 || dialog || !isLogin"
+        flat
+        @click="backPage"
+      >
         <v-icon>keyboard_arrow_left</v-icon>&nbsp;ย้อนกลับ&nbsp;&nbsp;
       </v-btn>
       <v-spacer />
       <v-btn
-        :disabled="step === 13 || dialog"
+        :disabled="step === 13 || dialog || !isLogin"
         color="primary"
         depressed
         @click="nextPage"
@@ -43,7 +47,8 @@ export default {
   },
   data: () => ({
     step: 1,
-    dialog: false
+    dialog: false,
+    isLogin: false
   }),
   computed: {
     currentTitle() {
@@ -66,9 +71,9 @@ export default {
     }
   },
   mounted() {
-    bus.$on("loader.change", val => {
-      this.dialog = val;
-    });
+    bus.$on("user.change", val => (this.isLogin = val));
+    bus.$on("loader.change", val => (this.dialog = val));
+
     bus.$on("step.change", val => {
       this.step = val;
 

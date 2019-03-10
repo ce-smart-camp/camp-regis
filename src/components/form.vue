@@ -92,6 +92,7 @@ export default {
   data: () => ({
     step: 1,
     dialog: false,
+    isLogin: false,
     form: {
       reg: {
         fb_id: null,
@@ -130,38 +131,33 @@ export default {
   },
   mounted() {
     bus.$on("step.go", next => this.goto(this.step + next));
-
     bus.$on("step.goto", to => this.goto(to));
 
-    bus.$on("loader.change", val => {
-      this.dialog = val;
+    bus.$on("loader.change", val => (this.dialog = val));
+    bus.$on("user.change", val => {
+      this.isLogin = val;
+      if (val) {
+        getData().then(data => {
+          if (typeof data.reg !== "undefined") this.form.reg = data.reg;
+          else {
+            this.form.reg.created_at = "new-data";
+            this.form.reg.fb_id = firebase.auth().currentUser.providerData[0].uid;
+
+            this.form.reg.contact.fb = firebase.auth().currentUser.providerData[0].displayName;
+            this.form.reg.contact.email = firebase.auth().currentUser.providerData[0].email;
+          }
+          if (typeof data.qus !== "undefined") this.form.qus = data.qus;
+        });
+      }
     });
 
-    bus.$on("user", () => {
-      getData().then(data => {
-        if (typeof data.reg !== "undefined") this.form.reg = data.reg;
-        else {
-          this.form.reg.created_at = "new-data";
-          this.form.reg.fb_id = firebase.auth().currentUser.providerData[0].uid;
+    bus.$on("reg.close", () => (this.form.reg = getOldData().reg));
 
-          this.form.reg.contact.fb = firebase.auth().currentUser.providerData[0].displayName;
-          this.form.reg.contact.email = firebase.auth().currentUser.providerData[0].email;
-        }
-        if (typeof data.qus !== "undefined") this.form.qus = data.qus;
-      });
-    });
-
-    bus.$on("reg.close", () => {
-      this.form.reg = getOldData().reg;
-    });
-
-    bus.$on("qus.close", () => {
-      this.form.qus = getOldData().qus;
-    });
+    bus.$on("qus.close", () => (this.form.qus = getOldData().qus));
   },
   methods: {
     goto(val) {
-      if (!this.dialog)
+      if (!this.dialog && this.isLogin)
         updateData(this.form).then(can => {
           if (can) {
             this.step = val;
