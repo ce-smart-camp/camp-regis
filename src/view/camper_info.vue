@@ -28,10 +28,11 @@
           v-model="form.name"
           label="ชื่อ"
           browser-autocomplete="given-name"
+          hint="ไม่ต้องใส่คำนำหน้า"
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
-          :rules="[rules.required]"
+          :rules="[rules.required, rules.prefix, rules.thai]"
         />
       </v-flex>
 
@@ -43,7 +44,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
-          :rules="[rules.required]"
+          :rules="[rules.required, rules.thai]"
         />
       </v-flex>
 
@@ -54,7 +55,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
-          :rules="[rules.required]"
+          :rules="[rules.required, rules.thai]"
         />
       </v-flex>
 
@@ -141,6 +142,7 @@
 
 <script>
 import bus from "./../core/bus";
+import rules from "./../core/rules";
 import ImgUp from "./../components/imageUpload";
 
 const Options = options =>
@@ -174,15 +176,6 @@ const religionOptions = Options(religions);
 const genderOptions = Options(genders);
 const shirtSizeOptions = Options(shirtSizes);
 
-function checkID(id) {
-  if (!id) return true;
-  if (id.length === 0) return true;
-  if (id.length != 13) return false;
-  let sum = 0;
-  for (let i = 0; i < 12; i++) sum += Number(id.charAt(i)) * (13 - i);
-  return (11 - (sum % 11)) % 10 === Number(id.charAt(12));
-}
-
 export default {
   components: {
     ImgUp
@@ -208,10 +201,6 @@ export default {
     },
     date: null,
     menu: false,
-    rules: {
-      national_id: val => checkID(val) || "เลขที่กรอกไม่ถูกต้อง",
-      required: value => !!value || "คำถามที่ต้องการคำตอบ"
-    },
     form: {
       pic: "",
       nid: null,
@@ -222,7 +211,8 @@ export default {
       birth: null,
       religion: null,
       shirt: null
-    }
+    },
+    rules
   }),
   watch: {
     menu(val) {

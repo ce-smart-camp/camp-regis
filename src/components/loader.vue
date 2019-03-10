@@ -22,18 +22,13 @@ export default {
       bus.$emit("loader.change", val);
     }
   },
-  created() {
-    this.dialog = true;
-  },
   mounted() {
     bus.$on("loader.on", msg => {
-      this.msg = msg;
+      this.msg = msg || this.msg;
       this.dialog = true;
     });
 
-    bus.$on("loader.off", () => {
-      this.dialog = false;
-    });
+    bus.$on("loader.off", () => (this.dialog = false));
   }
 };
 </script>

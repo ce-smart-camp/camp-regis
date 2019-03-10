@@ -5,6 +5,12 @@
   publish = "dist"
 
 [[redirects]]
+  from = "https://cesc12-reg.netlify.com/*"
+  to = "https://reg.cesc.kmi.tl/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

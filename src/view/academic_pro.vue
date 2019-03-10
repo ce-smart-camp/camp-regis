@@ -58,6 +58,7 @@
       :readonly="readonly"
       text="อัปโหลดรูปของคำตอบ"
       filename="q-3-3"
+      class="pb-4"
     />
   </v-card-text>
 </template>

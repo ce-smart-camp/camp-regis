@@ -4,11 +4,28 @@ function isImageBelowMaxSize(maxSizeMB) {
       && request.resource.contentType.matches('image/.*');
 }
 
+function checkOwn(userID) {
+	return request.auth != null && request.auth.uid == userID;
+}
+
+function timeout1() {
+	return request.time < timestamp.value(1554829200000); // 10 เมษายน 2019 เวลา 0:00:00
+}
+
+function timeout2() {
+	return request.time < timestamp.value(1555693200000); // 20 เมษายน 2019 เวลา 0:00:00
+}
+
 service firebase.storage {
   match /b/{bucket}/o {
-    match /{userId}/{fileName} {
-      allow write: if request.auth != null && request.auth.uid == userId && isImageBelowMaxSize(5);
-      allow read: if request.auth != null && request.auth.uid == userId;
+    match /{userID}/pic_profile {
+      allow write: if checkOwn(userID) && isImageBelowMaxSize(5) && timeout1();
+      allow read: if checkOwn(userID);
+    }
+
+    match /{userID}/q-3-3 {
+      allow write: if checkOwn(userID) && isImageBelowMaxSize(5) && timeout2();
+      allow read: if checkOwn(userID);
     }
   }
 }

@@ -26,6 +26,17 @@
     <AcademicElect v-model="form.qus.elect" readonly class="py-0" />
     <AcademicPro v-model="form.qus.pro" readonly class="py-0" />
     <AcademicIot v-model="form.qus.iot" readonly class="pt-0" />
+    <v-divider />
+    <v-card-text class="text-xs-center">
+      <h5 class="headline my-4">พร้อมจะส่งใบสมัครแล้วใช่ไหม</h5>
+      <v-btn
+        color="success"
+        :disabled="form.qus.completed_at !== null"
+        @click="submitForm"
+      >
+        &nbsp;ส่งใบสมัคร&nbsp;&nbsp;<v-icon>send</v-icon>
+      </v-btn>
+    </v-card-text>
   </v-form>
 </template>
 
@@ -41,6 +52,7 @@ import AcademicLogic from "./../view/academic_logic";
 import AcademicElect from "./../view/academic_elect";
 import AcademicPro from "./../view/academic_pro";
 import AcademicIot from "./../view/academic_iot";
+import bus from "../core/bus";
 
 export default {
   components: {
@@ -91,6 +103,12 @@ export default {
     }
   }),
   watch: {
+    form: {
+      handler(val) {
+        this.$emit("input", val);
+      },
+      deep: true
+    },
     value: {
       handler(val) {
         this.form = val;
@@ -112,6 +130,27 @@ export default {
     validate() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
+      }
+    },
+    submitForm() {
+      this.validate();
+      if (!this.valid) {
+        bus.$emit(
+          "dialog.on",
+          "รูปแบบคำตอบของน้องไม่ถูกต้อง ขอให้น้องกลับไปแก้ไขคำตอบที่กรอกด้วย"
+        );
+      } else {
+        bus.$emit("dialog.on", {
+          msg:
+            "ถ้าส่งคำตอบไปแล้วน้องๆจะไม่สามารถกลับมาแก้ไขได้แล้ว น้องๆต้องการจะส่งคำตอบใช่หรือไม่",
+          confirm: true,
+          callback: () => {
+            this.form.qus.completed_at = "new-data";
+            bus.$emit("step.go", 0);
+            bus.$emit("reg.close", false);
+            bus.$emit("qus.close", false);
+          }
+        });
       }
     }
   }

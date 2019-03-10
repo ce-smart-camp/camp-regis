@@ -64,6 +64,7 @@
 
 <script>
 import bus from "./../core/bus";
+import rules from "./../core/rules";
 
 export default {
   props: {
@@ -87,17 +88,7 @@ export default {
       line: null,
       talent: null
     },
-    rules: {
-      required: value => !!value || "คำถามที่ต้องการคำตอบ",
-      phone: value => {
-        if (value === null) return true;
-        return value.charAt(0) === "0" || "รูปแบบไม่ถูกต้อง";
-      },
-      email: value => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return pattern.test(value) || "รูปแบบไม่ถูกต้อง";
-      }
-    }
+    rules
   }),
   watch: {
     form: {
