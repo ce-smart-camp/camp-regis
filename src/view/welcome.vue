@@ -4,7 +4,7 @@
       class="mb-3"
       contain
       height="256"
-      :src="require('../assets/logo-camp.svg')"
+      :src="require('../assets/logo-camp.min.svg')"
     />
     <h3 class="title font-weight-light mb-2">
       ยินดีต้อนรับน้อง เข้าสู่ระบบรับสมัครค่าย
