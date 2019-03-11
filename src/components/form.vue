@@ -1,55 +1,55 @@
 <template>
   <v-window v-model="step" :touch="slide">
     <v-window-item :value="1">
-      <Welcome />
+      <Welcome v-if="step <= 2" />
     </v-window-item>
 
     <v-window-item :value="2">
-      <CamperInfo v-model="form.reg.info" />
+      <CamperInfo v-if="1 <= step && step <= 3" v-model="form.reg.info" />
     </v-window-item>
 
     <v-window-item :value="3">
-      <CamperContact v-model="form.reg.contact" />
+      <CamperContact v-if="2 <= step && step <= 4" v-model="form.reg.contact" />
     </v-window-item>
 
     <v-window-item :value="4">
-      <CamperHealth v-model="form.reg.health" />
+      <CamperHealth v-if="3 <= step && step <= 5" v-model="form.reg.health" />
     </v-window-item>
 
     <v-window-item :value="5">
-      <CamperAddress v-model="form.reg.address" />
+      <CamperAddress v-if="4 <= step && step <= 6" v-model="form.reg.address" />
     </v-window-item>
 
     <v-window-item :value="6">
-      <CamperEdu v-model="form.reg.edu" />
+      <CamperEdu v-if="5 <= step && step <= 7" v-model="form.reg.edu" />
     </v-window-item>
 
     <v-window-item :value="7">
-      <CamperParent v-model="form.reg.parent" />
+      <CamperParent v-if="6 <= step && step <= 8" v-model="form.reg.parent" />
     </v-window-item>
 
     <v-window-item :value="8">
-      <CamperPass v-model="form.reg.pass" />
+      <CamperPass v-if="7 <= step && step <= 9" v-model="form.reg.pass" />
     </v-window-item>
 
     <v-window-item :value="9">
-      <AcademicLogic v-model="form.qus.logic" />
+      <AcademicLogic v-if="8 <= step && step <= 10" v-model="form.qus.logic" />
     </v-window-item>
 
     <v-window-item :value="10">
-      <AcademicElect v-model="form.qus.elect" />
+      <AcademicElect v-if="9 <= step && step <= 11" v-model="form.qus.elect" />
     </v-window-item>
 
     <v-window-item :value="11">
-      <AcademicPro v-model="form.qus.pro" />
+      <AcademicPro v-if="10 <= step && step <= 12" v-model="form.qus.pro" />
     </v-window-item>
 
     <v-window-item :value="12">
-      <AcademicIot v-model="form.qus.iot" />
+      <AcademicIot v-if="11 <= step && step <= 13" v-model="form.qus.iot" />
     </v-window-item>
 
     <v-window-item :value="13">
-      <End v-model="form" :show="step === 13" />
+      <End v-if="12 <= step" v-model="form" :show="step === 13" />
     </v-window-item>
   </v-window>
 </template>
@@ -142,7 +142,7 @@ export default {
           else {
             this.form.reg.created_at = "new-data";
             this.form.reg.fb_id = firebase.auth().currentUser.providerData[0].uid;
-
+            this.form.reg.contact = {};
             this.form.reg.contact.fb = firebase.auth().currentUser.providerData[0].displayName;
             this.form.reg.contact.email = firebase.auth().currentUser.providerData[0].email;
           }

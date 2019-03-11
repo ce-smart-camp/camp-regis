@@ -3,7 +3,7 @@
     <v-card-title class="title font-weight-regular justify-space-between">
       <span>{{ currentTitle }}</span>
       <v-avatar
-        color="primary lighten-2"
+        color="primary"
         class="subheading white--text"
         size="34"
         v-text="step"

@@ -25,7 +25,7 @@
         และจงหาความดันตกคร่อมของตัวต้านทานแต่ละตัว
       </p>
       <v-img
-        :src="require('../assets/question/q-2-2.png')"
+        :src="require('../assets/question/q-2-2.webp')"
         contain
         max-height="370px"
       ></v-img>
@@ -44,7 +44,7 @@
         6. จากวงจรด้านล่าง ถ้าถ่าน 9V ยังมีประจุอยู่ หากกดสวิตซ์จะเกิดอะไรขึ้น
       </p>
       <v-img
-        :src="require('../assets/question/q-2-3.png')"
+        :src="require('../assets/question/q-2-3.webp')"
         contain
         max-height="270px"
       ></v-img>
