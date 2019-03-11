@@ -24,7 +24,7 @@
         <i>(เขียนบรรทัดที่ผิด+จุดที่ผิด พร้อมแก้ไขให้ถูกต้อง)</i>
       </p>
       <v-img
-        :src="require('../assets/question/q-3-2.png')"
+        :src="require('../assets/question/q-3-2.webp')"
         contain
         max-height="450px"
       ></v-img>
@@ -47,7 +47,7 @@
         <i>(Hint : ขั้นตอนดำเนินการอยู่ในเว็บไซต์สมัคร)</i>
       </p>
       <v-img
-        :src="require('../assets/question/q-3-3.png')"
+        :src="require('../assets/question/q-3-3.webp')"
         contain
         max-height="75px"
       ></v-img>
