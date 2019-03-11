@@ -13,6 +13,17 @@ function signIn() {
     .signInWithPopup(provider)
     .then(() => {
       bus.$emit("loader.off");
+    })
+    .catch(err => {
+      if (err.code == "auth/popup-closed-by-user") {
+        bus.$emit("loader.off");
+        bus.$emit(
+          "dialog.on",
+          "น้องได้ทำการปิดหน้าต่างสำหรับเข้าสู่ระบบด้วย Facebook ไป จึงทำใหม่ไม่สามารถเข้าใช้ระบบสมัครได้"
+        );
+      } else {
+        console.error(err);
+      }
     });
 }
 
