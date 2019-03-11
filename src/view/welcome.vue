@@ -54,6 +54,8 @@ export default {
   mounted() {
     bus.$on("user.change", val => (this.isLogin = val));
 
+    this.isLogin = !!firebase.auth().currentUser;
+
     this.changeText();
   },
   methods: {
