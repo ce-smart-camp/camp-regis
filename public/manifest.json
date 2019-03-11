@@ -1,6 +1,18 @@
 {
   "short_name": "CESC 12",
   "name": "CE Smart Camp #12",
+  "icons": [
+    {
+      "src": "/logo/icons-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logo/icons-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
   "start_url": "/?source=pwa",
   "background_color": "#FAFAFA",
   "display": "standalone",
