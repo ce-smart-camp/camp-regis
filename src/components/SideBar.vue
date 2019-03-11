@@ -60,7 +60,10 @@
       dense
     >
       <v-toolbar-title class="ml-0 pl-3">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer" />
+        <v-toolbar-side-icon
+          aria-label="open side bar"
+          @click.stop="drawer = !drawer"
+        />
         <span class="hidden-xs-only">ระบบสมัครค่าย </span>
         <span>CE Smart Camp #12</span>
       </v-toolbar-title>
