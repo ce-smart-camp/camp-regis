@@ -1,0 +1,9 @@
+{
+  "short_name": "CESC 12",
+  "name": "CE Smart Camp #12",
+  "start_url": "/?source=pwa",
+  "background_color": "#FAFAFA",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#1565c0"
+}
