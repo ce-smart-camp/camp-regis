@@ -142,7 +142,7 @@ export default {
           else {
             this.form.reg.created_at = "new-data";
             this.form.reg.fb_id = firebase.auth().currentUser.providerData[0].uid;
-
+            this.form.reg.contact = {};
             this.form.reg.contact.fb = firebase.auth().currentUser.providerData[0].displayName;
             this.form.reg.contact.email = firebase.auth().currentUser.providerData[0].email;
           }

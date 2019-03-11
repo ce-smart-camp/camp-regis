@@ -36,7 +36,8 @@ function updateData(data) {
   if (data.qus.completed_at === "new-data") {
     updateData.qus.completed_at = firebase.firestore.FieldValue.serverTimestamp();
   } else {
-    if (oldData.qus.completed_at) delete oldData.qus.completed_at;
+    if (oldData.qus)
+      if (oldData.qus.completed_at) delete oldData.qus.completed_at;
     delete updateData.qus.completed_at;
   }
 
