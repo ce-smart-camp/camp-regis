@@ -15,14 +15,26 @@ function signIn() {
       bus.$emit("loader.off");
     })
     .catch(err => {
-      if (err.code == "auth/popup-closed-by-user") {
-        bus.$emit("loader.off");
-        bus.$emit(
-          "dialog.on",
-          "น้องได้ทำการปิดหน้าต่างสำหรับเข้าสู่ระบบด้วย Facebook ไป จึงทำใหม่ไม่สามารถเข้าใช้ระบบสมัครได้"
-        );
-      } else {
-        console.error(err);
+      bus.$emit("loader.off");
+      switch (err.code) {
+        case "auth/popup-closed-by-user":
+          bus.$emit(
+            "dialog.on",
+            "น้องได้ทำการปิดหน้าต่างสำหรับเข้าสู่ระบบด้วย Facebook ไป จึงทำใหม่ไม่สามารถเข้าใช้ระบบสมัครได้"
+          );
+          break;
+        case "auth/unauthorized-domain":
+          bus.$emit(
+            "dialog.on",
+            "น้องไม่สามารถลงชื่อเข้าใช้ได้จากเว็บนี้ โปรดใช้เว็บ https://reg.cesc.kmi.tl/ แทน เพื่อการลงชื่อเข้าใช้สำหรับสมัตรเข้าค่าย"
+          );
+          break;
+        default:
+          console.error(err);
+          bus.$emit(
+            "dialog.on",
+            "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดผลาด  " + err.code
+          );
       }
     });
 }
