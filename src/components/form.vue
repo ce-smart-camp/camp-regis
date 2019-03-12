@@ -33,23 +33,35 @@
     </v-window-item>
 
     <v-window-item :value="9">
-      <AcademicLogic v-if="8 <= step && step <= 10" v-model="form.qus.logic" />
+      <Question1 v-if="8 <= step && step <= 10" v-model="form.qus.q1" />
     </v-window-item>
 
     <v-window-item :value="10">
-      <AcademicElect v-if="9 <= step && step <= 11" v-model="form.qus.elect" />
+      <Question2 v-if="9 <= step && step <= 11" v-model="form.qus.q2" />
     </v-window-item>
 
     <v-window-item :value="11">
-      <AcademicPro v-if="10 <= step && step <= 12" v-model="form.qus.pro" />
+      <Question3 v-if="10 <= step && step <= 12" v-model="form.qus.q3" />
     </v-window-item>
 
     <v-window-item :value="12">
-      <AcademicIot v-if="11 <= step && step <= 13" v-model="form.qus.iot" />
+      <AcademicLogic v-if="11 <= step && step <= 13" v-model="form.qus.logic" />
     </v-window-item>
 
     <v-window-item :value="13">
-      <End v-if="12 <= step" v-model="form" :show="step === 13" />
+      <AcademicElect v-if="12 <= step && step <= 14" v-model="form.qus.elect" />
+    </v-window-item>
+
+    <v-window-item :value="14">
+      <AcademicPro v-if="13 <= step && step <= 15" v-model="form.qus.pro" />
+    </v-window-item>
+
+    <v-window-item :value="15">
+      <AcademicIot v-if="14 <= step && step <= 16" v-model="form.qus.iot" />
+    </v-window-item>
+
+    <v-window-item :value="16">
+      <End v-if="15 <= step" v-model="form" :show="step === 16" />
     </v-window-item>
   </v-window>
 </template>
@@ -67,6 +79,9 @@ import CamperAddress from "./../view/camper_address";
 import CamperEdu from "./../view/camper_edu";
 import CamperParent from "./../view/camper_parent";
 import CamperPass from "./../view/camper_pass";
+import Question1 from "./../view/qustion_1";
+import Question2 from "./../view/qustion_2";
+import Question3 from "./../view/qustion_3";
 import AcademicLogic from "./../view/academic_logic";
 import AcademicElect from "./../view/academic_elect";
 import AcademicPro from "./../view/academic_pro";
@@ -83,6 +98,9 @@ export default {
     CamperEdu,
     CamperParent,
     CamperPass,
+    Question1,
+    Question2,
+    Question3,
     AcademicLogic,
     AcademicElect,
     AcademicPro,
@@ -107,6 +125,9 @@ export default {
         update_at: null
       },
       qus: {
+        q1: null,
+        q2: null,
+        q3: null,
         logic: null,
         elect: null,
         pro: null,
@@ -173,7 +194,7 @@ export default {
           if (can) {
             this.step = val;
             if (this.step < 1) this.step = 1;
-            if (this.step > 13) this.step = 13;
+            if (this.step > 16) this.step = 16;
           }
         });
       else if (!this.isLogin) {

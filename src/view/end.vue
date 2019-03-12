@@ -21,6 +21,11 @@
     <h5 class="headline mt-4 text-xs-center">ประวัติการเข้าค่าย</h5>
     <CamperPass v-model="form.reg.pass" readonly />
     <v-divider />
+    <h5 class="headline mt-4 text-xs-center">คำถาม Part 1</h5>
+    <Question1 v-model="form.qus.q1" readonly class="pb-0" />
+    <Question2 v-model="form.qus.q2" readonly class="py-0" />
+    <Question3 v-model="form.qus.q3" readonly class="py-0" />
+    <v-divider />
     <h5 class="headline mt-4 text-xs-center">คำถาม Part 2</h5>
     <AcademicLogic v-model="form.qus.logic" readonly class="pb-0" />
     <AcademicElect v-model="form.qus.elect" readonly class="py-0" />
@@ -48,6 +53,9 @@ import CamperAddress from "./../view/camper_address";
 import CamperEdu from "./../view/camper_edu";
 import CamperParent from "./../view/camper_parent";
 import CamperPass from "./../view/camper_pass";
+import Question1 from "./../view/qustion_1";
+import Question2 from "./../view/qustion_2";
+import Question3 from "./../view/qustion_3";
 import AcademicLogic from "./../view/academic_logic";
 import AcademicElect from "./../view/academic_elect";
 import AcademicPro from "./../view/academic_pro";
@@ -63,6 +71,9 @@ export default {
     CamperEdu,
     CamperParent,
     CamperPass,
+    Question1,
+    Question2,
+    Question3,
     AcademicLogic,
     AcademicElect,
     AcademicPro,
