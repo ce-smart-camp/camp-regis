@@ -3,7 +3,7 @@
     <v-card-title primary-title>
       <div class="ma-auto text-xs-center">
         <p class="headline">
-          เวลาที่เหลือให้น้องๆใช้ระบบรับสมัคร
+          <span>เวลาที่เหลือให้น้องๆใช้ระบบรับสมัคร</span>
         </p>
         <p>สมัคร : {{ regisTime }}</p>
         <p>ตอบคำถาม : {{ questionTime }}</p>
@@ -56,3 +56,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+span{
+  font-family: "Kanit", sans-serif;
+}
+</style>
