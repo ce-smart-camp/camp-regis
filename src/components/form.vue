@@ -176,6 +176,12 @@ export default {
             if (this.step > 13) this.step = 13;
           }
         });
+      else if (!this.isLogin) {
+        bus.$emit(
+          "dialog.on",
+          "น้องๆต้องลงชื่อเข้าใช้ก่อน ถึงจะไปยังหน้าอื่นๆได้"
+        );
+      }
     }
   }
 };
