@@ -39,3 +39,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.application {
+  font-family: "Kanit", sans-serif;
+}
+</style>

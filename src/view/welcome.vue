@@ -6,8 +6,8 @@
       height="256"
       :src="require('../assets/logo-camp.min.svg')"
     />
-    <h3 class="title font-weight-light mb-2">
-      ยินดีต้อนรับน้อง เข้าสู่ระบบรับสมัครค่าย
+    <h3 class="title font-weight-light mb-2" >
+      <span>ยินดีต้อนรับน้อง เข้าสู่ระบบรับสมัครค่าย</span>
     </h3>
     <div class="py-4">
       <v-btn color="#4267b2" dark @click="loginBtn">
@@ -80,3 +80,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+span{
+  font-family: "Kanit", sans-serif;
+}
+</style>
+
