@@ -125,6 +125,8 @@ export default {
         this.form[key] = this.value[key] || null;
       });
     }
+
+    this.validate();
   },
   methods: {
     validate() {
