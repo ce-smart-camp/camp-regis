@@ -24,7 +24,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        :disabled="step === 13 || dialog || !isLogin"
+        :disabled="step === 16 || dialog || !isLogin"
         color="primary"
         depressed
         @click="nextPage"
@@ -61,6 +61,9 @@ export default {
         "การศึกษา",
         "ผู้ปกครอง",
         "ประวัติการเข้าค่าย",
+        "คำถาม Part 1/1",
+        "คำถาม Part 1/2",
+        "คำถาม Part 1/3",
         "คำถาม Part 2/1",
         "คำถาม Part 2/2",
         "คำถาม Part 2/3",
@@ -95,3 +98,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+span{
+  font-family: "Kanit", sans-serif;
+}
+</style>

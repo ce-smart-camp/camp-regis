@@ -111,8 +111,7 @@ export default {
         children: [
           { goto: 9, text: "Past 1/1", icon: "looks_one" },
           { goto: 10, text: "Past 1/2", icon: "looks_two" },
-          { goto: 11, text: "Past 1/3", icon: "looks_3" },
-          { goto: 12, text: "Past 1/4", icon: "looks_4" }
+          { goto: 11, text: "Past 1/3", icon: "looks_3" }
         ]
       },
       {
@@ -120,15 +119,15 @@ export default {
         text: "คำถาม Past 2",
         model: true,
         children: [
-          { goto: 13, text: "Past 2/1", icon: "filter_1" },
-          { goto: 14, text: "Past 2/2", icon: "filter_2" },
-          { goto: 15, text: "Past 2/3", icon: "filter_3" },
-          { goto: 16, text: "Past 2/4", icon: "filter_4" }
+          { goto: 12, text: "Past 2/1", icon: "filter_1" },
+          { goto: 13, text: "Past 2/2", icon: "filter_2" },
+          { goto: 14, text: "Past 2/3", icon: "filter_3" },
+          { goto: 15, text: "Past 2/4", icon: "filter_4" }
         ]
       },
       {
         text: "บันทึกผล",
-        goto: 13,
+        goto: 16,
         icon: "save"
       }
     ]
