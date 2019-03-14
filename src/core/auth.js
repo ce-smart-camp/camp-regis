@@ -33,7 +33,7 @@ function signIn() {
           console.error(err);
           bus.$emit(
             "dialog.on",
-            "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดผลาด  " + err.code
+            "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + err.code
           );
       }
     });
