@@ -5,63 +5,124 @@
     </v-window-item>
 
     <v-window-item :value="2">
-      <CamperInfo v-if="1 <= step && step <= 3" v-model="form.reg.info" />
+      <CamperInfo
+        v-if="1 <= step && step <= 3"
+        v-model="form.reg.info"
+        :disable="close.reg"
+      />
     </v-window-item>
 
     <v-window-item :value="3">
-      <CamperContact v-if="2 <= step && step <= 4" v-model="form.reg.contact" />
+      <CamperContact
+        v-if="2 <= step && step <= 4"
+        v-model="form.reg.contact"
+        :disable="close.reg"
+      />
     </v-window-item>
 
     <v-window-item :value="4">
-      <CamperHealth v-if="3 <= step && step <= 5" v-model="form.reg.health" />
+      <CamperHealth
+        v-if="3 <= step && step <= 5"
+        v-model="form.reg.health"
+        :disable="close.reg"
+      />
     </v-window-item>
 
     <v-window-item :value="5">
-      <CamperAddress v-if="4 <= step && step <= 6" v-model="form.reg.address" />
+      <CamperAddress
+        v-if="4 <= step && step <= 6"
+        v-model="form.reg.address"
+        :disable="close.reg"
+      />
     </v-window-item>
 
     <v-window-item :value="6">
-      <CamperEdu v-if="5 <= step && step <= 7" v-model="form.reg.edu" />
+      <CamperEdu
+        v-if="5 <= step && step <= 7"
+        v-model="form.reg.edu"
+        :disable="close.reg"
+      />
     </v-window-item>
 
     <v-window-item :value="7">
-      <CamperParent v-if="6 <= step && step <= 8" v-model="form.reg.parent" />
+      <CamperParent
+        v-if="6 <= step && step <= 8"
+        v-model="form.reg.parent"
+        :disable="close.reg"
+      />
     </v-window-item>
 
     <v-window-item :value="8">
-      <CamperPass v-if="7 <= step && step <= 9" v-model="form.reg.pass" />
+      <CamperPass
+        v-if="7 <= step && step <= 9"
+        v-model="form.reg.pass"
+        :disable="close.reg"
+      />
     </v-window-item>
 
     <v-window-item :value="9">
-      <Question1 v-if="8 <= step && step <= 10" v-model="form.qus.q1" />
+      <Question1
+        v-if="8 <= step && step <= 10"
+        v-model="form.qus.q1"
+        :disable="close.qus"
+      />
     </v-window-item>
 
     <v-window-item :value="10">
-      <Question2 v-if="9 <= step && step <= 11" v-model="form.qus.q2" />
+      <Question2
+        v-if="9 <= step && step <= 11"
+        v-model="form.qus.q2"
+        :disable="close.qus"
+      />
     </v-window-item>
 
     <v-window-item :value="11">
-      <Question3 v-if="10 <= step && step <= 12" v-model="form.qus.q3" />
+      <Question3
+        v-if="10 <= step && step <= 12"
+        v-model="form.qus.q3"
+        :disable="close.qus"
+      />
     </v-window-item>
 
     <v-window-item :value="12">
-      <AcademicLogic v-if="11 <= step && step <= 13" v-model="form.qus.logic" />
+      <AcademicLogic
+        v-if="11 <= step && step <= 13"
+        v-model="form.qus.logic"
+        :disable="close.qus"
+      />
     </v-window-item>
 
     <v-window-item :value="13">
-      <AcademicElect v-if="12 <= step && step <= 14" v-model="form.qus.elect" />
+      <AcademicElect
+        v-if="12 <= step && step <= 14"
+        v-model="form.qus.elect"
+        :disable="close.qus"
+      />
     </v-window-item>
 
     <v-window-item :value="14">
-      <AcademicPro v-if="13 <= step && step <= 15" v-model="form.qus.pro" />
+      <AcademicPro
+        v-if="13 <= step && step <= 15"
+        v-model="form.qus.pro"
+        :disable="close.qus"
+      />
     </v-window-item>
 
     <v-window-item :value="15">
-      <AcademicIot v-if="14 <= step && step <= 16" v-model="form.qus.iot" />
+      <AcademicIot
+        v-if="14 <= step && step <= 16"
+        v-model="form.qus.iot"
+        :disable="close.qus"
+      />
     </v-window-item>
 
     <v-window-item :value="16">
-      <End v-if="15 <= step" v-model="form" :show="step === 16" />
+      <End
+        v-if="15 <= step"
+        v-model="form"
+        :show="step === 16"
+        :disable="close.reg && close.qus"
+      />
     </v-window-item>
   </v-window>
 </template>
@@ -111,6 +172,10 @@ export default {
     step: 1,
     dialog: false,
     isLogin: false,
+    close: {
+      reg: false,
+      qus: false
+    },
     form: {
       reg: {
         fb_id: null,
@@ -183,9 +248,15 @@ export default {
       }
     });
 
-    bus.$on("reg.close", () => (this.form.reg = getOldData().reg));
+    bus.$on("reg.close", () => {
+      this.close.reg = true;
+      this.form.reg = getOldData().reg;
+    });
 
-    bus.$on("qus.close", () => (this.form.qus = getOldData().qus));
+    bus.$on("qus.close", () => {
+      this.close.qus = true;
+      this.form.qus = getOldData().qus;
+    });
   },
   methods: {
     goto(val) {

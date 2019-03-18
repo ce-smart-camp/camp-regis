@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import bus from "./../core/bus";
-
 export default {
   props: {
     value: {
@@ -41,10 +39,13 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    disable: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
-    disable: false,
     form: {
       disease: null,
       drug: null,
@@ -72,8 +73,6 @@ export default {
       });
     }
     this.$emit("input", this.form);
-
-    bus.$on("reg.close", () => (this.disable = true));
   }
 };
 </script>
