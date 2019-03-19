@@ -34,11 +34,10 @@
     <v-divider />
     <v-card-text class="text-xs-center">
       <h5 class="headline my-4">พร้อมจะส่งใบสมัครแล้วใช่ไหม</h5>
-      <v-btn
-        color="success"
-        :disabled="form.qus.completed_at !== null"
-        @click="submitForm"
-      >
+      <p>
+        น้องเก่งมากที่ทำมาถึงตรงนี้ได้ พี่เห็นคำถามพี่ก็ท้อแล้ว
+      </p>
+      <v-btn color="success" :disabled="disable" @click="submitForm">
         &nbsp;ส่งใบสมัคร&nbsp;&nbsp;<v-icon>send</v-icon>
       </v-btn>
     </v-card-text>
@@ -86,7 +85,11 @@ export default {
         return {};
       }
     },
-    show: Boolean
+    show: Boolean,
+    disable: {
+      type: Boolean,
+      default: false
+    }
   },
   data: () => ({
     valid: false,

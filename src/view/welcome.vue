@@ -6,7 +6,7 @@
       height="256"
       :src="require('../assets/logo-camp.min.svg')"
     />
-    <h3 class="title font-weight-light mb-2" >
+    <h3 class="title font-weight-light mb-2">
       <span>ยินดีต้อนรับน้อง เข้าสู่ระบบรับสมัครค่าย</span>
     </h3>
     <div class="py-4">
@@ -18,6 +18,8 @@
       </p>
     </div>
     <p>
+      น้องๆอย่าท้อกับการตอบคำถามนะ<br />
+      <br />
       ระบบนี้จะบันทึกข้อมูลทุกครั้งที่เปลี่ยนหน้า<br />
       น้องๆ สามารถข้ามไปยังหน้าอื่นได้ด้วยการกดที่แถบเมนูด้านข้าง <br />
       น้องๆ สามารถกลับมาแก้ไขข้อมูลในภายหลังได้ โดยลงชื่อเข้าใช้บัญชี Facebook
@@ -82,8 +84,7 @@ export default {
 </script>
 
 <style scoped>
-span{
+span {
   font-family: "Kanit", sans-serif;
 }
 </style>
-

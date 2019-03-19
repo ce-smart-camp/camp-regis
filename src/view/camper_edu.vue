@@ -64,7 +64,6 @@
 </template>
 
 <script>
-import bus from "./../core/bus";
 import rules from "./../core/rules";
 
 const Options = options =>
@@ -92,10 +91,13 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    disable: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
-    disable: false,
     gradesOptions,
     classRaw: null,
     form: {
@@ -144,8 +146,6 @@ export default {
       });
     }
     this.$emit("input", this.form);
-
-    bus.$on("reg.close", () => (this.disable = true));
   }
 };
 </script>

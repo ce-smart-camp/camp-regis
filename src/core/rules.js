@@ -1,9 +1,9 @@
 let rules = {};
 
-rules.required = value => !!value || "คำถามที่ต้องการคำตอบ";
+rules.required = value => !!value || "คําถามซึ่งไร้คนตอบ";
 
 rules.required_uni = camp => value => {
-  return !camp ? !value || "ไม่ต้องกรอก" : !!value || "คำถามที่ต้องการคำตอบ";
+  return !camp ? !value || "ไม่ต้องกรอก" : !!value || "คําถามซึ่งไร้คนตอบ";
 };
 
 rules.phone = value => {

@@ -141,7 +141,6 @@
 </template>
 
 <script>
-import bus from "./../core/bus";
 import rules from "./../core/rules";
 import ImgUp from "./../components/imageUpload";
 
@@ -190,10 +189,13 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    disable: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
-    disable: false,
     option: {
       gender: genderOptions,
       religion: religionOptions,
@@ -241,8 +243,6 @@ export default {
       });
     }
     this.$emit("input", this.form);
-
-    bus.$on("reg.close", () => (this.disable = true));
   },
   methods: {
     formatDate(date) {

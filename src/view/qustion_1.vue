@@ -18,7 +18,8 @@
     />
     <div class="my-3">
       <p>
-        2. ทำไมพี่ๆถึงต้องรับน้องเข้าค่าย CE Smart Camp #12
+        2. ให้น้องๆอธิบายตัวตนของตัวเองใน 3คำ และทำไมพี่ๆถึงต้องรับน้องเข้าค่าย
+        CE Smart Camp #12
       </p>
     </div>
     <v-textarea
@@ -32,7 +33,11 @@
     />
     <div class="my-3">
       <p>
-        3. ทำไมน้องๆถึงเลือกที่จะมาค่ายนี้ และให้น้องๆอธิบายตัวตนของตัวเองใน 3คำ
+        3. ถ้าพี่มีงานอย่างหนึ่งให้น้องทำซึ่งเป็นงานที่ยากมาก
+        พี่ให้น้องจับคู่กับเพื่อนอีกหนึ่งคนและช่วยกันทำงาน
+        โดยที่น้องเป็นคนที่เก่งมาก
+        แต่เพื่อนของน้องเป็นคนที่ไม่มีทักษะทางด้านนี้มาก่อนเลย
+        และงานนี้ไม่สามารถทำคนเดียวได้ น้องจะทำอย่างไรเพื่อให้งานนี้สำเร็จ
       </p>
     </div>
     <v-textarea
@@ -46,11 +51,8 @@
     />
     <div class="my-3">
       <p>
-        4. ถ้าพี่มีงานอย่างหนึ่งให้น้องทำซึ่งเป็นงานที่ยากมาก
-        พี่ให้น้องจับคู่กับเพื่อนอีกหนึ่งคนและช่วยกันทำงาน
-        โดยที่น้องเป็นคนที่เก่งมาก
-        แต่เพื่อนของน้องเป็นคนที่ไม่มีทักษะทางด้านนี้มาก่อนเลย
-        และงานนี้ไม่สามารถทำคนเดียวได้ น้องจะทำอย่างไรเพื่อให้งานนี้สำเร็จ
+        4. ถ้ามีพลังวิเศษสามารถทำอะไรก็ได้ น้องๆจะใช้พลังวิเศษนั้นทำอะไร
+        เพราะอะไร
       </p>
     </div>
     <v-textarea
@@ -62,27 +64,10 @@
       :readonly="readonly"
       :disabled="disable && !readonly"
     />
-    <div class="my-3">
-      <p>
-        5. ถ้ามีพลังวิเศษสามารถทำอะไรก็ได้ น้องๆจะใช้พลังวิเศษนั้นทำอะไร
-        เพราะอะไร
-      </p>
-    </div>
-    <v-textarea
-      v-model="form.item5"
-      class="nolabel"
-      rows="8"
-      box
-      single-line
-      :readonly="readonly"
-      :disabled="disable && !readonly"
-    />
   </v-card-text>
 </template>
 
 <script>
-import bus from "./../core/bus";
-
 export default {
   props: {
     value: {
@@ -94,16 +79,18 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    disable: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
-    disable: false,
     form: {
       item1: null,
       item2: null,
       item3: null,
-      item4: null,
-      item5: null
+      item4: null
     }
   }),
   watch: {
@@ -127,8 +114,6 @@ export default {
       });
     }
     this.$emit("input", this.form);
-
-    bus.$on("qus.close", () => (this.disable = true));
   }
 };
 </script>

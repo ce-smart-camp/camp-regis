@@ -12,6 +12,9 @@
     >
       {{ text }}
       <v-icon right dark>cloud_upload</v-icon>
+      <template v-slot:loader>
+        <span>กำลังอัปโหลด {{ progress }}%</span>
+      </template>
     </v-btn>
 
     <v-alert
@@ -62,7 +65,8 @@ export default {
     uploading: false,
     imageUrl: "",
     fileRef: null,
-    imgMD5: ""
+    imgMD5: "",
+    progress: ""
   }),
   watch: {
     imgMD5(val) {
@@ -105,13 +109,32 @@ export default {
 
       this.setupFileRef();
 
-      this.fileRef.put(file).then(fileSnapshot => {
-        this.fileRef = fileSnapshot.ref;
-        this.loadImg();
-        fileSnapshot.ref.getMetadata().then(metadata => {
-          this.imgMD5 = metadata.md5Hash;
-        });
-      });
+      bus.$emit("loader.change", true);
+
+      var uploadTask = this.fileRef.put(file);
+
+      uploadTask.on(
+        "state_changed",
+        snapshot => {
+          this.progress = (
+            (snapshot.bytesTransferred / snapshot.totalBytes) *
+            100
+          ).toFixed(2);
+        },
+        error => {
+          bus.$emit("loader.change", false);
+          console.error(error);
+          bus.$emit("dialog.on", "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + error);
+        },
+        () => {
+          bus.$emit("loader.change", false);
+          this.fileRef = uploadTask.snapshot.ref;
+          this.loadImg();
+          this.fileRef.getMetadata().then(metadata => {
+            this.imgMD5 = metadata.md5Hash;
+          });
+        }
+      );
     },
 
     loadImg() {

@@ -50,12 +50,25 @@
       :readonly="readonly"
       :disabled="disable && !readonly"
     />
+
+    <div class="my-3">
+      <p>
+        11) EXTRA ข้อไหนที่น้องๆคิดว่ายากสุด ไม่อยากทำ
+      </p>
+    </div>
+    <v-textarea
+      v-model="form.item9"
+      class="nolabel"
+      rows="8"
+      box
+      single-line
+      :readonly="readonly"
+      :disabled="disable && !readonly"
+    />
   </v-card-text>
 </template>
 
 <script>
-import bus from "./../core/bus";
-
 export default {
   props: {
     value: {
@@ -67,16 +80,20 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    disable: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
-    disable: false,
     form: {
       item1: null,
       item2: null,
       item3: null,
       item4: null,
-      item5: null
+      item5: null,
+      item9: null
     }
   }),
   watch: {
@@ -100,8 +117,6 @@ export default {
       });
     }
     this.$emit("input", this.form);
-
-    bus.$on("qus.close", () => (this.disable = true));
   }
 };
 </script>
