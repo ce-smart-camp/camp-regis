@@ -20,7 +20,7 @@ function signIn() {
         case "auth/popup-closed-by-user":
           bus.$emit(
             "dialog.on",
-            "น้องได้ทำการปิดหน้าต่างสำหรับเข้าสู่ระบบด้วย Facebook ไป จึงทำใหม่ไม่สามารถเข้าใช้ระบบสมัครได้"
+            "น้องได้ทำการปิดหน้าต่างสำหรับเข้าสู่ระบบด้วย Facebook ไป จึงทำให้ไม่สามารถเข้าใช้ระบบสมัครได้"
           );
           break;
         case "auth/unauthorized-domain":

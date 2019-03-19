@@ -54,8 +54,6 @@
 </template>
 
 <script>
-import bus from "./../core/bus";
-
 export default {
   props: {
     value: {
@@ -67,10 +65,13 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    disable: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
-    disable: false,
     form: {
       item1: null,
       item2: null,
@@ -98,8 +99,6 @@ export default {
       });
     }
     this.$emit("input", this.form);
-
-    bus.$on("qus.close", () => (this.disable = true));
   }
 };
 </script>
