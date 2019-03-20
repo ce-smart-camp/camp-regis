@@ -96,6 +96,7 @@ export default {
 
       if (!file.type.match("image.*")) {
         bus.$emit("dialog.on", "น้องๆสามารถอัปโหลดได้แค่ไฟล์รูปภาพนะครับ");
+        this.uploading = false;
         return;
       }
 
@@ -104,6 +105,7 @@ export default {
           "dialog.on",
           "ดูเหมือนภาพของน้องๆจะใหญ่เกินไป ลองใช้ภาพที่มีขนาดเล็กกว่านี้ดูนะครับ ขนาดสูงสุดที่อนุญาตคือ 5MB"
         );
+        this.uploading = false;
         return;
       }
 
@@ -124,6 +126,7 @@ export default {
         error => {
           bus.$emit("loader.change", false);
           bus.$emit("dialog.on", "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + error);
+          this.uploading = false;
           throw error;
         },
         () => {
@@ -133,6 +136,7 @@ export default {
           this.fileRef.getMetadata().then(metadata => {
             this.imgMD5 = metadata.md5Hash;
           });
+          this.uploading = false;
         }
       );
     },
@@ -144,7 +148,6 @@ export default {
         .getDownloadURL()
         .then(url => {
           this.imageUrl = url;
-          this.uploading = false;
         })
         .catch(function(error) {
           // A full list of error codes is available at
