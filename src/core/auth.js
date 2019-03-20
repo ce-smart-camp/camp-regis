@@ -63,6 +63,15 @@ function authStateObserver(user) {
         email: user.email
       });
     }
+
+    if (typeof window.Sentry !== "undefined") {
+      window.Sentry.configureScope(scope => {
+        scope.setUser({
+          id: user.uid,
+          email: user.email
+        });
+      });
+    }
   }
 
   bus.$emit("user.change", !!user);
