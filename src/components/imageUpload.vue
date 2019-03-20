@@ -125,7 +125,10 @@ export default {
         },
         error => {
           bus.$emit("loader.change", false);
-          bus.$emit("dialog.on", "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + error);
+          bus.$emit(
+            "dialog.on",
+            "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + error.code
+          );
           this.uploading = false;
           throw error;
         },
