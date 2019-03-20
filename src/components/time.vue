@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style scoped>
-span{
+span {
   font-family: "Kanit", sans-serif;
 }
 </style>
