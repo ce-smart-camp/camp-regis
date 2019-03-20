@@ -70,7 +70,6 @@ function updateData(data) {
         resolve(true);
       })
       .catch(function(error) {
-        console.error("Error writing document: ", error);
         bus.$emit(
           "loader.on",
           "มีข้อผิดพลาดในการบันทึกข้อมูล บางทีระบบส่วนนี้อาจจะถูกปิดไปแล้ว"
@@ -101,7 +100,6 @@ function getData() {
         resolve(data);
       })
       .catch(function(error) {
-        console.error("Error getting document:", error);
         bus.$emit("loader.on", "พบข้อผิดพลาดในในการโหลดข้อมูล");
         reject(error);
       });

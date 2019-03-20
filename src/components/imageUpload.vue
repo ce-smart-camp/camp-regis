@@ -123,8 +123,8 @@ export default {
         },
         error => {
           bus.$emit("loader.change", false);
-          console.error(error);
           bus.$emit("dialog.on", "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + error);
+          throw error;
         },
         () => {
           bus.$emit("loader.change", false);
@@ -153,7 +153,7 @@ export default {
             case "storage/object-not-found":
               break;
             default:
-              console.error(error);
+              throw error;
           }
         });
     },

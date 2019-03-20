@@ -4,13 +4,20 @@ import "firebase/auth";
 import bus from "./bus";
 
 // Signs-in Friendly Chat.
-function signIn() {
+function signIn(useRedirect) {
   bus.$emit("loader.on", "กำลังลงชื่อเข้าใช้");
 
+  if (useRedirect !== true) {
+    useRedirect = navigator.userAgent.indexOf("Line") > -1;
+  }
+
   var provider = new firebase.auth.FacebookAuthProvider();
-  firebase
-    .auth()
-    .signInWithPopup(provider)
+  var loginM;
+  if (useRedirect === true)
+    loginM = firebase.auth().signInWithRedirect(provider);
+  else loginM = firebase.auth().signInWithPopup(provider);
+
+  loginM
     .then(() => {
       bus.$emit("loader.off");
     })
@@ -29,12 +36,15 @@ function signIn() {
             "น้องไม่สามารถลงชื่อเข้าใช้ได้จากเว็บนี้ โปรดใช้เว็บ https://reg.cesc.kmi.tl/ แทน เพื่อการลงชื่อเข้าใช้สำหรับสมัตรเข้าค่าย"
           );
           break;
+        case "auth/popup-blocked":
+          signIn(true);
+          break;
         default:
-          console.error(err);
           bus.$emit(
             "dialog.on",
             "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + err.code
           );
+          throw err;
       }
     });
 }
