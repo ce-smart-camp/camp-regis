@@ -126,6 +126,7 @@ export default {
     value: {
       handler(val) {
         this.form = val;
+        this.validate();
       },
       deep: true
     },
