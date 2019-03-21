@@ -72,7 +72,8 @@ function updateData(data) {
       .catch(function(error) {
         bus.$emit(
           "loader.on",
-          "มีข้อผิดพลาดในการบันทึกข้อมูล บางทีระบบส่วนนี้อาจจะถูกปิดไปแล้ว"
+          "มีข้อผิดพลาดในการบันทึกข้อมูล บางทีระบบส่วนนี้อาจจะถูกปิดไปแล้ว " +
+            error.code
         );
         reject(error);
       });
@@ -100,7 +101,7 @@ function getData() {
         resolve(data);
       })
       .catch(function(error) {
-        bus.$emit("loader.on", "พบข้อผิดพลาดในในการโหลดข้อมูล");
+        bus.$emit("loader.on", "พบข้อผิดพลาดในในการโหลดข้อมูล " + error.code);
         reject(error);
       });
   });
