@@ -44,6 +44,7 @@ function signIn(useRedirect) {
             "dialog.on",
             "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + err.code
           );
+          window.Raven.captureException(err);
           throw err;
       }
     });
@@ -70,6 +71,13 @@ function authStateObserver(user) {
           id: user.uid,
           email: user.email
         });
+      });
+    }
+
+    if (typeof window.Raven !== "undefined") {
+      window.Raven.setUserContext({
+        id: user.uid,
+        email: user.email
       });
     }
   }

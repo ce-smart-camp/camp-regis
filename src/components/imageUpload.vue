@@ -159,6 +159,7 @@ export default {
             case "storage/object-not-found":
               break;
             default:
+              window.Raven.captureException(error);
               throw error;
           }
         });

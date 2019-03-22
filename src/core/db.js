@@ -52,7 +52,10 @@ function updateData(data) {
         ref
           .set(newD, { merge: true })
           .then(() => resolve(true))
-          .catch(error => reject(error));
+          .catch(error => {
+            reject(error);
+            window.Raven.captureException(error);
+          });
       } else resolve(true);
     });
   };
@@ -75,6 +78,7 @@ function updateData(data) {
           "มีข้อผิดพลาดในการบันทึกข้อมูล บางทีระบบส่วนนี้อาจจะถูกปิดไปแล้ว " +
             error.code
         );
+        window.Raven.captureException(error);
         reject(error);
       });
   });
@@ -101,7 +105,8 @@ function getData() {
         resolve(data);
       })
       .catch(function(error) {
-        bus.$emit("loader.on", "พบข้อผิดพลาดในในการโหลดข้อมูล " + error.code);
+        bus.$emit("loader.on", "พบข้อผิดพลาดในในการโหลดข้อมูล " + error);
+        window.Raven.captureException(error);
         reject(error);
       });
   });
