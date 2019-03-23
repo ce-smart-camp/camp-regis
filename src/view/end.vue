@@ -163,6 +163,7 @@ export default {
           confirm: true,
           callback: () => {
             this.form.qus.completed_at = "new-data";
+            this.form.reg.completed_at = "new-data";
             bus.$emit("step.go", 0);
             bus.$emit("reg.close", false);
             bus.$emit("qus.close", false);
