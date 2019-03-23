@@ -126,7 +126,7 @@ export default {
         ]
       },
       {
-        text: "บันทึกผล",
+        text: "ตรวจสอบ/ส่ง ใบสมัคร",
         goto: 16,
         icon: "save"
       }
