@@ -19,7 +19,7 @@
 
     <v-alert
       :value="readonly && (imageUrl === '' || imgMD5 === '')"
-      type="warning"
+      :type="required ? 'error' : 'info'"
     >
       น้องๆไม่ได้อัปโหลดรูปภาพ
     </v-alert>
@@ -31,18 +31,25 @@
       accept="image/*"
       @change="onFilePicked"
     />
+    <v-text-field
+      v-model="imgMD5"
+      disabled
+      style="display: none"
+      :rules="required ? [rules.required] : []"
+    />
   </div>
 </template>
 
 <script>
 import bus from "./../core/bus";
 import firebase from "./../core/firebase";
+import rules from "./../core/rules";
 
 export default {
   props: {
     value: {
       type: String,
-      default: ""
+      default: null
     },
     disabled: {
       type: Boolean,
@@ -59,6 +66,10 @@ export default {
     filename: {
       type: String,
       default: "image"
+    },
+    required: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
@@ -66,7 +77,8 @@ export default {
     imageUrl: "",
     fileRef: null,
     imgMD5: "",
-    progress: ""
+    progress: "",
+    rules
   }),
   watch: {
     imgMD5(val) {
@@ -74,7 +86,7 @@ export default {
     },
     value(val) {
       this.imgMD5 = val;
-      if (val !== "") this.loadImg();
+      if (val !== null) this.loadImg();
     }
   },
   methods: {
