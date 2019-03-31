@@ -39,6 +39,12 @@ function signIn(useRedirect) {
         case "auth/popup-blocked":
           signIn(true);
           break;
+        case "auth/user-cancelled":
+          bus.$emit(
+            "dialog.on",
+            "น้องจะต้องกด ดำเนินการต่อ เพื่อลงชื่อเข้าใช้ระบบสมัครค่าย"
+          );
+          break;
         default:
           bus.$emit(
             "dialog.on",
