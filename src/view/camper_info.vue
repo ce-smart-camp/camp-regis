@@ -79,7 +79,8 @@
           label="วันเกิด"
           prepend-icon="cake"
           mask="##/##/####"
-          hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
+          hint="กดที่ปฏิทินเพื่อเลือกวันได้"
+          placeholder="30/03/2562"
           return-masked-value
           :clearable="!disable && !readonly"
           :readonly="readonly"
