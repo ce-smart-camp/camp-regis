@@ -259,7 +259,10 @@ export default {
     parseDate(date) {
       if (!date) return null;
 
-      const [day, month, year] = date.split("/");
+      const array = date.split("/");
+      if (array.length !== 3) return null;
+
+      const [day, month, year] = array;
       return `${year - 543}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     }
   }
