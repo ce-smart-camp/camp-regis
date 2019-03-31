@@ -125,18 +125,23 @@ export default {
     },
     value: {
       handler(val) {
-        this.form = val;
+        this.copy2form(val);
       },
       deep: true
     }
   },
   mounted: function() {
-    if (this.value !== null) {
-      Object.keys(this.form).forEach(key => {
-        this.form[key] = this.value[key] || null;
-      });
-    }
+    this.copy2form(this.value);
     this.$emit("input", this.form);
+  },
+  methods: {
+    copy2form(val) {
+      if (typeof val === "object") {
+        Object.keys(this.form).forEach(key => {
+          this.form[key] = val[key] || null;
+        });
+      }
+    }
   }
 };
 </script>
