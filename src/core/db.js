@@ -10,7 +10,7 @@ import copyObject from "./../util/copyObject";
 
 firebase
   .firestore()
-  .enablePersistence()
+  .enablePersistence({ experimentalTabSynchronization: true })
   .catch(function(err) {
     if (err.code == "failed-precondition") {
       // Multiple tabs open, persistence can only be enabled
