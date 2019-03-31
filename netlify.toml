@@ -20,3 +20,6 @@
   [headers.values]
     X-Frame-Options = "DENY"
     # X-XSS-Protection = "1; mode=block"
+    Content-Security-Policy = "...; report-uri https://sentry.io/api/1400948/security/?sentry_key=7ea9755df0ec49369a817c19345331fe"
+    Expect-CT = "..., report-uri=\"https://sentry.io/api/1400948/security/?sentry_key=7ea9755df0ec49369a817c19345331fe\""
+    Public-Key-Pins = "...; report-uri=\"https://sentry.io/api/1400948/security/?sentry_key=7ea9755df0ec49369a817c19345331fe\""

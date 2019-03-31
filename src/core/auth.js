@@ -65,19 +65,19 @@ function authStateObserver(user) {
       });
     }
 
+    if (typeof window.FS !== "undefined") {
+      window.FS.identify(user.uid, {
+        displayName: user.displayName,
+        email: user.email
+      });
+    }
+
     if (typeof window.Sentry !== "undefined") {
       window.Sentry.configureScope(scope => {
         scope.setUser({
           id: user.uid,
           email: user.email
         });
-      });
-    }
-
-    if (typeof window.Raven !== "undefined") {
-      window.Raven.setUserContext({
-        id: user.uid,
-        email: user.email
       });
     }
   }
