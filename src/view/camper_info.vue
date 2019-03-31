@@ -227,6 +227,9 @@ export default {
     form: {
       handler(val) {
         this.$emit("input", val);
+        Object.keys(val).forEach(key => {
+          if (typeof val[key] === "undefined") val[key] = null;
+        });
       },
       deep: true
     },
