@@ -46,6 +46,12 @@ function signIn(useRedirect) {
             "น้องจะต้องกด ดำเนินการต่อ เพื่อลงชื่อเข้าใช้ระบบสมัครค่าย"
           );
           break;
+        case "auth/auth/cancelled-popup-request":
+          bus.$emit(
+            "dialog.on",
+            "น้องเปิดหน้าบ็อบอัปไว้อยู่แล้ว ทำให้ไม่สามารถเปิดหน้าใหม่ได้"
+          );
+          break;
         default:
           bus.$emit(
             "dialog.on",
