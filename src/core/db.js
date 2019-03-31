@@ -77,7 +77,6 @@ function updateData(data) {
           .then(() => resolve(true))
           .catch(error => {
             reject(error);
-            window.Raven.captureException(error);
           });
       } else resolve(true);
     });
@@ -102,7 +101,6 @@ function updateData(data) {
           "มีข้อผิดพลาดในการบันทึกข้อมูล บางทีระบบส่วนนี้อาจจะถูกปิดไปแล้ว " +
             error.code
         );
-        window.Raven.captureException(error);
         reject(error);
       });
   });
@@ -130,7 +128,6 @@ function getData() {
       })
       .catch(function(error) {
         bus.$emit("loader.on", "พบข้อผิดพลาดในในการโหลดข้อมูล " + error);
-        window.Raven.captureException(error);
         reject(error);
       });
   });

@@ -44,7 +44,6 @@ function signIn(useRedirect) {
             "dialog.on",
             "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + err.code
           );
-          window.Raven.captureException(err);
           throw err;
       }
     });
