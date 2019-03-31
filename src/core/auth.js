@@ -1,5 +1,6 @@
 import firebase from "./firebase";
 import "firebase/auth";
+import * as Sentry from "@sentry/browser";
 
 import bus from "./bus";
 
@@ -86,14 +87,12 @@ function authStateObserver(user) {
       });
     }
 
-    if (typeof window.Sentry !== "undefined") {
-      window.Sentry.configureScope(scope => {
-        scope.setUser({
-          id: user.uid,
-          email: user.email
-        });
+    Sentry.configureScope(scope => {
+      scope.setUser({
+        id: user.uid,
+        email: user.email
       });
-    }
+    });
   }
 
   bus.$emit("user.change", !!user);
