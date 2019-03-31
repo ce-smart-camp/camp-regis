@@ -85,7 +85,7 @@
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
-          :rules="[rules.required]"
+          :rules="[rules.required, rules.date]"
           @blur="date = parseDate(form.birth)"
           @click:clear="date = parseDate(form.birth)"
         >

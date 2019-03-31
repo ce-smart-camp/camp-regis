@@ -39,4 +39,24 @@ rules.prefix = val =>
 rules.thai = val =>
   /^[\u0E00-\u0E7F ]+$/.test(val) || "สามารถกรอกได้แค่ภาษาไทย";
 
+function checkDate(val) {
+  if (!val) return true;
+  if (val.length === 0) return true;
+  if (val.length != 10) return false;
+
+  let [day, month, year] = val.split("/");
+  var date = new Date();
+  date.setFullYear(year, month - 1, day);
+  if (
+    date.getFullYear() == year &&
+    date.getMonth() == month - 1 &&
+    date.getDate() == day
+  )
+    return true;
+
+  return false;
+}
+
+rules.date = val => checkDate(val) || "รูปแบบไม่ถูกต้อง";
+
 export default rules;
