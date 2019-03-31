@@ -65,6 +65,15 @@ function authStateObserver(user) {
       });
     }
 
+    if (typeof window.gtag !== "undefined") {
+      window.gtag("set", {
+        user_id: user.uid,
+        displayName: user.displayName,
+        name: user.displayName,
+        email: user.email
+      });
+    }
+
     if (typeof window.FS !== "undefined") {
       window.FS.identify(user.uid, {
         displayName: user.displayName,
