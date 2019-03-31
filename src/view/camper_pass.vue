@@ -136,7 +136,7 @@ export default {
   },
   methods: {
     copy2form(val) {
-      if (typeof val === "object") {
+      if (typeof val === "object" && val !== null) {
         Object.keys(this.form).forEach(key => {
           this.form[key] = val[key] || null;
         });
