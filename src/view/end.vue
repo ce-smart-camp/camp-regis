@@ -126,6 +126,7 @@ export default {
     value: {
       handler(val) {
         this.form = val;
+        this.validate();
       },
       deep: true
     },
@@ -153,7 +154,7 @@ export default {
       if (!this.valid) {
         bus.$emit(
           "dialog.on",
-          "รูปแบบคำตอบของน้องไม่ถูกต้อง ขอให้น้องกลับไปแก้ไขคำตอบที่กรอกด้วย"
+          "รูปแบบคำตอบของน้องไม่ถูกต้อง หรือน้องใส่ข้อมูล/รูปภาพตามที่พี่ต้องการไม่ครบ ขอให้น้องกลับไปแก้ไขคำตอบที่กรอกด้วย"
         );
       } else {
         bus.$emit("dialog.on", {
@@ -162,6 +163,7 @@ export default {
           confirm: true,
           callback: () => {
             this.form.qus.completed_at = "new-data";
+            this.form.reg.completed_at = "new-data";
             bus.$emit("step.go", 0);
             bus.$emit("reg.close", false);
             bus.$emit("qus.close", false);

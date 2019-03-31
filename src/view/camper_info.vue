@@ -8,6 +8,7 @@
           :readonly="readonly"
           text="อัปโหลดรูปที่เห็นหน้าน้องๆชัดเจน"
           filename="pic_profile"
+          required
         />
       </v-flex>
 

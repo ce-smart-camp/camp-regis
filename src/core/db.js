@@ -41,6 +41,14 @@ function updateData(data) {
     delete updateData.qus.completed_at;
   }
 
+  if (data.reg.completed_at === "new-data") {
+    updateData.reg.completed_at = firebase.firestore.FieldValue.serverTimestamp();
+  } else {
+    if (oldData.reg)
+      if (oldData.reg.completed_at) delete oldData.reg.completed_at;
+    delete updateData.reg.completed_at;
+  }
+
   let run = (ref, newD, oldD) => {
     return new Promise((resolve, reject) => {
       if (typeof oldD !== "undefined")
@@ -52,7 +60,10 @@ function updateData(data) {
         ref
           .set(newD, { merge: true })
           .then(() => resolve(true))
-          .catch(error => reject(error));
+          .catch(error => {
+            reject(error);
+            window.Raven.captureException(error);
+          });
       } else resolve(true);
     });
   };
@@ -65,16 +76,18 @@ function updateData(data) {
       .then(() => {
         oldData = updateData;
         data.reg.created_at = "save-data";
+        data.reg.completed_at = null;
         data.qus.completed_at = null;
         bus.$emit("loader.off");
         resolve(true);
       })
       .catch(function(error) {
-        console.error("Error writing document: ", error);
         bus.$emit(
           "loader.on",
-          "มีข้อผิดพลาดในการบันทึกข้อมูล บางทีระบบส่วนนี้อาจจะถูกปิดไปแล้ว"
+          "มีข้อผิดพลาดในการบันทึกข้อมูล บางทีระบบส่วนนี้อาจจะถูกปิดไปแล้ว " +
+            error.code
         );
+        window.Raven.captureException(error);
         reject(error);
       });
   });
@@ -101,8 +114,8 @@ function getData() {
         resolve(data);
       })
       .catch(function(error) {
-        console.error("Error getting document:", error);
-        bus.$emit("loader.on", "พบข้อผิดพลาดในในการโหลดข้อมูล");
+        bus.$emit("loader.on", "พบข้อผิดพลาดในในการโหลดข้อมูล " + error);
+        window.Raven.captureException(error);
         reject(error);
       });
   });

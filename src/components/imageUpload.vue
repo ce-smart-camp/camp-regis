@@ -19,7 +19,7 @@
 
     <v-alert
       :value="readonly && (imageUrl === '' || imgMD5 === '')"
-      type="warning"
+      :type="required ? 'error' : 'info'"
     >
       น้องๆไม่ได้อัปโหลดรูปภาพ
     </v-alert>
@@ -31,18 +31,25 @@
       accept="image/*"
       @change="onFilePicked"
     />
+    <v-text-field
+      v-model="imgMD5"
+      disabled
+      style="display: none"
+      :rules="required ? [rules.required] : []"
+    />
   </div>
 </template>
 
 <script>
 import bus from "./../core/bus";
 import firebase from "./../core/firebase";
+import rules from "./../core/rules";
 
 export default {
   props: {
     value: {
       type: String,
-      default: ""
+      default: null
     },
     disabled: {
       type: Boolean,
@@ -59,6 +66,10 @@ export default {
     filename: {
       type: String,
       default: "image"
+    },
+    required: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
@@ -66,7 +77,8 @@ export default {
     imageUrl: "",
     fileRef: null,
     imgMD5: "",
-    progress: ""
+    progress: "",
+    rules
   }),
   watch: {
     imgMD5(val) {
@@ -74,7 +86,7 @@ export default {
     },
     value(val) {
       this.imgMD5 = val;
-      if (val !== "") this.loadImg();
+      if (val !== null) this.loadImg();
     }
   },
   methods: {
@@ -96,6 +108,7 @@ export default {
 
       if (!file.type.match("image.*")) {
         bus.$emit("dialog.on", "น้องๆสามารถอัปโหลดได้แค่ไฟล์รูปภาพนะครับ");
+        this.uploading = false;
         return;
       }
 
@@ -104,6 +117,7 @@ export default {
           "dialog.on",
           "ดูเหมือนภาพของน้องๆจะใหญ่เกินไป ลองใช้ภาพที่มีขนาดเล็กกว่านี้ดูนะครับ ขนาดสูงสุดที่อนุญาตคือ 5MB"
         );
+        this.uploading = false;
         return;
       }
 
@@ -123,8 +137,12 @@ export default {
         },
         error => {
           bus.$emit("loader.change", false);
-          console.error(error);
-          bus.$emit("dialog.on", "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + error);
+          bus.$emit(
+            "dialog.on",
+            "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + error.code
+          );
+          this.uploading = false;
+          throw error;
         },
         () => {
           bus.$emit("loader.change", false);
@@ -133,6 +151,7 @@ export default {
           this.fileRef.getMetadata().then(metadata => {
             this.imgMD5 = metadata.md5Hash;
           });
+          this.uploading = false;
         }
       );
     },
@@ -144,7 +163,6 @@ export default {
         .getDownloadURL()
         .then(url => {
           this.imageUrl = url;
-          this.uploading = false;
         })
         .catch(function(error) {
           // A full list of error codes is available at
@@ -153,7 +171,8 @@ export default {
             case "storage/object-not-found":
               break;
             default:
-              console.error(error);
+              window.Raven.captureException(error);
+              throw error;
           }
         });
     },
