@@ -7,7 +7,7 @@ function checkStaff() {
 }
 
 function timeout1() {
-	return request.time < timestamp.value(1554829200000); // 10 เมษายน 2019 เวลา 0:00:00
+	return request.time < timestamp.value(1554915600000); // 11 เมษายน 2019 เวลา 0:00:00
 }
 
 function timeout2() {
