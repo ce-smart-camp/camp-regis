@@ -1,5 +1,7 @@
 # camp-regis
 
+You can use this for case study. Don't recommend to use this as new production website. It have many bug that don't fix.
+
 ## Project setup
 ```
 npm install
