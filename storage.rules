@@ -9,11 +9,11 @@ function checkOwn(userID) {
 }
 
 function timeout1() {
-	return request.time < timestamp.value(1554829200000); // 10 เมษายน 2019 เวลา 0:00:00
+	return request.time < timestamp.value(1554915600000); // 11 เมษายน 2019 เวลา 0:00:00
 }
 
 function timeout2() {
-	return request.time < timestamp.value(1555693200000); // 20 เมษายน 2019 เวลา 0:00:00
+	return request.time < timestamp.value(1555779600000); // 21 เมษายน 2019 เวลา 0:00:00
 }
 
 service firebase.storage {

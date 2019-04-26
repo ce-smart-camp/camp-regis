@@ -1,5 +1,6 @@
 import firebase from "./firebase";
 import "firebase/auth";
+import * as Sentry from "@sentry/browser";
 
 import bus from "./bus";
 
@@ -39,12 +40,23 @@ function signIn(useRedirect) {
         case "auth/popup-blocked":
           signIn(true);
           break;
+        case "auth/user-cancelled":
+          bus.$emit(
+            "dialog.on",
+            "น้องจะต้องกด ดำเนินการต่อ เพื่อลงชื่อเข้าใช้ระบบสมัครค่าย"
+          );
+          break;
+        case "auth/auth/cancelled-popup-request":
+          bus.$emit(
+            "dialog.on",
+            "น้องเปิดหน้าบ็อบอัปไว้อยู่แล้ว ทำให้ไม่สามารถเปิดหน้าใหม่ได้"
+          );
+          break;
         default:
           bus.$emit(
             "dialog.on",
             "พี่ๆขออภัยด้วย ระบบเกิดข้อผิดพลาด  " + err.code
           );
-          window.Raven.captureException(err);
           throw err;
       }
     });
@@ -81,14 +93,12 @@ function authStateObserver(user) {
       });
     }
 
-    if (typeof window.Sentry !== "undefined") {
-      window.Sentry.configureScope(scope => {
-        scope.setUser({
-          id: user.uid,
-          email: user.email
-        });
+    Sentry.configureScope(scope => {
+      scope.setUser({
+        id: user.uid,
+        email: user.email
       });
-    }
+    });
   }
 
   bus.$emit("user.change", !!user);

@@ -10,7 +10,12 @@
       <span>ยินดีต้อนรับน้อง เข้าสู่ระบบรับสมัครค่าย</span>
     </h3>
     <div class="py-4">
-      <v-btn color="#4267b2" dark @click="loginBtn">
+      <v-btn
+        color="#4267b2"
+        :dark="!isLoader"
+        :disabled="isLoader"
+        @click="loginBtn"
+      >
         <icon name="facebook" />&nbsp;&nbsp;{{ loginBtnText }}
       </v-btn>
       <p>
@@ -50,7 +55,12 @@ export default {
   components: {
     icon: Icon
   },
-  data: () => ({ loginBtnText: "", isLogin: false, loginText: "" }),
+  data: () => ({
+    loginBtnText: "",
+    isLogin: false,
+    loginText: "",
+    isLoader: false
+  }),
   watch: {
     isLogin() {
       this.changeText();
@@ -58,6 +68,7 @@ export default {
   },
   mounted() {
     bus.$on("user.change", val => (this.isLogin = val));
+    bus.$on("loader.change", val => (this.isLoader = val));
 
     this.isLogin = !!firebase.auth().currentUser;
 

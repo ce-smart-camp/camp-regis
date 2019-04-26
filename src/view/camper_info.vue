@@ -79,12 +79,13 @@
           label="วันเกิด"
           prepend-icon="cake"
           mask="##/##/####"
-          hint="รูปแบบ วัน/เดือน/ปี(พ.ศ.)"
+          hint="กดที่ปฏิทินเพื่อเลือกวันได้"
+          placeholder="30/03/2562"
           return-masked-value
           :clearable="!disable && !readonly"
           :readonly="readonly"
           :disabled="disable && !readonly"
-          :rules="[rules.required]"
+          :rules="[rules.required, rules.date]"
           @blur="date = parseDate(form.birth)"
           @click:clear="date = parseDate(form.birth)"
         >
@@ -227,25 +228,31 @@ export default {
     form: {
       handler(val) {
         this.$emit("input", val);
+        Object.keys(val).forEach(key => {
+          if (typeof val[key] === "undefined") val[key] = null;
+        });
       },
       deep: true
     },
     value: {
       handler(val) {
-        this.form = val;
+        this.copy2form(val);
       },
       deep: true
     }
   },
   mounted: function() {
-    if (this.value !== null) {
-      Object.keys(this.form).forEach(key => {
-        this.form[key] = this.value[key] || null;
-      });
-    }
+    this.copy2form(this.value);
     this.$emit("input", this.form);
   },
   methods: {
+    copy2form(val) {
+      if (typeof val === "object" && val !== null) {
+        Object.keys(this.form).forEach(key => {
+          this.form[key] = val[key] || null;
+        });
+      }
+    },
     formatDate(date) {
       if (!date) return null;
 
@@ -255,7 +262,10 @@ export default {
     parseDate(date) {
       if (!date) return null;
 
-      const [day, month, year] = date.split("/");
+      const array = date.split("/");
+      if (array.length !== 3) return null;
+
+      const [day, month, year] = array;
       return `${year - 543}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     }
   }
